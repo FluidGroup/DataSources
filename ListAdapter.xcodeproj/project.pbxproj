@@ -155,13 +155,13 @@
 		4B2876BF1F3846C70033B43F /* ListAdapter */ = {
 			isa = PBXGroup;
 			children = (
-				4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */,
 				4B2876FD1F3849060033B43F /* DataSource.swift */,
-				4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */,
-				4B2876C11F3846C70033B43F /* Info.plist */,
 				4B2876FF1F3849220033B43F /* Diff.swift */,
+				4B2876C11F3846C70033B43F /* Info.plist */,
 				4B2876C01F3846C70033B43F /* ListAdapter.h */,
 				4B2876FB1F3847B90033B43F /* ListDisplaying.swift */,
+				4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */,
+				4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */,
 			);
 			path = ListAdapter;
 			sourceTree = "<group>";
