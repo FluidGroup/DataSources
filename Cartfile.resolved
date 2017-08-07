@@ -1,0 +1,7 @@
+git "https://chromium.googlesource.com/webm/libwebp" "v0.5.1"
+github "ReactiveX/RxSwift" "3.6.1"
+github "TextureGroup/Texture" "2.3.4"
+github "nakiostudio/EasyPeasy" "1.4.2"
+github "pinterest/PINCache" "3.0.1-beta.5"
+github "pinterest/PINOperation" "1.0.3"
+github "pinterest/PINRemoteImage" "3.0.0-beta.11"
