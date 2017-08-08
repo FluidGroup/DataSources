@@ -8,7 +8,9 @@
 
 import Foundation
 
-@_exported import Diff
+#if !COCOAPODS
+  @_exported import Diff
+#endif
 
 func assertMainThread() {
   assert(Thread.isMainThread)
