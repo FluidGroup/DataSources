@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SectionUpdater<T: Diffable, L: Updating> {
+final class SectionUpdater<T: Diffable, A: Updating> {
 
   enum State {
     case idle
@@ -20,13 +20,13 @@ final class SectionUpdater<T: Diffable, L: Updating> {
     case partial(animated: Bool, isEqual: (T, T) -> Bool)
   }
 
-  let list: L
+  let adapter: A
 
   private let queue = DispatchQueue.main
   private var state: State = .idle
 
-  init(list: L) {
-    self.list = list
+  init(adapter: A) {
+    self.adapter = adapter
   }
 
   func update(
@@ -43,7 +43,7 @@ final class SectionUpdater<T: Diffable, L: Updating> {
 
     switch updateMode {
     case .everything:
-      list.reload {
+      adapter.reload {
         assertMainThread()
         self.state = .idle
         completion()
@@ -56,30 +56,38 @@ final class SectionUpdater<T: Diffable, L: Updating> {
         isEqual: isEqual
       )
 
-      guard diff.changeCount < 100 else {
-        // Saving animation cost
-        list.reload {
-          assertMainThread()
-          self.state = .idle
-          completion()
-        }
-        return
+      var animated = animated
+
+      if diff.changeCount > 300 {
+        animated = false
       }
+
+//      guard diff.changeCount < 300 else {
+//        // Saving animation cost
+//        adapter.reload {
+//          assertMainThread()
+//          self.state = .idle
+//          completion()
+//        }
+//        return
+//      }
 
       if animated == false {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
       }
 
-      self.list.performBatch(
+      let _adapter = self.adapter
+
+      self.adapter.performBatch(
         updates: {
 
-          list.reloadItems(at: diff.updates.map { IndexPath(item: $0, section: targetSection) })
-          list.deleteItems(at: diff.deletes.map { IndexPath(item: $0, section: targetSection) })
-          list.insertItems(at: diff.inserts.map { IndexPath(item: $0, section: targetSection) })
+          _adapter.reloadItems(at: diff.updates.map { IndexPath(item: $0, section: targetSection) })
+          _adapter.deleteItems(at: diff.deletes.map { IndexPath(item: $0, section: targetSection) })
+          _adapter.insertItems(at: diff.inserts.map { IndexPath(item: $0, section: targetSection) })
 
           for move in diff.moves {
-            list.moveItem(
+            _adapter.moveItem(
               at: IndexPath(item: move.from, section: targetSection),
               to: IndexPath(item: move.to, section: targetSection)
             )

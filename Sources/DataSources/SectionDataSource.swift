@@ -18,10 +18,10 @@ public protocol SectionDataSourceType {
   func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType>
 }
 
-public final class SectionDataSource<T: Diffable, L: Updating>: SectionDataSourceType {
+public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourceType {
 
   public typealias ItemType = T
-  public typealias AdapterType = L
+  public typealias AdapterType = A
 
   public enum UpdateMode {
     case everything
@@ -34,16 +34,18 @@ public final class SectionDataSource<T: Diffable, L: Updating>: SectionDataSourc
 
   private var snapshot: [T] = []
 
-  private let updater: SectionUpdater<T, L>
+  private let updater: SectionUpdater<T, A>
+
+  private let throttle = Throttle(interval: 0.2)
 
   public var displayingSection: Int
 
-  private let isEqual: (T, T) -> Bool
+  fileprivate let isEqual: (T, T) -> Bool
 
   // MARK: - Initializers
 
-  public init(list: L, displayingSection: Int, isEqual: @escaping (T, T) -> Bool) {
-    self.updater = SectionUpdater(list: list)
+  public init(adapter: A, displayingSection: Int, isEqual: @escaping (T, T) -> Bool) {
+    self.updater = SectionUpdater(adapter: adapter)
     self.isEqual = isEqual
     self.displayingSection = displayingSection
   }
@@ -61,30 +63,32 @@ public final class SectionDataSource<T: Diffable, L: Updating>: SectionDataSourc
 
   public func update(items: [T], updateMode: UpdateMode, completion: @escaping () -> Void) {
 
-    let old = snapshot
-    snapshot = items
+    self.items = items
 
-    var _updateMode: SectionUpdater<T, L>.UpdateMode {
-      switch updateMode {
-      case .everything:
-        return .everything
-      case .partial(let animated):
-        return .partial(animated: animated, isEqual: isEqual)
+    throttle.on { [weak self] in
+      guard let `self` = self else { return }
+
+      let old = self.snapshot
+      let new = self.items
+      self.snapshot = new
+
+      var _updateMode: SectionUpdater<T, A>.UpdateMode {
+        switch updateMode {
+        case .everything:
+          return .everything
+        case .partial(let animated):
+          return .partial(animated: animated, isEqual: self.isEqual)
+        }
       }
+
+      self.updater.update(
+        targetSection: self.displayingSection,
+        currentDisplayingItems: old,
+        newItems: new,
+        updateMode: _updateMode,
+        completion: completion
+      )
     }
-
-    updater.update(
-      targetSection: displayingSection,
-      currentDisplayingItems: old,
-      newItems: items,
-      updateMode: _updateMode,
-      completion: completion
-    )
-  }
-
-  // Exp
-  func update(mutate: (inout ChangesCollection<T>), updatePartially: Bool, completion: @escaping () -> Void) {
-    // FIXME:
   }
 
   public func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType> {
@@ -98,9 +102,25 @@ public final class SectionDataSource<T: Diffable, L: Updating>: SectionDataSourc
   }
 }
 
+extension SectionDataSource {
+
+  public func indexPath(of item: T) -> IndexPath {
+    let index = items.index(where: { isEqual($0, item) })!
+    return IndexPath(item: index, section: displayingSection)
+  }
+}
+
+extension SectionDataSource where T : AnyObject {
+
+  public func indexPathPointerPersonality(of item: T) -> IndexPath {
+    let index = items.index(where: { $0 === item })!
+    return IndexPath(item: index, section: displayingSection)
+  }
+}
+
 extension SectionDataSource where T : Equatable {
 
-  public convenience init(list: L, displayingSection: Int) {
-    self.init(list: list, displayingSection: displayingSection, isEqual: { a, b in a == b })
+  public convenience init(adapter: A, displayingSection: Int) {
+    self.init(adapter: adapter, displayingSection: displayingSection, isEqual: { a, b in a == b })
   }
 }

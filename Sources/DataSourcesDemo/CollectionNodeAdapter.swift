@@ -59,7 +59,7 @@ public final class CollectionNodeUpdater: Updating {
     collectionNode.moveItem(at: indexPath, to: newIndexPath)
   }
 
-  public func performBatch(updates: () -> Void, completion: @escaping () -> Void) {
+  public func performBatch(updates: @escaping () -> Void, completion: @escaping () -> Void) {
 
     guard let collectionNode = collectionNode else {
       assertionFailure("collectionNode has released")

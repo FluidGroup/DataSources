@@ -18,7 +18,7 @@ public protocol Updating : class {
 
   func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
 
-  func performBatch(updates: () -> Void, completion: @escaping () -> Void)
+  func performBatch(updates: @escaping () -> Void, completion: @escaping () -> Void)
 
   func reload(completion: @escaping () -> Void)
 }

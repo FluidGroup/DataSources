@@ -56,7 +56,7 @@ public final class CollectionViewAdapter: Updating {
     collectionView.moveItem(at: indexPath, to: newIndexPath)
   }
 
-  public func performBatch(updates: () -> Void, completion: @escaping () -> Void) {
+  public func performBatch(updates: @escaping () -> Void, completion: @escaping () -> Void) {
 
     guard let collectionView = collectionView else {
       assertionFailure("CollectionView has released")
