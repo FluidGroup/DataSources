@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol ListUpdating : class {
+public protocol Updating : class {
 
   func insertItems(at indexPaths: [IndexPath])
 

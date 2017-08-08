@@ -6,9 +6,9 @@
 //  Copyright © 2017 muukii. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-public final class CollectionViewAdapter: ListUpdating {
+public final class CollectionViewAdapter: Updating {
 
   private(set) public weak var collectionView: UICollectionView?
 

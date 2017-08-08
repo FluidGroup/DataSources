@@ -8,7 +8,12 @@
 
 import Foundation
 
-public final class SectionDataSource<T: Diffable, L: ListUpdating> {
+public final class SectionDataSource<T: Diffable, L: Updating> {
+
+  public enum UpdateMode {
+    case everything
+    case partial(isAnimated: Bool)
+  }
 
   // MARK: - Properties
 
@@ -41,16 +46,25 @@ public final class SectionDataSource<T: Diffable, L: ListUpdating> {
     return snapshot[index]
   }
 
-  public func update(items: [T], updatePartially: Bool, completion: @escaping () -> Void) {
+  public func update(items: [T], updateMode: UpdateMode, completion: @escaping () -> Void) {
 
     let old = snapshot
     snapshot = items
+
+    var _updateMode: SectionUpdater<T, L>.UpdateMode {
+      switch updateMode {
+      case .everything:
+        return .everything
+      case .partial(let isAnimated):
+        return .partial(isAnimated: isAnimated, isEqual: isEqual)
+      }
+    }
 
     updater.update(
       targetSection: displayingSection,
       currentDisplayingItems: old,
       newItems: items,
-      updateMode: updatePartially ? .partial(isEqual: isEqual) : .whole,
+      updateMode: _updateMode,
       completion: completion
     )
   }

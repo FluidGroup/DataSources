@@ -9,3 +9,7 @@
 import Foundation
 
 @_exported import Diff
+
+func assertMainThread() {
+  assert(Thread.isMainThread)
+}

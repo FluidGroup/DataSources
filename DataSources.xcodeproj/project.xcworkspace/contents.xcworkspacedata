@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ListAdapter.xcodeproj">
+      location = "self:/Users/muukii/Desktop/ListAdapter/DataSources.xcodeproj">
    </FileRef>
 </Workspace>

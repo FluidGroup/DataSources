@@ -12,7 +12,14 @@ import Foundation
 // https://github.com/Instagram/IGListKit/blob/master/Source/Common/IGListDiff.mm
 
 public protocol Diffable {
-  var diffIdentifier: AnyHashable { get }
+  associatedtype Identifier : Hashable
+  var diffIdentifier: Identifier { get }
+}
+
+extension Diffable {
+  fileprivate var _diffIdentifier: AnyHashable {
+    return AnyHashable(diffIdentifier)
+  }
 }
 
 public protocol Diffing {
@@ -57,7 +64,7 @@ public struct DiffResult: DiffResultType, CustomDebugStringConvertible, CustomPl
   public var oldMap = Dictionary<AnyHashable, Int>()
   public var newMap = Dictionary<AnyHashable, Int>()
 
-  public func validate(_ oldArray: Array<Diffable>, _ newArray: Array<Diffable>) -> Bool {
+  public func validate<T: Diffable>(_ oldArray: [T], _ newArray: [T]) -> Bool {
     return (oldArray.count + self.inserts.count - self.deletes.count) == newArray.count
   }
   public func oldIndexFor(identifier: AnyHashable) -> Int? {
@@ -156,7 +163,7 @@ public enum Diff: Diffing {
     // increment its new count for each occurence
     // record `nil` for each occurence of the item in the new array
     var newRecords = newArray.map { (newRecord) -> Record in
-      let key = newRecord.diffIdentifier
+      let key = newRecord._diffIdentifier
       if let entry = table[key] {
         // add `nil` for each occurence of the item in the new array
         entry.push(new: nil)
@@ -176,7 +183,7 @@ public enum Diff: Diffing {
     // record the old index for each occurence of the item in the old array
     // MUST be done in descending order to respect the oldIndexes stack construction
     var oldRecords = oldArray.enumerated().reversed().map { (i, oldRecord) -> Record in
-      let key = oldRecord.diffIdentifier
+      let key = oldRecord._diffIdentifier
       if let entry = table[key] {
         // push the old indices where the item occured onto the index stack
         entry.push(old: i)
@@ -227,7 +234,7 @@ public enum Diff: Diffing {
         result.deletes.insert(i)
         runningOffset += 1
       }
-      result.oldMap[oldArray[i].diffIdentifier] = i
+      result.oldMap[oldArray[i]._diffIdentifier] = i
       return deleteOffset
     }
 
@@ -251,7 +258,7 @@ public enum Diff: Diffing {
         result.inserts.insert(i)
         runningOffset += 1
       }
-      result.newMap[newArray[i].diffIdentifier] = i
+      result.newMap[newArray[i]._diffIdentifier] = i
       return insertOffset
     }
 

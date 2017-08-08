@@ -8,7 +8,7 @@
 
 import UIKit
 
-import ListAdapter
+import DataSources
 import EasyPeasy
 import RxSwift
 import RxCocoa
@@ -66,7 +66,7 @@ final class CollectionViewController: UIViewController, UICollectionViewDataSour
       .asDriver()
       .drive(onNext: { [weak self] items in
         print("Begin update")
-        self?.dataSource.update(items: items, updatePartially: true, completion: {
+        self?.dataSource.update(items: items, updateMode: .partial(isAnimated: true), completion: {
           print("Complete")
         })
       })
