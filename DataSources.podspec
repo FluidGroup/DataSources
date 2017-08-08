@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.subspec 'Default' do |cs|
     # cs.frameworks = 'DataSources/Diff'
     # cs.dependency 'DataSources/Diff'
-    cs.source_files = 'Sources/{Diff, DataSources}/*.swift'
+    cs.source_files = ['Sources/Diff/**/*.swift', 'Sources/DataSources/**/*.swift']
   end
 
   s.module_name = s.name

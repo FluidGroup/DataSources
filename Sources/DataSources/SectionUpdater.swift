@@ -17,7 +17,7 @@ final class SectionUpdater<T: Diffable, L: Updating> {
 
   enum UpdateMode {
     case everything
-    case partial(isAnimated: Bool, isEqual: (T, T) -> Bool)
+    case partial(animated: Bool, isEqual: (T, T) -> Bool)
   }
 
   let list: L
@@ -48,7 +48,7 @@ final class SectionUpdater<T: Diffable, L: Updating> {
         self.state = .idle
         completion()
       }
-    case .partial(let isAnimated, let isEqual):
+    case .partial(let animated, let isEqual):
 
       let diff = Diff.diffing(
         oldArray: currentDisplayingItems,
@@ -66,7 +66,7 @@ final class SectionUpdater<T: Diffable, L: Updating> {
         return
       }
 
-      if isAnimated == false {
+      if animated == false {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
       }
@@ -87,7 +87,9 @@ final class SectionUpdater<T: Diffable, L: Updating> {
       },
         completion: {
           assertMainThread()
-          CATransaction.commit()
+          if animated == false {
+            CATransaction.commit()
+          }
           self.state = .idle
           completion()
       }

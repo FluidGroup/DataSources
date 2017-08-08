@@ -8,11 +8,24 @@
 
 import Foundation
 
-public final class SectionDataSource<T: Diffable, L: Updating> {
+public protocol SectionDataSourceType {
+
+  associatedtype ItemType : Diffable
+  associatedtype AdapterType : Updating
+
+  func update(items: [ItemType], updateMode: SectionDataSource<ItemType, AdapterType>.UpdateMode, completion: @escaping () -> Void)
+
+  func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType>
+}
+
+public final class SectionDataSource<T: Diffable, L: Updating>: SectionDataSourceType {
+
+  public typealias ItemType = T
+  public typealias AdapterType = L
 
   public enum UpdateMode {
     case everything
-    case partial(isAnimated: Bool)
+    case partial(animated: Bool)
   }
 
   // MARK: - Properties
@@ -55,8 +68,8 @@ public final class SectionDataSource<T: Diffable, L: Updating> {
       switch updateMode {
       case .everything:
         return .everything
-      case .partial(let isAnimated):
-        return .partial(isAnimated: isAnimated, isEqual: isEqual)
+      case .partial(let animated):
+        return .partial(animated: animated, isEqual: isEqual)
       }
     }
 
@@ -72,6 +85,10 @@ public final class SectionDataSource<T: Diffable, L: Updating> {
   // Exp
   func update(mutate: (inout ChangesCollection<T>), updatePartially: Bool, completion: @escaping () -> Void) {
     // FIXME:
+  }
+
+  public func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType> {
+    return self
   }
 
   @inline(__always)
