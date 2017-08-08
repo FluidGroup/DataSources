@@ -8,28 +8,6 @@
 
 import Foundation
 
-public struct ChangesCollection<T: Diffable> {
-
-  var source: [T]
-  var result: Diff.Result = .init()
-
-  init(source: [T]) {
-    self.source = source
-  }
-
-  public mutating func append(_ newElement: T) {
-    let i: Array<T>.Index = source.count
-    source.append(newElement)
-    result.inserts.insert(i)
-  }
-
-  public mutating func remove(at index: Int) -> T {
-    let e = source.remove(at: index)
-    result.deletes.insert(index)
-    return e
-  }
-}
-
 public final class SectionDataSource<T: Diffable, L: ListUpdating> {
 
   // MARK: - Properties
@@ -77,7 +55,8 @@ public final class SectionDataSource<T: Diffable, L: ListUpdating> {
     )
   }
 
-  public func update(mutate: (inout ChangesCollection<T>), updatePartially: Bool, completion: @escaping () -> Void) {
+  // Exp
+  func update(mutate: (inout ChangesCollection<T>), updatePartially: Bool, completion: @escaping () -> Void) {
     // FIXME:
   }
 
@@ -85,5 +64,12 @@ public final class SectionDataSource<T: Diffable, L: ListUpdating> {
   private func toIndex(from indexPath: IndexPath) -> Int {
     assert(indexPath.section == displayingSection, "IndexPath.section (\(indexPath.section)) must be equal to displayingSection (\(displayingSection)).")
     return indexPath.item
+  }
+}
+
+extension SectionDataSource where T : Equatable {
+
+  public convenience init(list: L, displayingSection: Int) {
+    self.init(list: list, displayingSection: displayingSection, isEqual: { a, b in a == b })
   }
 }

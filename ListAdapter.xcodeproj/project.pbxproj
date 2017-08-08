@@ -18,7 +18,6 @@
 		4B2876F31F38476F0033B43F /* ListAdapterDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2876F21F38476F0033B43F /* ListAdapterDemoUITests.swift */; };
 		4B2876FC1F3847B90033B43F /* ListDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2876FB1F3847B90033B43F /* ListDisplaying.swift */; };
 		4B2876FE1F3849060033B43F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2876FD1F3849060033B43F /* DataSource.swift */; };
-		4B2877001F3849220033B43F /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2876FF1F3849220033B43F /* Diff.swift */; };
 		4B7BA02E1F38FC9600CE9BAC /* ListAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2876BD1F3846C70033B43F /* ListAdapter.framework */; };
 		4B7BA02F1F38FC9600CE9BAC /* ListAdapter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2876BD1F3846C70033B43F /* ListAdapter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B7BA0321F38FD2C00CE9BAC /* AsyncDisplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5281CA1F38EE420063935B /* AsyncDisplayKit.framework */; };
@@ -28,6 +27,17 @@
 		4B84E8951F38FFFF00168F6E /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B84E8941F38FFFF00168F6E /* CollectionViewController.swift */; };
 		4BCFF27D1F38DCE50031FFAC /* SectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */; };
 		4BCFF27F1F38DD3E0031FFAC /* SectionUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */; };
+		4BDB45E21F394881003F5053 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB45D91F394881003F5053 /* Diff.framework */; };
+		4BDB45E91F394881003F5053 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45E81F394881003F5053 /* DiffTests.swift */; };
+		4BDB45EB1F394881003F5053 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDB45DB1F394881003F5053 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BDB45EE1F394881003F5053 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB45D91F394881003F5053 /* Diff.framework */; };
+		4BDB45EF1F394881003F5053 /* Diff.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB45D91F394881003F5053 /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4BDB45F81F394C11003F5053 /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2876FF1F3849220033B43F /* Diff.swift */; };
+		4BDB45F91F394EEA003F5053 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB45D91F394881003F5053 /* Diff.framework */; };
+		4BDB45FB1F394FDF003F5053 /* ListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45FA1F394FDF003F5053 /* ListAdapter.swift */; };
+		4BDB45FD1F39500F003F5053 /* ChangesArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45FC1F39500F003F5053 /* ChangesArray.swift */; };
+		4BDB45FF1F3950F2003F5053 /* CollectionViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */; };
+		4BDB46011F3953C3003F5053 /* Foundation+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB46001F3953C3003F5053 /* Foundation+Diffable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +62,20 @@
 			remoteGlobalIDString = 4B2876BC1F3846C70033B43F;
 			remoteInfo = ListAdapter;
 		};
+		4BDB45E31F394881003F5053 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B2876B41F3846C70033B43F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BDB45D81F394881003F5053;
+			remoteInfo = Diff;
+		};
+		4BDB45EC1F394881003F5053 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B2876B41F3846C70033B43F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BDB45D81F394881003F5053;
+			remoteInfo = Diff;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +86,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4B7BA02F1F38FC9600CE9BAC /* ListAdapter.framework in Embed Frameworks */,
+				4BDB45EF1F394881003F5053 /* Diff.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +120,16 @@
 		4B84E8941F38FFFF00168F6E /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDataSource.swift; sourceTree = "<group>"; };
 		4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionUpdater.swift; sourceTree = "<group>"; };
+		4BDB45D91F394881003F5053 /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BDB45DB1F394881003F5053 /* Diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diff.h; sourceTree = "<group>"; };
+		4BDB45DC1F394881003F5053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BDB45E11F394881003F5053 /* DiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BDB45E81F394881003F5053 /* DiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTests.swift; sourceTree = "<group>"; };
+		4BDB45EA1F394881003F5053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BDB45FA1F394FDF003F5053 /* ListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAdapter.swift; sourceTree = "<group>"; };
+		4BDB45FC1F39500F003F5053 /* ChangesArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesArray.swift; sourceTree = "<group>"; };
+		4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewAdapter.swift; sourceTree = "<group>"; };
+		4BDB46001F3953C3003F5053 /* Foundation+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Diffable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDB45F91F394EEA003F5053 /* Diff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7BA02E1F38FC9600CE9BAC /* ListAdapter.framework in Frameworks */,
+				4BDB45EE1F394881003F5053 /* Diff.framework in Frameworks */,
 				4B7BA0321F38FD2C00CE9BAC /* AsyncDisplayKit.framework in Frameworks */,
 				4B7BA0331F38FD2C00CE9BAC /* EasyPeasy.framework in Frameworks */,
 				4B7BA0341F38FD2C00CE9BAC /* RxCocoa.framework in Frameworks */,
@@ -132,15 +169,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BDB45D51F394881003F5053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BDB45DE1F394881003F5053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BDB45E21F394881003F5053 /* Diff.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		4B2876B31F3846C70033B43F = {
 			isa = PBXGroup;
 			children = (
+				4BDB45F61F3948A8003F5053 /* Tests */,
 				4B5281C91F38EE310063935B /* Frameworks */,
-				4B2876F11F38476F0033B43F /* ListAdapterDemoUITests */,
-				4B2876CA1F3846C70033B43F /* ListAdapterTests */,
 				4B2876BE1F3846C70033B43F /* Products */,
 				4BCFF27B1F38DC5C0031FFAC /* Sources */,
 			);
@@ -153,6 +204,8 @@
 				4B2876C61F3846C70033B43F /* ListAdapterTests.xctest */,
 				4B2876DB1F38476F0033B43F /* ListAdapterDemo.app */,
 				4B2876EE1F38476F0033B43F /* ListAdapterDemoUITests.xctest */,
+				4BDB45D91F394881003F5053 /* Diff.framework */,
+				4BDB45E11F394881003F5053 /* DiffTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,12 +214,13 @@
 			isa = PBXGroup;
 			children = (
 				4B2876FD1F3849060033B43F /* DataSource.swift */,
-				4B2876FF1F3849220033B43F /* Diff.swift */,
 				4B2876C11F3846C70033B43F /* Info.plist */,
 				4B2876C01F3846C70033B43F /* ListAdapter.h */,
 				4B2876FB1F3847B90033B43F /* ListDisplaying.swift */,
 				4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */,
 				4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */,
+				4BDB45FA1F394FDF003F5053 /* ListAdapter.swift */,
+				4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */,
 			);
 			path = ListAdapter;
 			sourceTree = "<group>";
@@ -217,10 +271,42 @@
 		4BCFF27B1F38DC5C0031FFAC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4BDB45DA1F394881003F5053 /* Diff */,
 				4B2876BF1F3846C70033B43F /* ListAdapter */,
 				4B2876DC1F38476F0033B43F /* ListAdapterDemo */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		4BDB45DA1F394881003F5053 /* Diff */ = {
+			isa = PBXGroup;
+			children = (
+				4B2876FF1F3849220033B43F /* Diff.swift */,
+				4BDB46001F3953C3003F5053 /* Foundation+Diffable.swift */,
+				4BDB45FC1F39500F003F5053 /* ChangesArray.swift */,
+				4BDB45DB1F394881003F5053 /* Diff.h */,
+				4BDB45DC1F394881003F5053 /* Info.plist */,
+			);
+			path = Diff;
+			sourceTree = "<group>";
+		};
+		4BDB45E71F394881003F5053 /* DiffTests */ = {
+			isa = PBXGroup;
+			children = (
+				4BDB45E81F394881003F5053 /* DiffTests.swift */,
+				4BDB45EA1F394881003F5053 /* Info.plist */,
+			);
+			path = DiffTests;
+			sourceTree = "<group>";
+		};
+		4BDB45F61F3948A8003F5053 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4B2876F11F38476F0033B43F /* ListAdapterDemoUITests */,
+				4B2876CA1F3846C70033B43F /* ListAdapterTests */,
+				4BDB45E71F394881003F5053 /* DiffTests */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +317,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B2876CE1F3846C70033B43F /* ListAdapter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BDB45D61F394881003F5053 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BDB45EB1F394881003F5053 /* Diff.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +380,7 @@
 			);
 			dependencies = (
 				4B7BA0311F38FC9600CE9BAC /* PBXTargetDependency */,
+				4BDB45ED1F394881003F5053 /* PBXTargetDependency */,
 			);
 			name = ListAdapterDemo;
 			productName = ListAdapterDemo;
@@ -309,6 +404,42 @@
 			productName = ListAdapterDemoUITests;
 			productReference = 4B2876EE1F38476F0033B43F /* ListAdapterDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		4BDB45D81F394881003F5053 /* Diff */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BDB45F41F394881003F5053 /* Build configuration list for PBXNativeTarget "Diff" */;
+			buildPhases = (
+				4BDB45D41F394881003F5053 /* Sources */,
+				4BDB45D51F394881003F5053 /* Frameworks */,
+				4BDB45D61F394881003F5053 /* Headers */,
+				4BDB45D71F394881003F5053 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Diff;
+			productName = Diff;
+			productReference = 4BDB45D91F394881003F5053 /* Diff.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4BDB45E01F394881003F5053 /* DiffTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BDB45F51F394881003F5053 /* Build configuration list for PBXNativeTarget "DiffTests" */;
+			buildPhases = (
+				4BDB45DD1F394881003F5053 /* Sources */,
+				4BDB45DE1F394881003F5053 /* Frameworks */,
+				4BDB45DF1F394881003F5053 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4BDB45E41F394881003F5053 /* PBXTargetDependency */,
+			);
+			name = DiffTests;
+			productName = DiffTests;
+			productReference = 4BDB45E11F394881003F5053 /* DiffTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -334,6 +465,12 @@
 						CreatedOnToolsVersion = 9.0;
 						TestTargetID = 4B2876DA1F38476F0033B43F;
 					};
+					4BDB45D81F394881003F5053 = {
+						CreatedOnToolsVersion = 9.0;
+					};
+					4BDB45E01F394881003F5053 = {
+						CreatedOnToolsVersion = 9.0;
+					};
 				};
 			};
 			buildConfigurationList = 4B2876B71F3846C70033B43F /* Build configuration list for PBXProject "ListAdapter" */;
@@ -349,6 +486,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				4BDB45D81F394881003F5053 /* Diff */,
+				4BDB45E01F394881003F5053 /* DiffTests */,
 				4B2876BC1F3846C70033B43F /* ListAdapter */,
 				4B2876C51F3846C70033B43F /* ListAdapterTests */,
 				4B2876DA1F38476F0033B43F /* ListAdapterDemo */,
@@ -389,6 +528,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BDB45D71F394881003F5053 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BDB45DF1F394881003F5053 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -396,10 +549,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDB45FF1F3950F2003F5053 /* CollectionViewAdapter.swift in Sources */,
+				4BDB45FB1F394FDF003F5053 /* ListAdapter.swift in Sources */,
 				4B2876FE1F3849060033B43F /* DataSource.swift in Sources */,
 				4B2876FC1F3847B90033B43F /* ListDisplaying.swift in Sources */,
 				4BCFF27D1F38DCE50031FFAC /* SectionDataSource.swift in Sources */,
-				4B2877001F3849220033B43F /* Diff.swift in Sources */,
 				4BCFF27F1F38DD3E0031FFAC /* SectionUpdater.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,6 +584,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BDB45D41F394881003F5053 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BDB46011F3953C3003F5053 /* Foundation+Diffable.swift in Sources */,
+				4BDB45F81F394C11003F5053 /* Diff.swift in Sources */,
+				4BDB45FD1F39500F003F5053 /* ChangesArray.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BDB45DD1F394881003F5053 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BDB45E91F394881003F5053 /* DiffTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -447,6 +619,16 @@
 			isa = PBXTargetDependency;
 			target = 4B2876BC1F3846C70033B43F /* ListAdapter */;
 			targetProxy = 4B7BA0301F38FC9600CE9BAC /* PBXContainerItemProxy */;
+		};
+		4BDB45E41F394881003F5053 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BDB45D81F394881003F5053 /* Diff */;
+			targetProxy = 4BDB45E31F394881003F5053 /* PBXContainerItemProxy */;
+		};
+		4BDB45ED1F394881003F5053 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BDB45D81F394881003F5053 /* Diff */;
+			targetProxy = 4BDB45EC1F394881003F5053 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -588,6 +770,7 @@
 		4B2876D21F3846C70033B43F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
@@ -609,6 +792,7 @@
 		4B2876D31F3846C70033B43F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
@@ -630,7 +814,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = ListAdapterTests/Info.plist;
+				INFOPLIST_FILE = Tests/ListAdapterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.ListAdapterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -643,7 +827,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = ListAdapterTests/Info.plist;
+				INFOPLIST_FILE = Tests/ListAdapterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.ListAdapterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -692,7 +876,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = ListAdapterDemoUITests/Info.plist;
+				INFOPLIST_FILE = Tests/ListAdapterDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.ListAdapterDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -706,13 +890,83 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = ListAdapterDemoUITests/Info.plist;
+				INFOPLIST_FILE = Tests/ListAdapterDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.ListAdapterDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = ListAdapterDemo;
+			};
+			name = Release;
+		};
+		4BDB45F01F394881003F5053 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Diff/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.Diff;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4BDB45F11F394881003F5053 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Diff/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.Diff;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4BDB45F21F394881003F5053 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = Tests/DiffTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.DiffTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4BDB45F31F394881003F5053 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = Tests/DiffTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.DiffTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -760,6 +1014,24 @@
 			buildConfigurations = (
 				4B2876F91F38476F0033B43F /* Debug */,
 				4B2876FA1F38476F0033B43F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4BDB45F41F394881003F5053 /* Build configuration list for PBXNativeTarget "Diff" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BDB45F01F394881003F5053 /* Debug */,
+				4BDB45F11F394881003F5053 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4BDB45F51F394881003F5053 /* Build configuration list for PBXNativeTarget "DiffTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BDB45F21F394881003F5053 /* Debug */,
+				4BDB45F31F394881003F5053 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -15,6 +15,88 @@ public protocol Diffable {
   var diffIdentifier: AnyHashable { get }
 }
 
+public protocol Diffing {
+  static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: (T, T) -> Bool) -> DiffResultType
+}
+
+public protocol DiffResultType {
+
+  var inserts: IndexSet { get set }
+  var updates: IndexSet { get set }
+  var deletes: IndexSet { get set }
+  var moves: [MoveIndex] { get set }
+}
+
+public struct MoveIndex : Equatable, CustomDebugStringConvertible, CustomPlaygroundQuickLookable {
+  public let from: Int
+  public let to: Int
+
+  public init(from: Int, to: Int) {
+    self.from = from
+    self.to = to
+  }
+
+  public static func == (lhs: MoveIndex, rhs: MoveIndex) -> Bool {
+    return lhs.from == rhs.from && lhs.to == rhs.to
+  }
+
+  public var debugDescription: String {
+    return "\(from) => \(to)"
+  }
+
+  public var customPlaygroundQuickLook: PlaygroundQuickLook {
+    return .text(debugDescription)
+  }
+}
+
+public struct DiffResult: DiffResultType, CustomDebugStringConvertible, CustomPlaygroundQuickLookable {
+  public var inserts = IndexSet()
+  public var updates = IndexSet()
+  public var deletes = IndexSet()
+  public var moves = Array<MoveIndex>()
+  public var oldMap = Dictionary<AnyHashable, Int>()
+  public var newMap = Dictionary<AnyHashable, Int>()
+
+  public func validate(_ oldArray: Array<Diffable>, _ newArray: Array<Diffable>) -> Bool {
+    return (oldArray.count + self.inserts.count - self.deletes.count) == newArray.count
+  }
+  public func oldIndexFor(identifier: AnyHashable) -> Int? {
+    return self.oldMap[identifier]
+  }
+  public func newIndexFor(identifier: AnyHashable) -> Int? {
+    return self.newMap[identifier]
+  }
+
+  public var debugDescription: String {
+    return [
+      "Inserts => \(inserts.map { $0 })",
+      "Updates => \(updates.map { $0 })",
+      "Deletes => \(deletes.map { $0 })",
+      "Moves => \(moves.map { $0.debugDescription }.joined(separator: ","))",
+      ]
+      .joined(separator: "\n")
+  }
+
+  public var customPlaygroundQuickLook: PlaygroundQuickLook {
+    return .text(debugDescription)
+  }
+}
+
+extension DiffResultType {
+
+  public var hasChanges: Bool {
+    guard inserts.isEmpty else { return true }
+    guard deletes.isEmpty else { return true }
+    guard updates.isEmpty else { return true }
+    guard moves.isEmpty else { return true }
+    return false
+  }
+
+  public var changeCount: Int {
+    return inserts.count + deletes.count + updates.count + moves.count
+  }
+}
+
 struct Stack<Element> {
   var items = [Element]()
   var isEmpty: Bool {
@@ -29,10 +111,10 @@ struct Stack<Element> {
 }
 
 /// https://github.com/Instagram/IGListKit/blob/master/Source/IGListDiff.mm
-public enum Diff {
+public enum Diff: Diffing {
   /// Used to track data stats while diffing.
   /// We expect to keep a reference of entry, thus its declaration as (final) class.
-  final class Entry {
+  private final class Entry {
     /// The number of times the data occurs in the old array
     var oldCounter: Int = 0
     /// The number of times the data occurs in the new array
@@ -56,7 +138,7 @@ public enum Diff {
   }
 
   /// Track both the entry and the algorithm index. Default the index to `nil`
-  struct Record {
+  private struct Record {
     let entry: Entry
     var index: Int?
     init(_ entry: Entry) {
@@ -65,45 +147,7 @@ public enum Diff {
     }
   }
 
-  public struct MoveIndex : Equatable {
-    public let from: Int
-    public let to: Int
-
-    public init(from: Int, to: Int) {
-      self.from = from
-      self.to = to
-    }
-
-    public static func ==(lhs: MoveIndex, rhs: MoveIndex) -> Bool {
-      return lhs.from == rhs.from && lhs.to == rhs.to
-    }
-  }
-
-  public struct Result {
-    public var inserts = IndexSet()
-    public var updates = IndexSet()
-    public var deletes = IndexSet()
-    public var moves = Array<MoveIndex>()
-    public var oldMap = Dictionary<AnyHashable, Int>()
-    public var newMap = Dictionary<AnyHashable, Int>()
-    public var hasChanges: Bool {
-      return (self.inserts.count > 0) || (self.deletes.count > 0) || (self.updates.count > 0) || (self.moves.count > 0)
-    }
-    public var changeCount: Int {
-      return self.inserts.count + self.deletes.count + self.updates.count + self.moves.count
-    }
-    public func validate(_ oldArray: Array<Diffable>, _ newArray: Array<Diffable>) -> Bool {
-      return (oldArray.count + self.inserts.count - self.deletes.count) == newArray.count
-    }
-    public func oldIndexFor(identifier: AnyHashable) -> Int? {
-      return self.oldMap[identifier]
-    }
-    public func newIndexFor(identifier: AnyHashable) -> Int? {
-      return self.newMap[identifier]
-    }
-  }
-
-  public static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: (T, T) -> Bool) -> Result {
+  public static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: (T, T) -> Bool) -> DiffResultType {
     // symbol table uses the old/new array `diffIdentifier` as the key and `Entry` as the value
     var table = Dictionary<AnyHashable, Entry>()
 
@@ -170,7 +214,7 @@ public enum Diff {
     }
 
     // storage for final indexes
-    var result = Result()
+    var result = DiffResult()
 
     // track offsets from deleted items to calculate where items have moved
     // iterate old array records checking for deletes

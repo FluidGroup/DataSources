@@ -23,11 +23,6 @@ public final class SectionUpdater<T: Diffable, L: ListUpdating> {
 
   func update(targetSection: Int, currentDisplayingItems: [T], newItems: [T], updateMode: UpdateMode, completion: @escaping () -> Void) {
 
-//    guard let list = list else {
-//      assertionFailure("List has released")
-//      return
-//    }
-
     switch updateMode {
     case .whole:
       list.reload(completion: completion)
