@@ -157,12 +157,12 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
     at: indexPath,
     returnType: UICollectionViewCell.self,
     handlers: [
-    .init(context: section0) { m in
+    .init(context: section0) { (m: ModelA) in
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
       cell.label.text = m.title
       return cell
     },
-    .init(context: section1) { m in
+    .init(context: section1) { (m: ModelB) in
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
       cell.label.text = m.title
       return cell
