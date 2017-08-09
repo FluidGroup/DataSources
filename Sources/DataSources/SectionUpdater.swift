@@ -62,16 +62,6 @@ final class SectionUpdater<T: Diffable, A: Updating> {
         animated = false
       }
 
-//      guard diff.changeCount < 300 else {
-//        // Saving animation cost
-//        adapter.reload {
-//          assertMainThread()
-//          self.state = .idle
-//          completion()
-//        }
-//        return
-//      }
-
       if animated == false {
         CATransaction.begin()
         CATransaction.setDisableActions(true)

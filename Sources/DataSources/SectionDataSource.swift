@@ -18,6 +18,40 @@ public protocol SectionDataSourceType {
   func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType>
 }
 
+final class AnySectionDataSource<A: Updating> {
+
+  let source: Any
+
+  private let _numberOfItems: () -> Int
+  private let _item: (IndexPath) -> Any
+  
+  init<T>(source: SectionDataSource<T, A>) {
+    self.source = source
+    _numberOfItems = {
+      source.numberOfItems()
+    }
+    _item = {
+      let index = source.toIndex(from: $0)
+      return source.snapshot[index]
+    }
+  }
+
+  public func numberOfItems() -> Int {
+    return _numberOfItems()
+  }
+
+  public func item(for indexPath: IndexPath) -> Any {
+    return _item(indexPath)
+  }
+
+  func restore<T>(itemType: T.Type) -> SectionDataSource<T, A> {
+    guard let r = source as? SectionDataSource<T, A> else {
+      fatalError("itemType is different to SectionDataSource.ItemType")
+    }
+    return r
+  }
+}
+
 public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourceType {
 
   public typealias ItemType = T
@@ -32,7 +66,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
 
   private(set) public var items: [T] = []
 
-  private var snapshot: [T] = []
+  fileprivate var snapshot: [T] = []
 
   private let updater: SectionUpdater<T, A>
 
@@ -96,7 +130,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
   }
 
   @inline(__always)
-  private func toIndex(from indexPath: IndexPath) -> Int {
+  fileprivate func toIndex(from indexPath: IndexPath) -> Int {
     assert(indexPath.section == displayingSection, "IndexPath.section (\(indexPath.section)) must be equal to displayingSection (\(displayingSection)).")
     return indexPath.item
   }
