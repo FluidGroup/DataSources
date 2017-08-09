@@ -17,7 +17,7 @@ final class SectionUpdater<T: Diffable, A: Updating> {
 
   enum UpdateMode {
     case everything
-    case partial(animated: Bool, isEqual: (T, T) -> Bool)
+    case partial(animated: Bool, isEqual: EqualityChecker<T>)
   }
 
   let adapter: A

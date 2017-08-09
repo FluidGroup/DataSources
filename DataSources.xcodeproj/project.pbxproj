@@ -36,6 +36,7 @@
 		4BDB45FD1F39500F003F5053 /* ChangesArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45FC1F39500F003F5053 /* ChangesArray.swift */; };
 		4BDB45FF1F3950F2003F5053 /* CollectionViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */; };
 		4BDB46011F3953C3003F5053 /* Foundation+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB46001F3953C3003F5053 /* Foundation+Diffable.swift */; };
+		4BE9DCC61F3ABE2D002A00FA /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE9DCC51F3ABE2D002A00FA /* DataSource.swift */; };
 		DF3C89DEF99725A1C1B5BFB4 /* Pods_DataSourcesDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB154178EA51E5E7CE88008A /* Pods_DataSourcesDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 		4BDB45FC1F39500F003F5053 /* ChangesArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesArray.swift; sourceTree = "<group>"; };
 		4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewAdapter.swift; sourceTree = "<group>"; };
 		4BDB46001F3953C3003F5053 /* Foundation+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Diffable.swift"; sourceTree = "<group>"; };
+		4BE9DCC51F3ABE2D002A00FA /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		5F9FA47FCDF59FE730FF500A /* Pods-DataSourcesDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataSourcesDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DataSourcesDemo/Pods-DataSourcesDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		68A5C4702FAF617B7BC75F05 /* Pods_DataSourcesDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataSourcesDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84702358F17DC4D5781BEA62 /* Pods-DataSourcesDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataSourcesDemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DataSourcesDemoUITests/Pods-DataSourcesDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				4B2876C01F3846C70033B43F /* ListAdapter.h */,
 				4B2876FB1F3847B90033B43F /* Updating.swift */,
 				4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */,
+				4BE9DCC51F3ABE2D002A00FA /* DataSource.swift */,
 				4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */,
 				4BDB45FA1F394FDF003F5053 /* DataSources.swift */,
 				4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */,
@@ -659,6 +662,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BE9DCC61F3ABE2D002A00FA /* DataSource.swift in Sources */,
 				4BDB45FF1F3950F2003F5053 /* CollectionViewAdapter.swift in Sources */,
 				4B020EC01F3A35A90001EDB7 /* Throttle.swift in Sources */,
 				4BDB45FB1F394FDF003F5053 /* DataSources.swift in Sources */,

@@ -11,6 +11,8 @@ import Foundation
 // https://github.com/muukii/ListDiff/blob/master/Sources/ListDiff.swift
 // https://github.com/Instagram/IGListKit/blob/master/Source/Common/IGListDiff.mm
 
+public typealias EqualityChecker<T: Diffable> = (T, T) -> Bool
+
 public protocol Diffable {
   associatedtype Identifier : Hashable
   var diffIdentifier: Identifier { get }
@@ -23,7 +25,7 @@ extension Diffable {
 }
 
 public protocol Diffing {
-  static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: (T, T) -> Bool) -> DiffResultType
+  static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: EqualityChecker<T>) -> DiffResultType
 }
 
 public protocol DiffResultType {
@@ -154,7 +156,7 @@ public enum Diff: Diffing {
     }
   }
 
-  public static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: (T, T) -> Bool) -> DiffResultType {
+  public static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: EqualityChecker<T>) -> DiffResultType {
     // symbol table uses the old/new array `diffIdentifier` as the key and `Entry` as the value
     var table = Dictionary<AnyHashable, Entry>()
 
