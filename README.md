@@ -2,6 +2,13 @@
 
 💾 🗄 Data-driven CollectionView Framework. (Can adapt ASCollectionNode)
 
+---
+
+> 🚨⚠️ WARNING ⚠️🚨<br>
+This project is in a prerelease state. There is active work going on that will result in API changes that can/will break code while things are finished. Use with caution.
+
+---
+
 ## Thanks
 
 **Diff-algorithm**
