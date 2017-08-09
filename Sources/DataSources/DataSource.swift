@@ -13,11 +13,21 @@ public func ~= <T>(lhs: SectionContext<T>, rhs: Int) -> Bool {
 }
 
 public struct SectionContext<T: Diffable> {
+
   public let section: Int
   public let isEqual: EqualityChecker<T>
+
   public init(_ itemType: T.Type? = nil, section: Int, isEqual: @escaping EqualityChecker<T>) {
     self.section = section
     self.isEqual = isEqual
+  }
+}
+
+extension SectionContext where T : Equatable {
+
+  public init(_ itemType: T.Type? = nil, section: Int) {
+    self.section = section
+    self.isEqual = { $0 == $1 }
   }
 }
 

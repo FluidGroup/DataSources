@@ -119,6 +119,7 @@
 		4B9997BF1F39A99700DCE3FA /* CollectionNodeAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionNodeAdapter.swift; sourceTree = "<group>"; };
 		4BBC868A1F3B49AA00BD424A /* SingleSectionCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionCollectionViewController.swift; sourceTree = "<group>"; };
 		4BBC868C1F3B49BF00BD424A /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		4BBC868E1F3B62C500BD424A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDataSource.swift; sourceTree = "<group>"; };
 		4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionUpdater.swift; sourceTree = "<group>"; };
 		4BDB45D91F394881003F5053 /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +197,7 @@
 		4B2876B31F3846C70033B43F = {
 			isa = PBXGroup;
 			children = (
+				4BBC868E1F3B62C500BD424A /* README.md */,
 				4BDB45F61F3948A8003F5053 /* Tests */,
 				4B2876BE1F3846C70033B43F /* Products */,
 				4BCFF27B1F38DC5C0031FFAC /* Sources */,
