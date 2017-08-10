@@ -102,7 +102,7 @@ public final class DataSource<A: Updating> {
     guard case .added = section.state else {
       fatalError("\(section) has not added in DataSource")
     }
-    return sectionDataSource(section: section).item(for: indexPath)
+    return sectionDataSource(section: section).item(at: indexPath)
   }
 
   public func update<T>(in section: Section<T>, items: [T], updateMode: SectionDataSource<T, A>.UpdateMode, completion: @escaping () -> Void) {

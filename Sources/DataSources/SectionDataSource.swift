@@ -90,7 +90,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
     return snapshot.count
   }
 
-  public func item(for indexPath: IndexPath) -> T {
+  public func item(at indexPath: IndexPath) -> T {
     let index = toIndex(from: indexPath)
     return snapshot[index]
   }
