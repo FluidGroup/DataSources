@@ -154,7 +154,7 @@ extension SectionDataSource where T : AnyObject {
 
 extension SectionDataSource where T : Equatable {
 
-  public convenience init(adapter: A, displayingSection: Int) {
+  public convenience init(adapter: A, displayingSection: Int = 0) {
     self.init(adapter: adapter, displayingSection: displayingSection, isEqual: { a, b in a == b })
   }
 }
