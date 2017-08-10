@@ -72,13 +72,13 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
 
   private let throttle = Throttle(interval: 0.2)
 
-  internal(set) public var displayingSection: Int
+  public var displayingSection: Int
 
   fileprivate let isEqual: (T, T) -> Bool
 
   // MARK: - Initializers
 
-  public init(adapter: A, displayingSection: Int, isEqual: @escaping EqualityChecker<T>) {
+  public init(adapter: A, displayingSection: Int = 0, isEqual: @escaping EqualityChecker<T>) {
     self.updater = SectionUpdater(adapter: adapter)
     self.isEqual = isEqual
     self.displayingSection = displayingSection

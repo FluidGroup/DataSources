@@ -50,7 +50,6 @@ var models: [Model]
 
 let sectionDataSource = SectionDataSource<Model, CollectionViewAdapter>(
   adapter: CollectionViewAdapter(collectionView: self.collectionView),
-  displayingSection: 0,
   isEqual: { $0.id == $1.id } // If Model has Equatable, you can omit this closure.
 )
 ```
@@ -98,18 +97,20 @@ var models: [Model]
 let dataSource = DataSource<CollectionViewAdapter>(adapter: CollectionViewAdapter(collectionView: self.collectionView))
 ```
 
-2. Define `SectionContext<T>` in ViewController
+2. Define `Section<T>` in ViewController
 
 ```swift
-let section0 = SectionContext.init(ModelA.self, section: 0, isEqual: { $0.id == $1.id })
-let section1 = SectionContext.init(ModelB.self, section: 1, isEqual: { $0.id == $1.id })
+let section0 = Section(ModelA.self, isEqual: { $0.id == $1.id })
+let section1 = Section(ModelB.self, isEqual: { $0.id == $1.id })
 ```
 
-3. Add `SectionContext` to `DataSource`
+3. Add `Section` to `DataSource`
+
+Order of Section will be decided in the order of addition.
 
 ```swift
-dataSource.addSectionDataSource(context: section0)
-dataSource.addSectionDataSource(context: section1)
+dataSource.add(section: section0) // will be 0 of section
+dataSource.add(section: section1) // will be 1 of section
 ```
 
 4. Bind Models to DataSource
@@ -157,12 +158,12 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
     at: indexPath,
     returnType: UICollectionViewCell.self,
     handlers: [
-    .init(context: section0) { (m: ModelA) in
+    .init(section: section0) { (m: ModelA) in
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
       cell.label.text = m.title
       return cell
     },
-    .init(context: section1) { (m: ModelB) in
+    .init(section: section1) { (m: ModelB) in
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
       cell.label.text = m.title
       return cell

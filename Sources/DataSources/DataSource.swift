@@ -8,26 +8,34 @@
 
 import Foundation
 
-public func ~= <T>(lhs: SectionContext<T>, rhs: Int) -> Bool {
-  return lhs.section == rhs
+public func ~= <T>(lhs: Section<T>, rhs: Int) -> Bool {
+  switch lhs.state {
+  case .initialized:
+    return false
+  case .added(let section):
+    return section == rhs
+  }
 }
 
-public struct SectionContext<T: Diffable> {
+public class Section<T: Diffable> {
 
-  public let section: Int
+  public enum State {
+    case initialized
+    case added(at: Int)
+  }
+
   public let isEqual: EqualityChecker<T>
+  public internal(set) var state: State = .initialized
 
-  public init(_ itemType: T.Type? = nil, section: Int, isEqual: @escaping EqualityChecker<T>) {
-    self.section = section
+  public init(_ itemType: T.Type? = nil, isEqual: @escaping EqualityChecker<T>) {
     self.isEqual = isEqual
   }
 }
 
-extension SectionContext where T : Equatable {
+extension Section where T : Equatable {
 
-  public init(_ itemType: T.Type? = nil, section: Int) {
-    self.section = section
-    self.isEqual = { $0 == $1 }
+  public convenience init(_ itemType: T.Type? = nil) {
+    self.init(itemType, isEqual: { $0 == $1 })
   }
 }
 
@@ -38,35 +46,45 @@ public final class DataSource<A: Updating> {
     let handler: (Any) -> U
     let section: Int
 
-    public init<T>(context: SectionContext<T>, handler: @escaping (T) -> U) {
-      self.section = context.section
-      self.handler = {
-        return handler($0 as! T)
+    public init<T>(section: Section<T>, handler: @escaping (T) -> U) {
+
+      switch section.state {
+      case .initialized:
+        fatalError("\(section) is not added in DataSource")
+      case .added(let section):
+        self.section = section
+        self.handler = {
+          return handler($0 as! T)
+        }
       }
     }
   }
 
-  public typealias Section = Int
+  public typealias SectionNumber = Int
 
   let adapter: A
 
-  private var sectionDataSources: [Section : AnySectionDataSource<A>] = [:]
+  private var sectionDataSources: [SectionNumber : AnySectionDataSource<A>] = [:]
 
   public init(adapter: A) {
     assertMainThread()
     self.adapter = adapter
   }
 
-  public func addSectionDataSource<T>(context: SectionContext<T>) {
+  public func add<T>(section: Section<T>) {
     assertMainThread()
-    let source = SectionDataSource<T, A>(adapter: adapter, displayingSection: context.section, isEqual: context.isEqual)
-    precondition(sectionDataSources[context.section] == nil, "Duplicated section \(context.section)")
 
-    if context.section > 0 {
-      precondition(sectionDataSources[context.section - 1] != nil, "Section \(context.section - 1) is empty, You must add section without gaps.")
+    let _section = sectionDataSources.count
+    section.state = .added(at: _section)
+
+    let source = SectionDataSource<T, A>(adapter: adapter, displayingSection: _section, isEqual: section.isEqual)
+    precondition(sectionDataSources[_section] == nil, "Duplicated section \(_section)")
+
+    if _section > 0 {
+      precondition(sectionDataSources[_section - 1] != nil, "Section \(_section - 1) is empty, You must add section without gaps.")
     }
 
-    sectionDataSources[context.section] = AnySectionDataSource(source: source)
+    sectionDataSources[_section] = AnySectionDataSource(source: source)
   }
 
   public func numberOfSections() -> Int {
@@ -74,22 +92,24 @@ public final class DataSource<A: Updating> {
     return sectionDataSources.count
   }
 
-  public func numberOfItems(in section: Section) -> Int {
+  public func numberOfItems(in section: SectionNumber) -> Int {
     assertMainThread()
     return sectionDataSources[section]!.numberOfItems()
   }
 
-  public func item<T>(at indexPath: IndexPath, in context: SectionContext<T>) -> T {
+  public func item<T>(at indexPath: IndexPath, in section: Section<T>) -> T {
     assertMainThread()
-    precondition(indexPath.section == context.section)
-    return sectionDataSource(context: context).item(for: indexPath)
+    guard case .added = section.state else {
+      fatalError("\(section) has not added in DataSource")
+    }
+    return sectionDataSource(section: section).item(for: indexPath)
   }
 
-  public func update<T>(in context: SectionContext<T>, items: [T], updateMode: SectionDataSource<T, A>.UpdateMode, completion: @escaping () -> Void) {
+  public func update<T>(in section: Section<T>, items: [T], updateMode: SectionDataSource<T, A>.UpdateMode, completion: @escaping () -> Void) {
 
     assertMainThread()
 
-    sectionDataSource(context: context)
+    sectionDataSource(section: section)
       .update(
         items: items,
         updateMode: updateMode,
@@ -97,12 +117,16 @@ public final class DataSource<A: Updating> {
     )
   }
 
-  public func sectionDataSource<T>(context: SectionContext<T>) -> SectionDataSource<T, A> {
+  public func sectionDataSource<T>(section: Section<T>) -> SectionDataSource<T, A> {
 
     assertMainThread()
 
-    guard let s = sectionDataSources[context.section]?.restore(itemType: T.self) else {
-      fatalError()
+    guard case .added(let sectionNumber) = section.state else {
+      fatalError("\(section) has not added in DataSource")
+    }
+
+    guard let s = sectionDataSources[sectionNumber]?.restore(itemType: T.self) else {
+      fatalError("oh")
     }
     return s
   }

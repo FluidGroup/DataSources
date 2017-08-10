@@ -30,8 +30,8 @@ final class MultipleSectionCollectionViewController: UIViewController, UICollect
 
   private lazy var _dataSource = DataSource<CollectionViewAdapter>.init(adapter: .init(collectionView: self.collectionView))
 
-  private let section0 = SectionContext.init(ModelA.self, section: 0, isEqual: { $0.identity == $1.identity })
-  private let section1 = SectionContext.init(ModelB.self, section: 1, isEqual: { $0.identity == $1.identity })
+  private let section0 = Section(ModelA.self, isEqual: { $0.identity == $1.identity })
+  private let section1 = Section(ModelB.self, isEqual: { $0.identity == $1.identity })
 
   private let add = UIBarButtonItem(title: "Add", style: .plain, target: nil, action: nil)
   private let remove = UIBarButtonItem(title: "Remove", style: .plain, target: nil, action: nil)
@@ -68,8 +68,8 @@ final class MultipleSectionCollectionViewController: UIViewController, UICollect
     collectionView.delegate = self
     collectionView.dataSource = self
 
-    _dataSource.addSectionDataSource(context: section0)
-    _dataSource.addSectionDataSource(context: section1)
+    _dataSource.add(section: section0)
+    _dataSource.add(section: section1)
 
     viewModel.section0
       .asDriver()
@@ -105,12 +105,12 @@ final class MultipleSectionCollectionViewController: UIViewController, UICollect
       at: indexPath,
       returnType: UICollectionViewCell.self,
       handlers: [
-      .init(context: section0) { m in
+      .init(section: section0) { m in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
         cell.label.text = m.title
         return cell
       },
-      .init(context: section1) { m in
+      .init(section: section1) { m in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
         cell.label.text = m.title
         return cell
