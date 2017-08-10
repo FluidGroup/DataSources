@@ -9,7 +9,7 @@ This project is in a prerelease state. There is active work going on that will r
 
 ---
 
-![](https://media.giphy.com/media/l1J3tmzS5WTBbTD5m/giphy.gif)
+![](sample.gif)
 
 ## Thanks
 
