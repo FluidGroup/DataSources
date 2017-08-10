@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name = 'DataSources'
   s.version = '0.1.0'
-  s.summary = 'data-driven DataSources'
+  s.summary = '💾 🔜📱 Type-safe data-driven List-UI Framework'
   s.homepage = 'https://github.com/muukii/DataSources'
-  s.description = 'Data driven DataSources'
+  s.description = '💾 🔜📱 Type-safe data-driven List-UI Framework. (We can also use ASCollectionNode)'
 
   s.license =  { :type => 'MIT' }
   s.author = { 'muukii' => 'm@muukii.me' }

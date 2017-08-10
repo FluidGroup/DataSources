@@ -1,15 +1,20 @@
 # DataSources
 
-💾 🗄 Data-driven List-UI Framework. (We can also use ASCollectionNode)
-
----
-
-> 🚨⚠️ WARNING ⚠️🚨<br>
-This project is in a prerelease state. There is active work going on that will result in API changes that can/will break code while things are finished. Use with caution.
-
----
+💾 🔜📱 Type-safe data-driven List-UI Framework. (We can also use ASCollectionNode)
 
 ![](sample.gif)
+
+![](https://img.shields.io/badge/Swift-3.1-blue.svg?style=flat)
+[![CI Status](http://img.shields.io/travis/muukii/DataSources.svg?style=flat)](https://travis-ci.org/muukii/DataSources)
+[![Version](https://img.shields.io/cocoapods/v/DataSources.svg?style=flat)](http://cocoapods.org/pods/DataSources)
+[![License](https://img.shields.io/cocoapods/l/DataSources.svg?style=flat)](http://cocoapods.org/pods/DataSources)
+[![Platform](https://img.shields.io/cocoapods/p/DataSources.svg?style=flat)](http://cocoapods.org/pods/DataSources)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+## Requirements
+
+- Swift 3.1 (3.2)
+- iOS 9+
 
 ## Thanks
 
