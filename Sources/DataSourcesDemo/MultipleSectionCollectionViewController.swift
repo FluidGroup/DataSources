@@ -1,6 +1,6 @@
 //
 //  CollectionViewController.swift
-//  ListAdapterDemo
+//  DataSourcesDemo
 //
 //  Created by muukii on 8/8/17.
 //  Copyright © 2017 muukii. All rights reserved.

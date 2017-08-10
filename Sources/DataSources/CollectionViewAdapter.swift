@@ -1,6 +1,6 @@
 //
 //  CollectionViewAdapter.swift
-//  ListAdapter
+//  DataSources
 //
 //  Created by muukii on 8/8/17.
 //  Copyright © 2017 muukii. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public final class CollectionViewAdapter: Updating {
+open class CollectionViewAdapter: Updating {
 
   private(set) public weak var collectionView: UICollectionView?
 

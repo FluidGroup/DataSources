@@ -11,8 +11,13 @@ import Foundation
 import RxSwift
 import EasyPeasy
 import DataSources
+import AsyncDisplayKit
 
-struct ModelA: Diffable {
+protocol Model {
+  var title: String { get }
+}
+
+struct ModelA : Model, Diffable {
 
   var diffIdentifier: AnyHashable {
     return AnyHashable(identity)
@@ -22,7 +27,7 @@ struct ModelA: Diffable {
   let title: String
 }
 
-struct ModelB: Diffable {
+struct ModelB : Model, Diffable {
 
   var diffIdentifier: AnyHashable {
     return AnyHashable(identity)
@@ -80,7 +85,7 @@ final class ViewModel {
   }
 }
 
-final class Header: UICollectionReusableView {
+final class Header : UICollectionReusableView {
 
   let label = UILabel()
 
@@ -100,18 +105,90 @@ final class Header: UICollectionReusableView {
   }
 }
 
-final class Cell: UICollectionViewCell {
+final class Cell : UICollectionViewCell {
 
   let label = UILabel()
+  private let paddingView = UIView()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
 
+    contentView.addSubview(paddingView)
     contentView.addSubview(label)
-    label <- Edges(16)
+    label <- Center()
+    paddingView <- Edges(2)
 
     label.textAlignment = .center
     label.font = UIFont.systemFont(ofSize: 20)
+
+    paddingView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+    paddingView.layer.cornerRadius = 4
+    paddingView.layer.shouldRasterize = true
+    paddingView.layer.rasterizationScale = UIScreen.main.scale
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}
+
+final class CellNode : ASCellNode {
+
+  private let textNode = ASTextNode()
+  private let paddingNode = ASDisplayNode()
+
+  init(model: Model) {
+    super.init()
+
+    textNode.attributedText = NSAttributedString(
+      string: model.title,
+      attributes: [
+        NSFontAttributeName : UIFont.systemFont(ofSize: 20),
+      ]
+    )
+    paddingNode.backgroundColor = UIColor(white: 0.95, alpha: 1)
+
+    automaticallyManagesSubnodes = true
+  }
+
+  override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+
+    return ASInsetLayoutSpec(
+      insets: .init(top: 2, left: 2, bottom: 2, right: 2),
+      child: ASWrapperLayoutSpec(layoutElements: [
+        paddingNode,
+        ASCenterLayoutSpec(
+          horizontalPosition: .center,
+          verticalPosition: .center,
+          sizingOption: .minimumSize,
+          child: textNode)
+        ]
+      )
+    )
+
+  }
+}
+
+final class TableViewCell : UITableViewCell {
+
+  let label = UILabel()
+  private let paddingView = UIView()
+
+  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+    contentView.addSubview(paddingView)
+    contentView.addSubview(label)
+    label <- Center()
+    paddingView <- Edges(2)
+
+    label.textAlignment = .center
+    label.font = UIFont.systemFont(ofSize: 20)
+
+    paddingView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+    paddingView.layer.cornerRadius = 4
+    paddingView.layer.shouldRasterize = true
+    paddingView.layer.rasterizationScale = UIScreen.main.scale
   }
 
   required init?(coder aDecoder: NSCoder) {

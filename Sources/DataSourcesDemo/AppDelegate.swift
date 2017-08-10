@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  ListAdapterDemo
+//  DataSourcesDemo
 //
 //  Created by muukii on 8/7/17.
 //  Copyright © 2017 muukii. All rights reserved.

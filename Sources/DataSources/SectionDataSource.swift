@@ -1,6 +1,6 @@
 //
 //  SectionDataSource.swift
-//  ListAdapter
+//  DataSources
 //
 //  Created by muukii on 8/8/17.
 //  Copyright © 2017 muukii. All rights reserved.
@@ -70,7 +70,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
 
   private let updater: SectionUpdater<T, A>
 
-  private let throttle = Throttle(interval: 0.2)
+  private let throttle = Throttle(interval: 0.1)
 
   public var displayingSection: Int
 
