@@ -13,7 +13,7 @@ public protocol SectionDataSourceType {
   associatedtype ItemType : Diffable
   associatedtype AdapterType : Updating
 
-  func update(items: [ItemType], updateMode: SectionDataSource<ItemType, AdapterType>.UpdateMode, completion: @escaping () -> Void)
+  func update(items: [ItemType], updateMode: SectionDataSource<ItemType, AdapterType>.UpdateMode, immediately: Bool, completion: @escaping () -> Void)
 
   func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType>
 }
@@ -95,11 +95,11 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
     return snapshot[index]
   }
 
-  public func update(items: [T], updateMode: UpdateMode, completion: @escaping () -> Void) {
+  public func update(items: [T], updateMode: UpdateMode, immediately: Bool = false, completion: @escaping () -> Void) {
 
     self.items = items
 
-    throttle.on { [weak self] in
+    let task = { [weak self] in
       guard let `self` = self else { return }
 
       let old = self.snapshot
@@ -122,6 +122,15 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
         updateMode: _updateMode,
         completion: completion
       )
+    }
+
+    if immediately {
+      throttle.cancel()
+      task()
+    } else {
+      throttle.on {
+        task()
+      }
     }
   }
 

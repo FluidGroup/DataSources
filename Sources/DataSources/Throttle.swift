@@ -50,4 +50,8 @@ final class Throttle {
     
     timerReference = timer
   }
+
+  func cancel() {
+    timerReference = nil
+  }
 }

@@ -62,36 +62,38 @@ final class SectionUpdater<T: Diffable, A: Updating> {
         animated = false
       }
 
-      if animated == false {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-      }
-
       let _adapter = self.adapter
 
-      self.adapter.performBatch(
-        updates: {
+      let run = {
+        self.adapter.performBatch(
+          updates: {
 
-          _adapter.reloadItems(at: diff.updates.map { IndexPath(item: $0, section: targetSection) })
-          _adapter.deleteItems(at: diff.deletes.map { IndexPath(item: $0, section: targetSection) })
-          _adapter.insertItems(at: diff.inserts.map { IndexPath(item: $0, section: targetSection) })
+            _adapter.reloadItems(at: diff.updates.map { IndexPath(item: $0, section: targetSection) })
+            _adapter.deleteItems(at: diff.deletes.map { IndexPath(item: $0, section: targetSection) })
+            _adapter.insertItems(at: diff.inserts.map { IndexPath(item: $0, section: targetSection) })
 
-          for move in diff.moves {
-            _adapter.moveItem(
-              at: IndexPath(item: move.from, section: targetSection),
-              to: IndexPath(item: move.to, section: targetSection)
-            )
-          }
-      },
-        completion: {
-          assertMainThread()
-          if animated == false {
-            CATransaction.commit()
-          }
-          self.state = .idle
-          completion()
+            for move in diff.moves {
+              _adapter.moveItem(
+                at: IndexPath(item: move.from, section: targetSection),
+                to: IndexPath(item: move.to, section: targetSection)
+              )
+            }
+        },
+          completion: {
+            assertMainThread()
+            self.state = .idle
+            completion()
+        }
+        )
       }
-      )
+
+      if animated {
+        run()
+      } else {
+        UIView.performWithoutAnimation {
+          run()
+        }
+      }
 
     }
 
