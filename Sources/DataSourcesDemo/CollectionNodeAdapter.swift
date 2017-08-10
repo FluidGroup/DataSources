@@ -11,7 +11,7 @@ import Foundation
 import DataSources
 import class AsyncDisplayKit.ASCollectionNode
 
-public final class CollectionNodeUpdater: Updating {
+public final class CollectionNodeAdapter: Updating {
 
   private(set) public weak var collectionNode: ASCollectionNode?
 

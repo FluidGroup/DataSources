@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rl0-kw-FUD">
-                                <rect key="frame" x="83" y="288.5" width="208" height="90"/>
+                                <rect key="frame" x="83" y="273.5" width="208" height="120"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrC-P5-HN9">
                                         <rect key="frame" x="0.0" y="0.0" width="208" height="30"/>
@@ -35,9 +35,19 @@
                                             <segue destination="E5N-OM-Ka6" kind="show" id="ghw-5g-TCk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlu-2r-9cs">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgf-bv-mn9">
                                         <rect key="frame" x="0.0" y="60" width="208" height="30"/>
+                                        <state key="normal" title="MultipleSectionTableView"/>
+                                        <connections>
+                                            <segue destination="RmE-0X-ThR" kind="show" id="GlD-bO-OBf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlu-2r-9cs">
+                                        <rect key="frame" x="0.0" y="90" width="208" height="30"/>
                                         <state key="normal" title="CollectionNode"/>
+                                        <connections>
+                                            <segue destination="uw7-7h-EO8" kind="show" id="plW-5S-iAC"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -68,7 +78,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TrE-UV-6Rx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1466" y="-536"/>
+            <point key="canvasLocation" x="1463" y="-921"/>
         </scene>
         <!--Single Section Collection View Controller-->
         <scene sceneID="fbi-gF-7tb">
@@ -83,7 +93,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ga7-BF-kWl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1465" y="160"/>
+            <point key="canvasLocation" x="1465" y="-271"/>
+        </scene>
+        <!--Multiple Section Table View Controller-->
+        <scene sceneID="83h-JO-UkZ">
+            <objects>
+                <viewController id="RmE-0X-ThR" customClass="MultipleSectionTableViewController" customModule="DataSourcesDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Pm-U1-4RO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="F3r-lm-8d1"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tuc-nC-mHJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1465" y="381"/>
+        </scene>
+        <!--Multiple Section Collection Node View Controller-->
+        <scene sceneID="hPb-bU-MrK">
+            <objects>
+                <viewController id="uw7-7h-EO8" customClass="MultipleSectionCollectionNodeViewController" customModule="DataSourcesDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7AJ-V0-kFW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="lmt-1b-EQu"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tAH-P7-BdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1465" y="1095"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6xX-88-0EG">

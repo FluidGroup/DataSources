@@ -1,6 +1,6 @@
 //
 //  SectionDataSource.swift
-//  ListAdapter
+//  DataSources
 //
 //  Created by muukii on 8/8/17.
 //  Copyright © 2017 muukii. All rights reserved.
@@ -70,7 +70,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
 
   private let updater: SectionUpdater<T, A>
 
-  private let throttle = Throttle(interval: 0.2)
+  private let throttle = Throttle(interval: 0.1)
 
   public var displayingSection: Int
 
@@ -78,7 +78,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
 
   // MARK: - Initializers
 
-  public init(adapter: A, displayingSection: Int = 0, isEqual: @escaping EqualityChecker<T>) {
+  public init(itemType: T.Type? = nil, adapter: A, displayingSection: Int = 0, isEqual: @escaping EqualityChecker<T>) {
     self.updater = SectionUpdater(adapter: adapter)
     self.isEqual = isEqual
     self.displayingSection = displayingSection
@@ -90,7 +90,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
     return snapshot.count
   }
 
-  public func item(for indexPath: IndexPath) -> T {
+  public func item(at indexPath: IndexPath) -> T {
     let index = toIndex(from: indexPath)
     return snapshot[index]
   }
@@ -129,6 +129,10 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
     return self
   }
 
+  public func indexPath(item: Int) -> IndexPath {
+    return IndexPath(item: item, section: displayingSection)
+  }
+
   @inline(__always)
   fileprivate func toIndex(from indexPath: IndexPath) -> Int {
     assert(indexPath.section == displayingSection, "IndexPath.section (\(indexPath.section)) must be equal to displayingSection (\(displayingSection)).")
@@ -154,7 +158,7 @@ extension SectionDataSource where T : AnyObject {
 
 extension SectionDataSource where T : Equatable {
 
-  public convenience init(adapter: A, displayingSection: Int = 0) {
+  public convenience init(itemType: T.Type? = nil, adapter: A, displayingSection: Int = 0) {
     self.init(adapter: adapter, displayingSection: displayingSection, isEqual: { a, b in a == b })
   }
 }

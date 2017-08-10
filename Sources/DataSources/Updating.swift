@@ -1,6 +1,6 @@
 //
 //  ListDisplaying.swift
-//  ListAdapter
+//  DataSources
 //
 //  Created by muukii on 8/7/17.
 //  Copyright © 2017 muukii. All rights reserved.

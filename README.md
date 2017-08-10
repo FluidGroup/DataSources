@@ -1,6 +1,6 @@
 # DataSources
 
-💾 🗄 Data-driven CollectionView Framework. (Can adapt ASCollectionNode)
+💾 🗄 Data-driven List-UI Framework. (We can also use ASCollectionNode)
 
 ---
 
@@ -17,6 +17,21 @@ This project is in a prerelease state. There is active work going on that will r
 - IGListKit-IGListDiff
   - https://github.com/Instagram/IGListKit
   - https://github.com/lxcid/ListDiff
+  
+## Features
+
+- Data driven
+  - Data did change, then will display.
+- Partial updates, no more calling `reloadData`
+  - Smooth and Faster.
+  - if the count of changes larger than 300, update with non-animation.
+- Simplified usage
+- We can use different type each section.
+- Type-safe
+  - We can take clearly typed object by IndexPath.
+- This library is not supported moving between section.
+- Using Adapter-pattern for List-UI
+  - For example, We can also use this for ASCollectionNode of Texture. (Demo app includes it)
 
 ## Usage (Example)
 
@@ -155,8 +170,7 @@ func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection s
 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
   return dataSource.item(
-    at: indexPath,
-    returnType: UICollectionViewCell.self,
+    at: indexPath,    
     handlers: [
     .init(section: section0) { (m: ModelA) in
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
