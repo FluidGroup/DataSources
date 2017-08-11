@@ -34,9 +34,10 @@
 - We can use different type each section.
 - Type-safe
   - We can take clearly typed object by IndexPath.
-- This library is not supported moving between section.
 - Using Adapter-pattern for List-UI
   - For example, We can also use this for ASCollectionNode of Texture. (Demo app includes it)
+- Reorder by UI operation
+- This library is not supported moving between section.
 
 ## Usage (Example)
 
@@ -207,6 +208,23 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
    */
 }
 ```
+
+## Reorder by UI operation
+
+`SectionDataSource` has a snapshot for `List-UI`.
+It helps that perform batch update List-UI in safety.
+
+But, the snapshots include side-effects.
+For example, if we did reorder items of `List-UI` by UI operation.
+In this time, Items of List-UI is caused differences to the snapshot.
+It will be caused unnecessary diff.
+
+Therefore when we reorder items, we should operation followings.
+
+0. Reorder items of UI
+1. Call `SectionDataSource.reserveMoved(...`
+2. Reorder items of Array
+3. Call `SectionDataSource.update(items: [T]..`
 
 # Author
 
