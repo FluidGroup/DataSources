@@ -95,6 +95,31 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
     return snapshot[index]
   }
 
+  /// Reserves that a move occurred in DataSource by View operation.
+  ///
+  /// If you moved item on View, operation following order,
+  /// 1. Call reserveMoved(...
+  /// 2. Reorder items
+  /// 3. update(items: [T]..
+  ///
+  /// - Parameters:
+  ///   - sourceIndexPath:
+  ///   - destinationIndexPath:
+  public func reserveMoved(source sourceIndexPath: IndexPath, destination destinationIndexPath: IndexPath) {
+
+    precondition(
+      sourceIndexPath.section == displayingSection,
+      "sourceIndexPath.section \(sourceIndexPath.section) must be equal to \(displayingSection)"
+    )
+    precondition(
+      destinationIndexPath.section == displayingSection,
+      "destinationIndexPath.section \(sourceIndexPath.section) must be equal to \(displayingSection)"
+    )
+
+    let o = snapshot.remove(at: sourceIndexPath.item)
+    snapshot.insert(o, at: destinationIndexPath.item)
+  }
+
   public func update(items: [T], updateMode: UpdateMode, immediately: Bool = false, completion: @escaping () -> Void) {
 
     self.items = items
