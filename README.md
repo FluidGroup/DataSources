@@ -19,7 +19,7 @@
 ## Thanks
 
 **Diff-algorithm**
-- IGListKit-IGListDiff
+- It's used by IGListKit/IGListDiff.
   - https://github.com/Instagram/IGListKit
   - https://github.com/lxcid/ListDiff
   
