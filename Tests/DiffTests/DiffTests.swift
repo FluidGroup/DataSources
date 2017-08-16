@@ -11,48 +11,6 @@ import XCTest
 
 final class DiffTests: XCTestCase {
 
-  final class SwiftClass: Diffable, Equatable {
-
-    static func == (lhs: SwiftClass, rhs: SwiftClass) -> Bool {
-      guard lhs.id == rhs.id else { return false }
-      guard lhs.id == rhs.id else { return false }
-      return true
-    }
-
-    let id: Int
-    let value: String
-
-    init(id: Int, value: String) {
-      self.id = id
-      self.value = value
-    }
-
-    var diffIdentifier: AnyHashable {
-      return .init(id)
-    }
-  }
-
-  final class SwiftStruct: Diffable, Equatable {
-
-    static func == (lhs: SwiftStruct, rhs: SwiftStruct) -> Bool {
-      guard lhs.id == rhs.id else { return false }
-      guard lhs.id == rhs.id else { return false }
-      return true
-    }
-
-    let id: Int
-    let value: String
-
-    init(id: Int, value: String) {
-      self.id = id
-      self.value = value
-    }
-
-    var diffIdentifier: AnyHashable {
-      return .init(id)
-    }
-  }
-
   func testDiffingNSStrings() {
     let o: [NSString] = ["a", "b", "c"]
     let n: [NSString] = ["a", "c", "d"]
@@ -93,3 +51,46 @@ final class DiffTests: XCTestCase {
     XCTAssertEqual(result.updates.count, 0)
   }
 }
+
+final class SwiftClass: Diffable, Equatable {
+
+  static func == (lhs: SwiftClass, rhs: SwiftClass) -> Bool {
+    guard lhs.id == rhs.id else { return false }
+    guard lhs.id == rhs.id else { return false }
+    return true
+  }
+
+  let id: Int
+  let value: String
+
+  init(id: Int, value: String) {
+    self.id = id
+    self.value = value
+  }
+
+  var diffIdentifier: AnyHashable {
+    return .init(id)
+  }
+}
+
+final class SwiftStruct: Diffable, Equatable {
+
+  static func == (lhs: SwiftStruct, rhs: SwiftStruct) -> Bool {
+    guard lhs.id == rhs.id else { return false }
+    guard lhs.id == rhs.id else { return false }
+    return true
+  }
+
+  let id: Int
+  let value: String
+
+  init(id: Int, value: String) {
+    self.id = id
+    self.value = value
+  }
+
+  var diffIdentifier: AnyHashable {
+    return .init(id)
+  }
+}
+

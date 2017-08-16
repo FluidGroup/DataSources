@@ -29,6 +29,7 @@
 		4BBC868D1F3B49BF00BD424A /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBC868C1F3B49BF00BD424A /* Components.swift */; };
 		4BCFF27D1F38DCE50031FFAC /* SectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */; };
 		4BCFF27F1F38DD3E0031FFAC /* SectionUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */; };
+		4BDA6DF61F44B49C00573111 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA6DF51F44B49C00573111 /* PerformanceTests.swift */; };
 		4BDB45E21F394881003F5053 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB45D91F394881003F5053 /* Diff.framework */; };
 		4BDB45E91F394881003F5053 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45E81F394881003F5053 /* DiffTests.swift */; };
 		4BDB45EB1F394881003F5053 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDB45DB1F394881003F5053 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -127,6 +128,7 @@
 		4BBC868E1F3B62C500BD424A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDataSource.swift; sourceTree = "<group>"; };
 		4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionUpdater.swift; sourceTree = "<group>"; };
+		4BDA6DF51F44B49C00573111 /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		4BDB45D91F394881003F5053 /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDB45DB1F394881003F5053 /* Diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diff.h; sourceTree = "<group>"; };
 		4BDB45DC1F394881003F5053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				4BDB45E81F394881003F5053 /* DiffTests.swift */,
+				4BDA6DF51F44B49C00573111 /* PerformanceTests.swift */,
 				4BDB45EA1F394881003F5053 /* Info.plist */,
 			);
 			path = DiffTests;
@@ -735,6 +738,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDA6DF61F44B49C00573111 /* PerformanceTests.swift in Sources */,
 				4BDB45E91F394881003F5053 /* DiffTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1094,7 +1098,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.DiffTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1108,7 +1112,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.DiffTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

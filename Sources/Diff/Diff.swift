@@ -158,7 +158,7 @@ public enum Diff: Diffing {
 
   public static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: EqualityChecker<T>) -> DiffResultType {
     // symbol table uses the old/new array `diffIdentifier` as the key and `Entry` as the value
-    var table = Dictionary<AnyHashable, Entry>()
+    var table = Dictionary<AnyHashable, Entry>.init(minimumCapacity: oldArray.count)
 
     // pass 1
     // create an entry for every item in the new array
