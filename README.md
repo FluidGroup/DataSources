@@ -22,7 +22,7 @@
 ## Thanks
 
 **Diff-algorithm**
-- It's used by IGListKit/IGListDiff.
+- Inspired by IGListKit/IGListDiff.
   - https://github.com/Instagram/IGListKit
   - https://github.com/lxcid/ListDiff
   
