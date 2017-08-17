@@ -9,25 +9,40 @@
 import Foundation
 
 extension Int: Diffable {
-  public var diffIdentifier: AnyHashable {
-    return .init(self)
+  public var diffIdentifier: Int {
+    return self
   }
 }
 
 extension NSNumber: Diffable {
-  public var diffIdentifier: AnyHashable {
-    return .init(self)
+  public var diffIdentifier: NSNumber {
+    return self
   }
 }
 
 extension String: Diffable {
-  public var diffIdentifier: AnyHashable {
-    return .init(self)
+  public var diffIdentifier: String {
+    return self
   }
 }
 
 extension NSString: Diffable {
-  public var diffIdentifier: AnyHashable {
-    return .init(self)
+  public var diffIdentifier: NSString {
+    return self
   }
+}
+
+extension FloatingPoint {
+
+  public var diffIdentifier: Self {
+    return self
+  }
+}
+
+extension Float : Diffable {
+
+}
+
+extension Double : Diffable {
+
 }
