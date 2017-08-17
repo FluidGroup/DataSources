@@ -152,7 +152,7 @@ var section0Models: [ModelA] = […] {
 var section1Models: [ModelA] = […] {
   didSet {
     dataSource.update(
-      in: section0,
+      in: section1,
       items: section1Models,
       updateMode: .partial(animated: true),
       completion: {
