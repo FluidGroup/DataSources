@@ -18,12 +18,6 @@ public protocol Diffable {
   var diffIdentifier: Identifier { get }
 }
 
-extension Diffable {
-  fileprivate var _diffIdentifier: AnyHashable {
-    return AnyHashable(diffIdentifier)
-  }
-}
-
 public protocol Diffing {
   static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: EqualityChecker<T>) -> DiffResultType
 }
@@ -58,21 +52,21 @@ public struct MoveIndex : Equatable, CustomDebugStringConvertible, CustomPlaygro
   }
 }
 
-public struct DiffResult: DiffResultType, CustomDebugStringConvertible, CustomPlaygroundQuickLookable {
+public struct DiffResult<H: Hashable> : DiffResultType, CustomDebugStringConvertible, CustomPlaygroundQuickLookable {
   public var inserts = IndexSet()
   public var updates = IndexSet()
   public var deletes = IndexSet()
   public var moves = Array<MoveIndex>()
-  public var oldMap = Dictionary<AnyHashable, Int>()
-  public var newMap = Dictionary<AnyHashable, Int>()
+  public var oldMap = Dictionary<H, Int>()
+  public var newMap = Dictionary<H, Int>()
 
   public func validate<T: Diffable>(_ oldArray: [T], _ newArray: [T]) -> Bool {
     return (oldArray.count + self.inserts.count - self.deletes.count) == newArray.count
   }
-  public func oldIndexFor(identifier: AnyHashable) -> Int? {
+  public func oldIndexFor(identifier: H) -> Int? {
     return self.oldMap[identifier]
   }
-  public func newIndexFor(identifier: AnyHashable) -> Int? {
+  public func newIndexFor(identifier: H) -> Int? {
     return self.newMap[identifier]
   }
 
@@ -156,16 +150,43 @@ public enum Diff: Diffing {
     }
   }
 
+  private struct OptimizedIdentity<E: Hashable> : Hashable {
+
+    let hashValue: Int
+    let identity: UnsafePointer<E>
+
+    init(_ identity: UnsafePointer<E>) {
+      self.identity = identity
+      self.hashValue = identity.pointee.hashValue
+    }
+
+    static func == <E>(lhs: OptimizedIdentity<E>, rhs: OptimizedIdentity<E>) -> Bool {
+      if lhs.hashValue != rhs.hashValue {
+        return false
+      }
+
+      if lhs.identity.distance(to: rhs.identity) == 0 {
+        return true
+      }
+
+      return lhs.identity.pointee == rhs.identity.pointee
+    }
+  }
+
   public static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: EqualityChecker<T>) -> DiffResultType {
     // symbol table uses the old/new array `diffIdentifier` as the key and `Entry` as the value
-    var table = Dictionary<AnyHashable, Entry>.init(minimumCapacity: oldArray.count)
+    var table = Dictionary<OptimizedIdentity<T.Identifier>, Entry>.init(minimumCapacity: oldArray.count)
+
+    let __oldArray = ContiguousArray(oldArray)
+    let __newArray = ContiguousArray(newArray)
 
     // pass 1
     // create an entry for every item in the new array
     // increment its new count for each occurence
     // record `nil` for each occurence of the item in the new array
-    var newRecords = newArray.map { (newRecord) -> Record in
-      let key = newRecord._diffIdentifier
+    var newRecords = __newArray.map { (newRecord) -> Record in
+      var identifier = newRecord.diffIdentifier
+      let key = OptimizedIdentity(&identifier)
       if let entry = table[key] {
         // add `nil` for each occurence of the item in the new array
         entry.push(new: nil)
@@ -184,8 +205,9 @@ public enum Diff: Diffing {
     // increment its old count for each occurence
     // record the old index for each occurence of the item in the old array
     // MUST be done in descending order to respect the oldIndexes stack construction
-    var oldRecords = oldArray.enumerated().reversed().map { (i, oldRecord) -> Record in
-      let key = oldRecord._diffIdentifier
+    var oldRecords = __oldArray.enumerated().reversed().map { (i, oldRecord) -> Record in
+      var identifier = oldRecord.diffIdentifier
+      let key = OptimizedIdentity(&identifier)
       if let entry = table[key] {
         // push the old indices where the item occured onto the index stack
         entry.push(old: i)
@@ -208,9 +230,9 @@ public enum Diff: Diffing {
       guard let oldIndex = entry.oldIndexes.pop() else {
         return
       }
-      if oldIndex < oldArray.count {
-        let n = newArray[i]
-        let o = oldArray[oldIndex]
+      if oldIndex < __oldArray.count {
+        let n = __newArray[i]
+        let o = __oldArray[oldIndex]
         if isEqual(n, o) == false {
           entry.updated = true
         }
@@ -223,7 +245,7 @@ public enum Diff: Diffing {
     }
 
     // storage for final indexes
-    var result = DiffResult()
+    var result = DiffResult<T.Identifier>()
 
     // track offsets from deleted items to calculate where items have moved
     // iterate old array records checking for deletes
@@ -236,7 +258,7 @@ public enum Diff: Diffing {
         result.deletes.insert(i)
         runningOffset += 1
       }
-      result.oldMap[oldArray[i]._diffIdentifier] = i
+      result.oldMap[__oldArray[i].diffIdentifier] = i
       return deleteOffset
     }
 
@@ -260,7 +282,7 @@ public enum Diff: Diffing {
         result.inserts.insert(i)
         runningOffset += 1
       }
-      result.newMap[newArray[i]._diffIdentifier] = i
+      result.newMap[__newArray[i].diffIdentifier] = i
       return insertOffset
     }
 
