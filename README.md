@@ -5,6 +5,10 @@
 # DataSources
 💾 🔜📱 Type-safe data-driven List-UI Framework. (We can also use ASCollectionNode)
 
+Partial updates(insert, delete, move) of UICollectionView/UITableView is important things for fancy UI.
+But, It's hard that synchronous of data and UI.
+**DataSources** will solve this problem.
+
 ![](https://img.shields.io/badge/Swift-3.1-blue.svg?style=flat)
 [![CI Status](http://img.shields.io/travis/muukii/DataSources.svg?style=flat)](https://travis-ci.org/muukii/DataSources)
 [![Version](https://img.shields.io/cocoapods/v/DataSources.svg?style=flat)](http://cocoapods.org/pods/DataSources)
@@ -13,11 +17,6 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ![](sample.gif)
-
-## Requirements
-
-- Swift 3.1 (3.2)
-- iOS 9+
 
 ## Thanks
 
@@ -41,6 +40,11 @@
   - For example, We can also use this for ASCollectionNode of Texture. (Demo app includes it)
 - Reorder by UI operation
 - This library is not supported moving between section.
+
+## Requirements
+
+- Swift 3.1 (3.2)
+- iOS 9+
 
 ## Usage (Example)
 
