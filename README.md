@@ -228,10 +228,66 @@ Therefore when we reorder items, we should operation followings.
 1. Call `SectionDataSource.reserveMoved(...`
 2. Reorder items of Array
 3. Call `SectionDataSource.update(items: [T]..`
+  
+# Appendix
+
+## Combination with RxSwift
+
+We can use DataSources with RxSwift.
+The following code is an example.
+
+Add extension
+
+```swift
+import RxSwift
+import DataSources
+
+extension SectionDataSource : ReactiveCompatible {}
+
+extension Reactive where Base : SectionDataSourceType {
+
+  public func partialUpdate<
+    T,
+    Source: ObservableType
+    >
+    (animated: Bool) -> (_ o: Source) -> Disposable where Source.E == [T], T == Base.ItemType {
+
+    weak var t = base.asSectionDataSource()
+
+    return { source in
+
+      source
+        .observeOn(MainScheduler.instance)
+        .concatMap { (newItems: [T]) -> Completable in
+          Completable.create { o in
+            guard let sectionDataSource = t else {
+              o(.completed)
+              return Disposables.create()
+            }
+            sectionDataSource.update(items: newItems, updateMode: .partial(animated: animated), completion: {
+              o(.completed)
+            })
+            return Disposables.create()
+          }
+        }
+        .subscribe()
+    }
+  }
+}
+```
+
+```swift
+let models: Variable<[Model]>
+let sectionDataSource = SectionDataSource<Model, CollectionViewAdapter>
+
+models
+  .asDriver()
+  .drive(sectionDataSource.rx.partialUpdate(animated: true))
+```
 
 # Author
 
-muukii, m@muukii.me
+muukii, m@muukii.me, https://about.me/muukii
 
 # License
 
