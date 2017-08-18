@@ -5,8 +5,8 @@
 # DataSources
 💾 🔜📱 Type-safe data-driven List-UI Framework. (We can also use ASCollectionNode)
 
-Partial updates(insert, delete, move) of UICollectionView/UITableView is important things for fancy UI.
-But, It's hard that synchronous of data and UI.
+Partial updates(insert, delete, move) of UICollectionView/UITableView is important things for fancy UI.<br>
+But, It's hard that synchronous of data and UI.<br>
 **DataSources** will solve this problem.
 
 ![](https://img.shields.io/badge/Swift-3.1-blue.svg?style=flat)
