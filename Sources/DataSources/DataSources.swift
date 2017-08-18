@@ -12,6 +12,7 @@ import Foundation
   @_exported import Diff
 #endif
 
+@inline(__always)
 func assertMainThread() {
-  assert(Thread.isMainThread)
+  assert(Thread.isMainThread, "You must call on MainThread")
 }

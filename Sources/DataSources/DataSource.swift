@@ -117,6 +117,10 @@ public final class DataSource<A: Updating> {
     )
   }
 
+  /// Get SectionDataSource
+  ///
+  /// - Parameter section:
+  /// - Returns:
   public func sectionDataSource<T>(section: Section<T>) -> SectionDataSource<T, A> {
 
     assertMainThread()
@@ -131,6 +135,13 @@ public final class DataSource<A: Updating> {
     return s
   }
 
+  /// Return Specified Type<U> with Handler<U>. Inside of Handler get Item of IndexPath.
+  ///
+  /// - Parameters:
+  ///   - indexPath:
+  ///   - returnType:
+  ///   - handlers:
+  /// - Returns:
   public func item<U>(at indexPath: IndexPath, returnType: U.Type? = nil, handlers: [Handler<U>]) -> U {
 
     assertMainThread()

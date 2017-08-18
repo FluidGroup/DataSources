@@ -18,6 +18,7 @@ public protocol SectionDataSourceType {
   func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType>
 }
 
+/// Type of Model erased SectionDataSource
 final class AnySectionDataSource<A: Updating> {
 
   let source: Any
@@ -52,6 +53,7 @@ final class AnySectionDataSource<A: Updating> {
   }
 }
 
+/// DataSource for a section
 public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourceType {
 
   public typealias ItemType = T
@@ -176,6 +178,12 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
 
 extension SectionDataSource {
 
+  /// IndexPath of Item
+  ///
+  /// IndexPath will be found by isEqual closure.
+  ///
+  /// - Parameter item:
+  /// - Returns:
   public func indexPath(of item: T) -> IndexPath {
     let index = items.index(where: { isEqual($0, item) })!
     return IndexPath(item: index, section: displayingSection)
@@ -184,6 +192,12 @@ extension SectionDataSource {
 
 extension SectionDataSource where T : AnyObject {
 
+  /// IndexPath of Item
+  ///
+  /// IndexPath will be found by the pointer for Item.
+  ///
+  /// - Parameter item:
+  /// - Returns:
   public func indexPathPointerPersonality(of item: T) -> IndexPath {
     let index = items.index(where: { $0 === item })!
     return IndexPath(item: index, section: displayingSection)
