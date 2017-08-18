@@ -28,7 +28,7 @@
   
 ## Features
 
-- Data driven
+- Data driven update
   - Data did change, then will display.
 - Partial updates, no more calling `reloadData`
   - Smooth and Faster.
@@ -284,6 +284,38 @@ models
   .asDriver()
   .drive(sectionDataSource.rx.partialUpdate(animated: true))
 ```
+
+# Demo Application
+
+This repository include Demo-Application.
+You can touch DataSources.
+
+1. Clone repository.
+
+```
+$ git clone https://github.com/muukii/DataSources.git
+$ cd DataSources
+$ pod install
+```
+
+2. Open xcworkspace
+3. Run `DataSourcesDemo` on iPhone Simulator.
+
+# Installation
+
+## CocoaPods
+
+```
+pod 'DataSources'
+```
+
+## Carthage
+
+```
+github "muukii/DataSources"
+```
+
+You need to add `DataSources.framework` and `Diff.framework` to your project.
 
 # Author
 
