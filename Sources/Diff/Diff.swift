@@ -173,6 +173,13 @@ public enum Diff: Diffing {
     }
   }
 
+  /// Diffing
+  ///
+  /// - Parameters:
+  ///   - oldArray:
+  ///   - newArray:
+  ///   - isEqual: To use for decision that item should update
+  /// - Returns:
   public static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: EqualityChecker<T>) -> DiffResultType {
     // symbol table uses the old/new array `diffIdentifier` as the key and `Entry` as the value
     var table = Dictionary<OptimizedIdentity<T.Identifier>, Entry>.init(minimumCapacity: oldArray.count)

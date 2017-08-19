@@ -80,6 +80,13 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
 
   // MARK: - Initializers
 
+  /// Initialize
+  ///
+  /// - Parameters:
+  ///   - itemType:
+  ///   - adapter:
+  ///   - displayingSection:
+  ///   - isEqual: To use for decision that item should update.
   public init(itemType: T.Type? = nil, adapter: A, displayingSection: Int = 0, isEqual: @escaping EqualityChecker<T>) {
     self.updater = SectionUpdater(adapter: adapter)
     self.isEqual = isEqual
@@ -88,10 +95,16 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
 
   // MARK: - Functions
 
+  /// Return number of items based on snapshot
+  ///
+  /// - Returns:
   public func numberOfItems() -> Int {
     return snapshot.count
   }
 
+  /// Return item based on snapshot
+  ///
+  /// - Returns:
   public func item(at indexPath: IndexPath) -> T {
     let index = toIndex(from: indexPath)
     return snapshot[index]
@@ -122,6 +135,13 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
     snapshot.insert(o, at: destinationIndexPath.item)
   }
 
+  /// Update
+  ///
+  /// - Parameters:
+  ///   - items:
+  ///   - updateMode:
+  ///   - immediately:
+  ///   - completion: 
   public func update(items: [T], updateMode: UpdateMode, immediately: Bool = false, completion: @escaping () -> Void) {
 
     self.items = items
@@ -165,6 +185,10 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
     return self
   }
 
+  /// Create IndexPath from item and displayingSection.
+  ///
+  /// - Parameter item:
+  /// - Returns:
   public func indexPath(item: Int) -> IndexPath {
     return IndexPath(item: item, section: displayingSection)
   }
