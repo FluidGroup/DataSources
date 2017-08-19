@@ -323,7 +323,7 @@ You need to add `DataSources.framework` and `Diff.framework` to your project.
 
 # Author
 
-muukii, m@muukii.me, https://about.me/muukii
+muukii, m@muukii.me, https://muukii.me/
 
 # License
 
