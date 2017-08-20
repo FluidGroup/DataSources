@@ -17,7 +17,7 @@ final class MultipleSectionTableViewController: UIViewController, UITableViewDel
 
   private lazy var tableView: UITableView = UITableView(frame: .zero, style: .plain)
 
-  private lazy var _dataSource: DataSource<TableViewAdapter> = .init(adapter: .init(tableView: self.tableView))
+  private lazy var _dataSource: DataController<TableViewAdapter> = .init(adapter: .init(tableView: self.tableView))
 
   private let section0 = Section(ModelA.self, isEqual: { $0.identity == $1.identity })
   private let section1 = Section(ModelB.self, isEqual: { $0.identity == $1.identity })
@@ -95,12 +95,12 @@ final class MultipleSectionTableViewController: UIViewController, UITableViewDel
     return _dataSource.item(
       at: indexPath,
       handlers: [
-        .init(section: section0) { m in
+        .init(section: section0) { tableView, indexPath, m in
           let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
           cell.label.text = m.title
           return cell
         },
-        .init(section: section1) { m in
+        .init(section: section1) { tableView, indexPath, m in
           let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
           cell.label.text = m.title
           return cell

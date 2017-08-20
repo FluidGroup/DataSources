@@ -1,5 +1,5 @@
 //
-//  ListDisplaying.swift
+//  Updating.swift
 //  DataSources
 //
 //  Created by muukii on 8/7/17.
@@ -9,6 +9,10 @@
 import Foundation
 
 public protocol Updating : class {
+
+  associatedtype Target
+
+  var target: Target { get }
 
   func insertItems(at indexPaths: [IndexPath])
 

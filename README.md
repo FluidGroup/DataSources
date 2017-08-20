@@ -68,26 +68,59 @@ struct Model : Diffable {
 }
 ```
 
-### Single-Section (UICollectionView)
+### 🤠 Most Simplified Usage
 
-1. Define `SectionDataSource` in ViewController
+1. Define `SectionDataController` in ViewController
+
+```swift
+let collectionView: UICollectionView
+
+let sectionDataController = SectionDataController<Model, CollectionViewAdapter>(
+  adapter: CollectionViewAdapter(collectionView: self.collectionView),
+  isEqual: { $0.id == $1.id } // If Model has Equatable, you can omit this closure.
+)
+
+var models: [Model] = [] {
+  didSet {
+    sectionDataController.update(items: items, updateMode: .partial(animated: true), completion: {
+      // Completed update
+    })
+  }
+}
+
+let dataSource = CollectionViewDataSource(sectionDataController: sectionDataController)
+
+dataSource.cellFactory = { _, collectionView, indexPath, model in
+   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+   cell.label.text = model.title
+   return cell
+ }
+
+collectionView.dataSource = dataSource
+```
+
+### 😎 Semi Manual
+
+#### Single-Section (UICollectionView)
+
+1. Define `SectionDataController` in ViewController
 
 ```swift
 let collectionView: UICollectionView
 var models: [Model]
 
-let sectionDataSource = SectionDataSource<Model, CollectionViewAdapter>(
+let sectionDataController = SectionDataController<Model, CollectionViewAdapter>(
   adapter: CollectionViewAdapter(collectionView: self.collectionView),
   isEqual: { $0.id == $1.id } // If Model has Equatable, you can omit this closure.
 )
 ```
 
-2. Bind Models to `SectionDataSource` in ViewController
+2. Bind Models to `SectionDataController` in ViewController
 
 ```swift
 var models: [Model] = […] {
   didSet {
-    sectionDataSource.update(items: items, updateMode: .partial(animated: true), completion: {
+    sectionDataController.update(items: items, updateMode: .partial(animated: true), completion: {
       // Completed update
     })
   }
@@ -102,27 +135,27 @@ func numberOfSections(in collectionView: UICollectionView) -> Int {
 }
 
 func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-  return sectionDataSource.numberOfItems()
+  return sectionDataController.numberOfItems()
 }
 
 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-  let m = sectionDataSource.item(for: indexPath)
+  let m = sectionDataController.item(for: indexPath)
   cell.label.text = m.title
   return cell
 }
 ```
 
-### Multiple-Section (UICollectionView)
+#### Multiple-Section (UICollectionView)
 
-1. Define `DataSource` in ViewController
+1. Define `DataController` in ViewController
 
 ```swift
 let collectionView: UICollectionView
 var models: [Model]
 
-let dataSource = DataSource<CollectionViewAdapter>(adapter: CollectionViewAdapter(collectionView: self.collectionView))
+let dataController = DataController<CollectionViewAdapter>(adapter: CollectionViewAdapter(collectionView: self.collectionView))
 ```
 
 2. Define `Section<T>` in ViewController
@@ -132,21 +165,21 @@ let section0 = Section(ModelA.self, isEqual: { $0.id == $1.id })
 let section1 = Section(ModelB.self, isEqual: { $0.id == $1.id })
 ```
 
-3. Add `Section` to `DataSource`
+3. Add `Section` to `DataController`
 
 Order of Section will be decided in the order of addition.
 
 ```swift
-dataSource.add(section: section0) // will be 0 of section
-dataSource.add(section: section1) // will be 1 of section
+dataController.add(section: section0) // will be 0 of section
+dataController.add(section: section1) // will be 1 of section
 ```
 
-4. Bind Models to DataSource
+4. Bind Models to DataController
 
 ```swift
 var section0Models: [ModelA] = […] {
   didSet {
-    dataSource.update(
+    dataController.update(
       in: section0,
       items: section0Models,
       updateMode: .partial(animated: true),
@@ -158,7 +191,7 @@ var section0Models: [ModelA] = […] {
 
 var section1Models: [ModelA] = […] {
   didSet {
-    dataSource.update(
+    dataController.update(
       in: section1,
       items: section1Models,
       updateMode: .partial(animated: true),
@@ -173,16 +206,16 @@ var section1Models: [ModelA] = […] {
 
 ```swift
 func numberOfSections(in collectionView: UICollectionView) -> Int {
-  return dataSource.numberOfSections()
+  return dataController.numberOfSections()
 }
 
 func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-  return dataSource.numberOfItems(in: section)
+  return dataController.numberOfItems(in: section)
 }
 
 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-  return dataSource.item(
+  return dataController.item(
     at: indexPath,    
     handlers: [
     .init(section: section0) { (m: ModelA) in
@@ -201,12 +234,12 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
   switch indexPath.section {
   case section0:
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-    let m = _dataSource.item(at: indexPath, in: section0)
+    let m = _dataController.item(at: indexPath, in: section0)
     cell.label.text = m.title
     return cell
   case section1:
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-    let m = _dataSource.item(at: indexPath, in: section1)
+    let m = _dataController.item(at: indexPath, in: section1)
     cell.label.text = m.title
     return cell
   default:
@@ -218,7 +251,7 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
 
 ## Reorder by UI operation
 
-`SectionDataSource` has a snapshot for `List-UI`.
+`SectionDataController` has a snapshot for `List-UI`.
 It helps that perform batch update List-UI in safety.
 
 But, the snapshots include side-effects.
@@ -229,34 +262,34 @@ It will be caused unnecessary diff.
 Therefore when we reorder items, we should operation followings.
 
 0. Reorder items of UI
-1. Call `SectionDataSource.reserveMoved(...`
+1. Call `SectionDataController.reserveMoved(...`
 2. Reorder items of Array
-3. Call `SectionDataSource.update(items: [T]..`
+3. Call `SectionDataController.update(items: [T]..`
   
 # Appendix
 
 ## Combination with RxSwift
 
-We can use DataSources with RxSwift.
+We can use DataControllers with RxSwift.
 The following code is an example.
 
 Add extension
 
 ```swift
 import RxSwift
-import DataSources
+import DataControllers
 
-extension SectionDataSource : ReactiveCompatible {}
+extension SectionDataController : ReactiveCompatible {}
 
-extension Reactive where Base : SectionDataSourceType {
+extension Reactive where Base : SectionDataControllerType {
 
   public func partialUpdate<
     T,
-    Source: ObservableType
+    Controller: ObservableType
     >
     (animated: Bool) -> (_ o: Source) -> Disposable where Source.E == [T], T == Base.ItemType {
 
-    weak var t = base.asSectionDataSource()
+    weak var t = base.asSectionDataController()
 
     return { source in
 
@@ -264,11 +297,11 @@ extension Reactive where Base : SectionDataSourceType {
         .observeOn(MainScheduler.instance)
         .concatMap { (newItems: [T]) -> Completable in
           Completable.create { o in
-            guard let sectionDataSource = t else {
+            guard let sectionDataController = t else {
               o(.completed)
               return Disposables.create()
             }
-            sectionDataSource.update(items: newItems, updateMode: .partial(animated: animated), completion: {
+            sectionDataController.update(items: newItems, updateMode: .partial(animated: animated), completion: {
               o(.completed)
             })
             return Disposables.create()
@@ -282,11 +315,11 @@ extension Reactive where Base : SectionDataSourceType {
 
 ```swift
 let models: Variable<[Model]>
-let sectionDataSource = SectionDataSource<Model, CollectionViewAdapter>
+let sectionDataController = SectionDataController<Model, CollectionViewAdapter>
 
 models
   .asDriver()
-  .drive(sectionDataSource.rx.partialUpdate(animated: true))
+  .drive(sectionDataController.rx.partialUpdate(animated: true))
 ```
 
 # Demo Application

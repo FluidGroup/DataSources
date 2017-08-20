@@ -25,7 +25,7 @@ final class MultipleSectionCollectionNodeViewController: UIViewController, ASCol
     return ASCollectionNode(collectionViewLayout: layout)
   }()
 
-  private lazy var _dataSource: DataSource<CollectionNodeAdapter> = .init(adapter: .init(collectionNode: self.collectionNode))
+  private lazy var _dataSource: DataController<CollectionNodeAdapter> = .init(adapter: .init(collectionNode: self.collectionNode))
 
   private let section0 = Section(ModelA.self, isEqual: { $0.identity == $1.identity })
   private let section1 = Section(ModelB.self, isEqual: { $0.identity == $1.identity })
@@ -100,12 +100,12 @@ final class MultipleSectionCollectionNodeViewController: UIViewController, ASCol
     return _dataSource.item(
       at: indexPath,
       handlers: [
-        .init(section: section0) { m in
+        .init(section: section0) { _, _, m in
           {
             CellNode(model: m)
           }
         },
-        .init(section: section1) { m in
+        .init(section: section1) { _, _, m in
           {
             CellNode(model: m)
           }

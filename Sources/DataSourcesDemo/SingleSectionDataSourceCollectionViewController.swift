@@ -1,8 +1,8 @@
 //
-//  CollectionViewController.swift
+//  SingleSectionDataSourceCollectionViewController.swift
 //  DataSourcesDemo
 //
-//  Created by muukii on 8/8/17.
+//  Created by muukii on 8/20/17.
 //  Copyright © 2017 muukii. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import EasyPeasy
 import RxSwift
 import RxCocoa
 
-final class SingleSectionCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class SingleSectionDataSourceCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout {
 
   private lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -27,11 +27,13 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
     return collectionView
   }()
 
-  private lazy var dataSource: SectionDataController<ModelA, CollectionViewAdapter> = .init(
+  private lazy var _dataSource: SectionDataController<ModelA, CollectionViewAdapter> = .init(
     adapter: .init(collectionView: self.collectionView),
     displayingSection: 0,
     isEqual: { a, b in a.identity == b.identity }
   )
+
+  private lazy var dataSource: CollectionViewDataSource<ModelA> = .init(sectionDataSource: self._dataSource)
 
   private let add = UIBarButtonItem(title: "Add", style: .plain, target: nil, action: nil)
   private let remove = UIBarButtonItem(title: "Remove", style: .plain, target: nil, action: nil)
@@ -66,33 +68,23 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
       .disposed(by: disposeBag)
 
     collectionView.delegate = self
-    collectionView.dataSource = self
+    collectionView.dataSource = dataSource
+
+    dataSource.cellFactory = { _, collectionView, indexPath, m in
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+      cell.label.text = m.title
+      return cell
+    }
 
     viewModel.section0
       .asDriver()
       .drive(onNext: { [weak self] items in
         print("Begin update")
-        self?.dataSource.update(items: items, updateMode: .partial(animated: true), completion: {
+        self?._dataSource.update(items: items, updateMode: .partial(animated: true), completion: {
           print("Throttled Complete")
         })
       })
       .disposed(by: disposeBag)
-  }
-
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
-  }
-
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return dataSource.numberOfItems()
-  }
-
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-    let m = dataSource.item(at: indexPath)
-    cell.label.text = m.title
-    return cell
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
