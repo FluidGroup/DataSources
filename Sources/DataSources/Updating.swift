@@ -10,6 +10,10 @@ import Foundation
 
 public protocol Updating : class {
 
+  associatedtype Target
+
+  var target: Target { get }
+
   func insertItems(at indexPaths: [IndexPath])
 
   func deleteItems(at indexPaths: [IndexPath])

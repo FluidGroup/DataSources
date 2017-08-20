@@ -37,6 +37,10 @@
 		4BCFF27D1F38DCE50031FFAC /* SectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */; };
 		4BCFF27F1F38DD3E0031FFAC /* SectionUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */; };
 		4BDA6DF61F44B49C00573111 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA6DF51F44B49C00573111 /* PerformanceTests.swift */; };
+		4BDB1F3A1F49939800478747 /* CollectionViewSectionedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB1F391F49939800478747 /* CollectionViewSectionedDataSource.swift */; };
+		4BDB1F3C1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB1F3B1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift */; };
+		4BDB1F3F1F499F5D00478747 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB1F3D1F499F5900478747 /* CollectionViewDataSource.swift */; };
+		4BDB1F411F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB1F401F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift */; };
 		4BDB45E21F394881003F5053 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB45D91F394881003F5053 /* Diff.framework */; };
 		4BDB45E91F394881003F5053 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45E81F394881003F5053 /* DiffTests.swift */; };
 		4BDB45EB1F394881003F5053 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDB45DB1F394881003F5053 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -167,6 +171,10 @@
 		4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDataSource.swift; sourceTree = "<group>"; };
 		4BCFF27E1F38DD3E0031FFAC /* SectionUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionUpdater.swift; sourceTree = "<group>"; };
 		4BDA6DF51F44B49C00573111 /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
+		4BDB1F391F49939800478747 /* CollectionViewSectionedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSectionedDataSource.swift; sourceTree = "<group>"; };
+		4BDB1F3B1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSectionSectionedDataSourceCollectionViewController.swift; sourceTree = "<group>"; };
+		4BDB1F3D1F499F5900478747 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		4BDB1F401F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionDataSourceCollectionViewController.swift; sourceTree = "<group>"; };
 		4BDB45D91F394881003F5053 /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDB45DB1F394881003F5053 /* Diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diff.h; sourceTree = "<group>"; };
 		4BDB45DC1F394881003F5053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -278,6 +286,8 @@
 			children = (
 				4B2876C11F3846C70033B43F /* Info.plist */,
 				4B2876C01F3846C70033B43F /* DataSources.h */,
+				4BDB1F391F49939800478747 /* CollectionViewSectionedDataSource.swift */,
+				4BDB1F3D1F499F5900478747 /* CollectionViewDataSource.swift */,
 				4B2876FB1F3847B90033B43F /* Updating.swift */,
 				4BCFF27C1F38DCE50031FFAC /* SectionDataSource.swift */,
 				4BE9DCC51F3ABE2D002A00FA /* DataSource.swift */,
@@ -310,8 +320,10 @@
 				4B2876DF1F38476F0033B43F /* ViewController.swift */,
 				4B84E8941F38FFFF00168F6E /* MultipleSectionCollectionViewController.swift */,
 				4BBC868A1F3B49AA00BD424A /* SingleSectionCollectionViewController.swift */,
+				4BDB1F401F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift */,
 				4B2771DE1F3CAC4D00FC68BE /* MultipleSectionTableViewController.swift */,
 				4BE6307F1F3CAEC10080EC83 /* MultipleSectionCollectionNodeViewController.swift */,
+				4BDB1F3B1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift */,
 				4BBC868C1F3B49BF00BD424A /* Components.swift */,
 				4B9997BF1F39A99700DCE3FA /* CollectionNodeAdapter.swift */,
 			);
@@ -801,6 +813,8 @@
 				4BDB45FF1F3950F2003F5053 /* CollectionViewAdapter.swift in Sources */,
 				4B020EC01F3A35A90001EDB7 /* Throttle.swift in Sources */,
 				4BDB45FB1F394FDF003F5053 /* DataSources.swift in Sources */,
+				4BDB1F3A1F49939800478747 /* CollectionViewSectionedDataSource.swift in Sources */,
+				4BDB1F3F1F499F5D00478747 /* CollectionViewDataSource.swift in Sources */,
 				4B2876FC1F3847B90033B43F /* Updating.swift in Sources */,
 				4B2771DD1F3CAAE000FC68BE /* TableViewAdapter.swift in Sources */,
 				4BCFF27D1F38DCE50031FFAC /* SectionDataSource.swift in Sources */,
@@ -823,6 +837,8 @@
 				4B84E8951F38FFFF00168F6E /* MultipleSectionCollectionViewController.swift in Sources */,
 				4B9997C01F39A99700DCE3FA /* CollectionNodeAdapter.swift in Sources */,
 				4B2876E01F38476F0033B43F /* ViewController.swift in Sources */,
+				4BDB1F411F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift in Sources */,
+				4BDB1F3C1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift in Sources */,
 				4BBC868D1F3B49BF00BD424A /* Components.swift in Sources */,
 				4B2876DE1F38476F0033B43F /* AppDelegate.swift in Sources */,
 				4BBC868B1F3B49AA00BD424A /* SingleSectionCollectionViewController.swift in Sources */,

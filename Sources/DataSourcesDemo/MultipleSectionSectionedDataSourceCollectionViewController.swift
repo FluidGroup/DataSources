@@ -1,8 +1,8 @@
 //
-//  CollectionViewController.swift
+//  MultipleSectionSectionedDataSourceCollectionViewController.swift
 //  DataSourcesDemo
 //
-//  Created by muukii on 8/8/17.
+//  Created by muukii on 8/20/17.
 //  Copyright © 2017 muukii. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import EasyPeasy
 import RxSwift
 import RxCocoa
 
-final class MultipleSectionCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewController, UICollectionViewDelegateFlowLayout {
 
   private lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -29,6 +29,8 @@ final class MultipleSectionCollectionViewController: UIViewController, UICollect
   }()
 
   private lazy var _dataSource: DataSource<CollectionViewAdapter> = .init(adapter: .init(collectionView: self.collectionView))
+
+  private lazy var dataSource: CollectionViewSectionedDataSource = CollectionViewSectionedDataSource(dataSource: self._dataSource)
 
   private let section0 = Section(ModelA.self, isEqual: { $0.identity == $1.identity })
   private let section1 = Section(ModelB.self, isEqual: { $0.identity == $1.identity })
@@ -66,10 +68,32 @@ final class MultipleSectionCollectionViewController: UIViewController, UICollect
       .disposed(by: disposeBag)
 
     collectionView.delegate = self
-    collectionView.dataSource = self
+    collectionView.dataSource = dataSource
 
     _dataSource.add(section: section0)
     _dataSource.add(section: section1)
+
+    dataSource.set(handlers: [
+      .init(section: section0) { collectionView, indexPath, m in
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+        cell.label.text = m.title
+        return cell
+      },
+      .init(section: section1) { collectionView, indexPath, m in
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+        cell.label.text = m.title
+        return cell
+      },
+      ])
+
+    dataSource.supplementaryViewFactory = { _, collectionView, kind, indexPath in
+      if kind == UICollectionElementKindSectionHeader {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! Header
+        view.label.text = "Section " + indexPath.section.description
+        return view
+      }
+      fatalError()
+    }
 
     viewModel.section0
       .asDriver()
@@ -89,59 +113,6 @@ final class MultipleSectionCollectionViewController: UIViewController, UICollect
         })
       })
       .disposed(by: disposeBag)
-  }
-
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return _dataSource.numberOfSections()
-  }
-
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return _dataSource.numberOfItems(in: section)
-  }
-
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-    return _dataSource.item(
-      at: indexPath,
-      returnType: UICollectionViewCell.self,
-      handlers: [
-      .init(section: section0) { collectionView, indexPath, m in
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-        cell.label.text = m.title
-        return cell
-      },
-      .init(section: section1) { collectionView, indexPath, m in
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-        cell.label.text = m.title
-        return cell
-        },
-      ])
-
-    /* Other way
-    switch indexPath.section {
-    case section0:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-      let m = _dataSource.item(at: indexPath, in: section0)
-      cell.label.text = m.title
-      return cell
-    case section1:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-      let m = _dataSource.item(at: indexPath, in: section1)
-      cell.label.text = m.title
-      return cell
-    default:
-      fatalError()
-    }
-     */
-  }
-
-  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    if kind == UICollectionElementKindSectionHeader {
-      let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! Header
-      view.label.text = "Section " + indexPath.section.description
-      return view
-    }
-    fatalError()
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

@@ -95,12 +95,12 @@ final class MultipleSectionTableViewController: UIViewController, UITableViewDel
     return _dataSource.item(
       at: indexPath,
       handlers: [
-        .init(section: section0) { m in
+        .init(section: section0) { tableView, indexPath, m in
           let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
           cell.label.text = m.title
           return cell
         },
-        .init(section: section1) { m in
+        .init(section: section1) { tableView, indexPath, m in
           let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
           cell.label.text = m.title
           return cell

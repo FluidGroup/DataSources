@@ -100,12 +100,12 @@ final class MultipleSectionCollectionNodeViewController: UIViewController, ASCol
     return _dataSource.item(
       at: indexPath,
       handlers: [
-        .init(section: section0) { m in
+        .init(section: section0) { _, _, m in
           {
             CellNode(model: m)
           }
         },
-        .init(section: section1) { m in
+        .init(section: section1) { _, _, m in
           {
             CellNode(model: m)
           }

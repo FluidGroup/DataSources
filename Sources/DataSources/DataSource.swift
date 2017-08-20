@@ -41,12 +41,12 @@ extension Section where T : Equatable {
 
 public final class DataSource<A: Updating> {
 
-  public struct Handler<U> {
+  public struct Handler<ReturnType> {
 
-    let handler: (Any) -> U
+    let handler: (A.Target, IndexPath, Any) -> ReturnType
     let section: Int
 
-    public init<T>(section: Section<T>, handler: @escaping (T) -> U) {
+    public init<T>(section: Section<T>, handler: @escaping (A.Target, IndexPath, T) -> ReturnType) {
 
       switch section.state {
       case .initialized:
@@ -54,7 +54,7 @@ public final class DataSource<A: Updating> {
       case .added(let section):
         self.section = section
         self.handler = {
-          return handler($0 as! T)
+          return handler($0, $1, $2 as! T)
         }
       }
     }
@@ -156,6 +156,6 @@ public final class DataSource<A: Updating> {
       fatalError("")
     }
 
-    return handler.handler(s)
+    return handler.handler(adapter.target, indexPath, s)
   }
 }
