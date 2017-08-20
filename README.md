@@ -90,6 +90,12 @@ var models: [Model] = [] {
 
 let dataSource = CollectionViewDataSource(sectionDataController: sectionDataController)
 
+dataSource.cellFactory = { _, collectionView, indexPath, model in
+   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+   cell.label.text = model.title
+   return cell
+ }
+
 collectionView.dataSource = dataSource
 ```
 
