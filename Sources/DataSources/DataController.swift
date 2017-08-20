@@ -39,7 +39,7 @@ extension Section where T : Equatable {
   }
 }
 
-public final class DataSource<A: Updating> {
+public final class DataController<A: Updating> {
 
   public struct Handler<ReturnType> {
 
@@ -64,7 +64,7 @@ public final class DataSource<A: Updating> {
 
   let adapter: A
 
-  private var sectionDataSources: [SectionNumber : AnySectionDataSource<A>] = [:]
+  private var sectionDataControllers: [SectionNumber : AnySectionDataController<A>] = [:]
 
   public init(adapter: A) {
     assertMainThread()
@@ -74,27 +74,27 @@ public final class DataSource<A: Updating> {
   public func add<T>(section: Section<T>) {
     assertMainThread()
 
-    let _section = sectionDataSources.count
+    let _section = sectionDataControllers.count
     section.state = .added(at: _section)
 
-    let source = SectionDataSource<T, A>(adapter: adapter, displayingSection: _section, isEqual: section.isEqual)
-    precondition(sectionDataSources[_section] == nil, "Duplicated section \(_section)")
+    let source = SectionDataController<T, A>(adapter: adapter, displayingSection: _section, isEqual: section.isEqual)
+    precondition(sectionDataControllers[_section] == nil, "Duplicated section \(_section)")
 
     if _section > 0 {
-      precondition(sectionDataSources[_section - 1] != nil, "Section \(_section - 1) is empty, You must add section without gaps.")
+      precondition(sectionDataControllers[_section - 1] != nil, "Section \(_section - 1) is empty, You must add section without gaps.")
     }
 
-    sectionDataSources[_section] = AnySectionDataSource(source: source)
+    sectionDataControllers[_section] = AnySectionDataController(source: source)
   }
 
   public func numberOfSections() -> Int {
     assertMainThread()
-    return sectionDataSources.count
+    return sectionDataControllers.count
   }
 
   public func numberOfItems(in section: SectionNumber) -> Int {
     assertMainThread()
-    return sectionDataSources[section]!.numberOfItems()
+    return sectionDataControllers[section]!.numberOfItems()
   }
 
   public func item<T>(at indexPath: IndexPath, in section: Section<T>) -> T {
@@ -102,14 +102,14 @@ public final class DataSource<A: Updating> {
     guard case .added = section.state else {
       fatalError("\(section) has not added in DataSource")
     }
-    return sectionDataSource(section: section).item(at: indexPath)
+    return sectionDataController(section: section).item(at: indexPath)
   }
 
-  public func update<T>(in section: Section<T>, items: [T], updateMode: SectionDataSource<T, A>.UpdateMode, completion: @escaping () -> Void) {
+  public func update<T>(in section: Section<T>, items: [T], updateMode: SectionDataController<T, A>.UpdateMode, completion: @escaping () -> Void) {
 
     assertMainThread()
 
-    sectionDataSource(section: section)
+    sectionDataController(section: section)
       .update(
         items: items,
         updateMode: updateMode,
@@ -121,7 +121,7 @@ public final class DataSource<A: Updating> {
   ///
   /// - Parameter section:
   /// - Returns:
-  public func sectionDataSource<T>(section: Section<T>) -> SectionDataSource<T, A> {
+  public func sectionDataController<T>(section: Section<T>) -> SectionDataController<T, A> {
 
     assertMainThread()
 
@@ -129,7 +129,7 @@ public final class DataSource<A: Updating> {
       fatalError("\(section) has not added in DataSource")
     }
 
-    guard let s = sectionDataSources[sectionNumber]?.restore(itemType: T.self) else {
+    guard let s = sectionDataControllers[sectionNumber]?.restore(itemType: T.self) else {
       fatalError("oh")
     }
     return s
@@ -152,7 +152,7 @@ public final class DataSource<A: Updating> {
       fatalError("Section \(indexPath.section) was not caught by every handler. You must register the handler for all sections.")
     }
 
-    guard let s = sectionDataSources[handler.section]?.item(for: indexPath) else {
+    guard let s = sectionDataControllers[handler.section]?.item(for: indexPath) else {
       fatalError("")
     }
 

@@ -28,9 +28,9 @@ final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewCo
     return collectionView
   }()
 
-  private lazy var _dataSource: DataSource<CollectionViewAdapter> = .init(adapter: .init(collectionView: self.collectionView))
+  private lazy var _dataController: DataController<CollectionViewAdapter> = .init(adapter: .init(collectionView: self.collectionView))
 
-  private lazy var dataSource: CollectionViewSectionedDataSource = CollectionViewSectionedDataSource(dataSource: self._dataSource)
+  private lazy var dataSource: CollectionViewSectionedDataSource = CollectionViewSectionedDataSource(dataSource: self._dataController)
 
   private let section0 = Section(ModelA.self, isEqual: { $0.identity == $1.identity })
   private let section1 = Section(ModelB.self, isEqual: { $0.identity == $1.identity })
@@ -70,8 +70,8 @@ final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewCo
     collectionView.delegate = self
     collectionView.dataSource = dataSource
 
-    _dataSource.add(section: section0)
-    _dataSource.add(section: section1)
+    _dataController.add(section: section0)
+    _dataController.add(section: section1)
 
     dataSource.set(handlers: [
       .init(section: section0) { collectionView, indexPath, m in
@@ -99,7 +99,7 @@ final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewCo
       .asDriver()
       .drive(onNext: { [unowned self] items in
 
-        self._dataSource.update(in: self.section0, items: items, updateMode: .partial(animated: true), completion: {
+        self._dataController.update(in: self.section0, items: items, updateMode: .partial(animated: true), completion: {
 
         })
       })
@@ -108,7 +108,7 @@ final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewCo
     viewModel.section1
       .asDriver()
       .drive(onNext: { [unowned self] items in
-        self._dataSource.update(in: self.section1, items: items, updateMode: .partial(animated: true), completion: {
+        self._dataController.update(in: self.section1, items: items, updateMode: .partial(animated: true), completion: {
 
         })
       })

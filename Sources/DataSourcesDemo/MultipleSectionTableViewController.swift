@@ -17,7 +17,7 @@ final class MultipleSectionTableViewController: UIViewController, UITableViewDel
 
   private lazy var tableView: UITableView = UITableView(frame: .zero, style: .plain)
 
-  private lazy var _dataSource: DataSource<TableViewAdapter> = .init(adapter: .init(tableView: self.tableView))
+  private lazy var _dataSource: DataController<TableViewAdapter> = .init(adapter: .init(tableView: self.tableView))
 
   private let section0 = Section(ModelA.self, isEqual: { $0.identity == $1.identity })
   private let section1 = Section(ModelB.self, isEqual: { $0.identity == $1.identity })

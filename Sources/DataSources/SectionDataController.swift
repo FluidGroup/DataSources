@@ -1,5 +1,5 @@
 //
-//  SectionDataSource.swift
+//  SectionDataController.swift
 //  DataSources
 //
 //  Created by muukii on 8/8/17.
@@ -8,25 +8,25 @@
 
 import Foundation
 
-public protocol SectionDataSourceType {
+public protocol SectionDataControllerType {
 
   associatedtype ItemType : Diffable
   associatedtype AdapterType : Updating
 
-  func update(items: [ItemType], updateMode: SectionDataSource<ItemType, AdapterType>.UpdateMode, immediately: Bool, completion: @escaping () -> Void)
+  func update(items: [ItemType], updateMode: SectionDataController<ItemType, AdapterType>.UpdateMode, immediately: Bool, completion: @escaping () -> Void)
 
-  func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType>
+  func asSectionDataController() -> SectionDataController<ItemType, AdapterType>
 }
 
-/// Type of Model erased SectionDataSource
-final class AnySectionDataSource<A: Updating> {
+/// Type of Model erased SectionDataController
+final class AnySectionDataController<A: Updating> {
 
   let source: Any
 
   private let _numberOfItems: () -> Int
   private let _item: (IndexPath) -> Any
   
-  init<T>(source: SectionDataSource<T, A>) {
+  init<T>(source: SectionDataController<T, A>) {
     self.source = source
     _numberOfItems = {
       source.numberOfItems()
@@ -45,8 +45,8 @@ final class AnySectionDataSource<A: Updating> {
     return _item(indexPath)
   }
 
-  func restore<T>(itemType: T.Type) -> SectionDataSource<T, A> {
-    guard let r = source as? SectionDataSource<T, A> else {
+  func restore<T>(itemType: T.Type) -> SectionDataController<T, A> {
+    guard let r = source as? SectionDataController<T, A> else {
       fatalError("itemType is different to SectionDataSource.ItemType")
     }
     return r
@@ -54,7 +54,7 @@ final class AnySectionDataSource<A: Updating> {
 }
 
 /// DataSource for a section
-public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourceType {
+public final class SectionDataController<T: Diffable, A: Updating>: SectionDataControllerType {
 
   public typealias ItemType = T
   public typealias AdapterType = A
@@ -181,7 +181,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
     }
   }
 
-  public func asSectionDataSource() -> SectionDataSource<ItemType, AdapterType> {
+  public func asSectionDataController() -> SectionDataController<ItemType, AdapterType> {
     return self
   }
 
@@ -200,7 +200,7 @@ public final class SectionDataSource<T: Diffable, A: Updating>: SectionDataSourc
   }
 }
 
-extension SectionDataSource {
+extension SectionDataController {
 
   /// IndexPath of Item
   ///
@@ -214,7 +214,7 @@ extension SectionDataSource {
   }
 }
 
-extension SectionDataSource where T : AnyObject {
+extension SectionDataController where T : AnyObject {
 
   /// IndexPath of Item
   ///
@@ -228,7 +228,7 @@ extension SectionDataSource where T : AnyObject {
   }
 }
 
-extension SectionDataSource where T : Equatable {
+extension SectionDataController where T : Equatable {
 
   public convenience init(itemType: T.Type? = nil, adapter: A, displayingSection: Int = 0) {
     self.init(adapter: adapter, displayingSection: displayingSection, isEqual: { a, b in a == b })

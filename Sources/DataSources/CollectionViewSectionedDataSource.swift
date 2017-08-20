@@ -12,7 +12,7 @@ public final class CollectionViewSectionedDataSource : NSObject, UICollectionVie
 
   public typealias SupplementaryViewFactory = (CollectionViewSectionedDataSource, UICollectionView, String, IndexPath) -> UICollectionReusableView
 
-  public let dataSource: DataSource<CollectionViewAdapter>
+  public let dataController: DataController<CollectionViewAdapter>
 
   public var supplementaryViewFactory: SupplementaryViewFactory = { _ in fatalError("You must set supplementaryViewFactory") } {
     didSet {
@@ -20,26 +20,26 @@ public final class CollectionViewSectionedDataSource : NSObject, UICollectionVie
     }
   }
 
-  private var handlers: [DataSource<CollectionViewAdapter>.Handler<UICollectionViewCell>] = []
+  private var handlers: [DataController<CollectionViewAdapter>.Handler<UICollectionViewCell>] = []
 
-  public init(dataSource: DataSource<CollectionViewAdapter>) {
-    self.dataSource = dataSource
+  public init(dataSource: DataController<CollectionViewAdapter>) {
+    self.dataController = dataSource
   }
 
-  public func set(handlers: [DataSource<CollectionViewAdapter>.Handler<UICollectionViewCell>]) {
+  public func set(handlers: [DataController<CollectionViewAdapter>.Handler<UICollectionViewCell>]) {
     self.handlers = handlers
   }
 
   public func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return dataSource.numberOfSections()
+    return dataController.numberOfSections()
   }
 
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return dataSource.numberOfItems(in: section)
+    return dataController.numberOfItems(in: section)
   }
 
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return dataSource.item(at: indexPath, returnType: UICollectionViewCell.self, handlers: handlers)
+    return dataController.item(at: indexPath, returnType: UICollectionViewCell.self, handlers: handlers)
   }
 
   public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

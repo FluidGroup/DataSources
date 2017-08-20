@@ -13,7 +13,7 @@ public final class CollectionViewDataSource<T: Diffable> : NSObject, UICollectio
   public typealias CellFactory = (CollectionViewDataSource, UICollectionView, IndexPath, T) -> UICollectionViewCell
   public typealias SupplementaryViewFactory = (CollectionViewDataSource, UICollectionView, String, IndexPath) -> UICollectionReusableView
 
-  public let sectionDataSource: SectionDataSource<T, CollectionViewAdapter>
+  public let sectionDataController: SectionDataController<T, CollectionViewAdapter>
 
   public var supplementaryViewFactory: SupplementaryViewFactory = { _ in fatalError("You must set supplementaryViewFactory") } {
     didSet {
@@ -27,8 +27,8 @@ public final class CollectionViewDataSource<T: Diffable> : NSObject, UICollectio
     }
   }
 
-  public init(sectionDataSource: SectionDataSource<T, CollectionViewAdapter>) {
-    self.sectionDataSource = sectionDataSource
+  public init(sectionDataSource: SectionDataController<T, CollectionViewAdapter>) {
+    self.sectionDataController = sectionDataSource
   }
 
   public func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -36,11 +36,11 @@ public final class CollectionViewDataSource<T: Diffable> : NSObject, UICollectio
   }
 
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return sectionDataSource.numberOfItems()
+    return sectionDataController.numberOfItems()
   }
 
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return cellFactory(self, collectionView, indexPath, sectionDataSource.item(at: indexPath))
+    return cellFactory(self, collectionView, indexPath, sectionDataController.item(at: indexPath))
   }
 
   public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

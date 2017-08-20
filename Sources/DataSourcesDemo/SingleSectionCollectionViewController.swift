@@ -27,7 +27,7 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
     return collectionView
   }()
 
-  private lazy var dataSource: SectionDataSource<ModelA, CollectionViewAdapter> = .init(
+  private lazy var dataSource: SectionDataController<ModelA, CollectionViewAdapter> = .init(
     adapter: .init(collectionView: self.collectionView),
     displayingSection: 0,
     isEqual: { a, b in a.identity == b.identity }
