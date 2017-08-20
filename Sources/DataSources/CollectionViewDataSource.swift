@@ -6,7 +6,7 @@
 //  Copyright © 2017 muukii. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public final class CollectionViewDataSource<T: Diffable> : NSObject, UICollectionViewDataSource {
 
