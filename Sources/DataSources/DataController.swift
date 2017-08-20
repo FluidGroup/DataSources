@@ -74,6 +74,16 @@ public final class DataController<A: Updating> {
   public func add<T>(section: Section<T>) {
     assertMainThread()
 
+    precondition(
+      {
+        if case .initialized = $0.state {
+          return true
+        }
+        return false
+    }(section),
+      "Section \(section) has already added."
+    )
+
     let _section = sectionDataControllers.count
     section.state = .added(at: _section)
 
