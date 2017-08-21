@@ -137,12 +137,20 @@ public final class SectionDataController<T: Diffable, A: Updating>: SectionDataC
 
   /// Update
   ///
+  /// In default, Calling `update` will be throttled.
+  /// If you want to update immediately, set true to `immediately`.
+  ///
   /// - Parameters:
   ///   - items:
   ///   - updateMode:
-  ///   - immediately:
+  ///   - immediately: False : indicate to throttled updating
   ///   - completion: 
-  public func update(items: [T], updateMode: UpdateMode, immediately: Bool = false, completion: @escaping () -> Void) {
+  public func update(
+    items: [T],
+    updateMode: UpdateMode,
+    immediately: Bool = false,
+    completion: @escaping () -> Void
+    ) {
 
     self.items = items
 

@@ -115,7 +115,24 @@ public final class DataController<A: Updating> {
     return sectionDataController(section: section).item(at: indexPath)
   }
 
-  public func update<T>(in section: Section<T>, items: [T], updateMode: SectionDataController<T, A>.UpdateMode, completion: @escaping () -> Void) {
+  /// Update
+  ///
+  /// In default, Calling `update` will be throttled.
+  /// If you want to update immediately, set true to `immediately`.
+  ///
+  /// - Parameters:
+  ///   - section:
+  ///   - items:
+  ///   - updateMode:
+  ///   - immediately: False : indicate to throttled updating
+  ///   - completion:
+  public func update<T>(
+    in section: Section<T>,
+    items: [T],
+    updateMode: SectionDataController<T, A>.UpdateMode,
+    immediately: Bool = false,
+    completion: @escaping () -> Void
+    ) {
 
     assertMainThread()
 
@@ -123,6 +140,7 @@ public final class DataController<A: Updating> {
       .update(
         items: items,
         updateMode: updateMode,
+        immediately: immediately,
         completion: completion
     )
   }
