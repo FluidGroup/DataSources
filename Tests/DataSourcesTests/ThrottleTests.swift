@@ -18,17 +18,19 @@ final class ThrottleTests : XCTestCase {
 
     var count = 0
 
-    let t = Throttle(interval: 0.5) {
+    let t = Throttle(interval: 0.5)
+
+    t.on {
       count += 1
     }
-
-    t.on()
 
     let now: DispatchTime = .now()
 
     for i in stride(from: 0.0, to: 2.0, by: 0.1) {
       DispatchQueue.main.asyncAfter(deadline: now + i) {
-        t.on()
+        t.on {
+          count += 1
+        }
       }
     }
 
