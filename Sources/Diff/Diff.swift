@@ -150,29 +150,6 @@ public enum Diff: Diffing {
     }
   }
 
-  private struct OptimizedIdentity<E: Hashable> : Hashable {
-
-    let hashValue: Int
-    let identity: UnsafePointer<E>
-
-    init(_ identity: UnsafePointer<E>) {
-      self.identity = identity
-      self.hashValue = identity.pointee.hashValue
-    }
-
-    static func == <E>(lhs: OptimizedIdentity<E>, rhs: OptimizedIdentity<E>) -> Bool {
-      if lhs.hashValue != rhs.hashValue {
-        return false
-      }
-
-      if lhs.identity.distance(to: rhs.identity) == 0 {
-        return true
-      }
-
-      return lhs.identity.pointee == rhs.identity.pointee
-    }
-  }
-
   /// Diffing
   ///
   /// - Parameters:
@@ -182,7 +159,7 @@ public enum Diff: Diffing {
   /// - Returns:
   public static func diffing<T: Diffable>(oldArray: [T], newArray: [T], isEqual: EqualityChecker<T>) -> DiffResultType {
     // symbol table uses the old/new array `diffIdentifier` as the key and `Entry` as the value
-    var table = Dictionary<OptimizedIdentity<T.Identifier>, Entry>.init(minimumCapacity: oldArray.count)
+    var table = Dictionary<T.Identifier, Entry>.init(minimumCapacity: oldArray.count)
 
     let __oldArray = ContiguousArray(oldArray)
     let __newArray = ContiguousArray(newArray)
@@ -192,8 +169,7 @@ public enum Diff: Diffing {
     // increment its new count for each occurence
     // record `nil` for each occurence of the item in the new array
     var newRecords = __newArray.map { (newRecord) -> Record in
-      var identifier = newRecord.diffIdentifier
-      let key = OptimizedIdentity(&identifier)
+      let key = newRecord.diffIdentifier
       if let entry = table[key] {
         // add `nil` for each occurence of the item in the new array
         entry.push(new: nil)
@@ -213,8 +189,7 @@ public enum Diff: Diffing {
     // record the old index for each occurence of the item in the old array
     // MUST be done in descending order to respect the oldIndexes stack construction
     var oldRecords = __oldArray.enumerated().reversed().map { (i, oldRecord) -> Record in
-      var identifier = oldRecord.diffIdentifier
-      let key = OptimizedIdentity(&identifier)
+      let key = oldRecord.diffIdentifier
       if let entry = table[key] {
         // push the old indices where the item occured onto the index stack
         entry.push(old: i)

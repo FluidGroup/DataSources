@@ -22,8 +22,8 @@ final class PerformanceTests: XCTestCase {
 
   func testLargeCollection() {
 
-    let o: [Int] = Array((0..<10000).map { $0 })
-    let n: [Int] = Array((0..<10000).map { $0 }.filter { $0 % 2 == 0 })
+    let o: [Int] = Array((0..<100000).map { $0 })
+    let n: [Int] = Array((0..<100000).map { $0 }.filter { $0 % 2 == 0 })
     measure {
       _ = Diff.diffing(oldArray: o, newArray: n, isEqual: { a, b in a == b })
     }
