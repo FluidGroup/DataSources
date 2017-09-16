@@ -40,7 +40,7 @@ final class Throttle {
     timerReference?.cancel()
 
     let timer = DispatchSource.makeTimerSource(queue: queue)
-    timer.scheduleOneshot(deadline: deadline)
+    timer.schedule(deadline: deadline)
 
     timer.setEventHandler(handler: { [weak timer, weak self] in
       self?.lastSendTime = nil
