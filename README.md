@@ -43,7 +43,7 @@ But, It's hard that synchronous of data and UI.<br>
 
 ## Requirements
 
-- Swift 3.1 (3.2)
+- Swift 4
 - iOS 9+
 
 ## Usage (Example)
