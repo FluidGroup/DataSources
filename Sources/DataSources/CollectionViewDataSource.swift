@@ -15,13 +15,13 @@ public final class CollectionViewDataSource<T: Diffable> : NSObject, UICollectio
 
   public let sectionDataController: SectionDataController<T, CollectionViewAdapter>
 
-  public var supplementaryViewFactory: SupplementaryViewFactory = { _ in fatalError("You must set supplementaryViewFactory") } {
+  public var supplementaryViewFactory: SupplementaryViewFactory = { _, _, _, _ in fatalError("You must set supplementaryViewFactory") } {
     didSet {
 
     }
   }
 
-  public var cellFactory: CellFactory = { _ in fatalError("You must set cellFactory") } {
+  public var cellFactory: CellFactory = { _, _, _, _ in fatalError("You must set cellFactory") } {
     didSet {
 
     }

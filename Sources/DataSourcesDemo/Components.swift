@@ -143,7 +143,7 @@ final class CellNode : ASCellNode {
     textNode.attributedText = NSAttributedString(
       string: model.title,
       attributes: [
-        NSFontAttributeName : UIFont.systemFont(ofSize: 20),
+        .font : UIFont.systemFont(ofSize: 20),
       ]
     )
     paddingNode.backgroundColor = UIColor(white: 0.95, alpha: 1)

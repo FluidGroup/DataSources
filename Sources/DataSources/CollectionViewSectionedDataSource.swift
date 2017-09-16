@@ -14,7 +14,7 @@ public final class CollectionViewSectionedDataSource : NSObject, UICollectionVie
 
   public let dataController: DataController<CollectionViewAdapter>
 
-  public var supplementaryViewFactory: SupplementaryViewFactory = { _ in fatalError("You must set supplementaryViewFactory") } {
+  public var supplementaryViewFactory: SupplementaryViewFactory = { _, _, _, _ in fatalError("You must set supplementaryViewFactory") } {
     didSet {
 
     }
