@@ -56,6 +56,11 @@ final class SectionUpdater<T: Diffable, A: Updating> {
         isEqual: isEqual
       )
 
+      guard diff.changeCount > 0 else {
+        completion()
+        return
+      }
+
       var animated = animated
 
       if diff.changeCount > 300 {
