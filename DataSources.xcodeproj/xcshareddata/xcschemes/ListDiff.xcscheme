@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4BDB45D81F394881003F5053"
-               BuildableName = "Diff.framework"
-               BlueprintName = "Diff"
+               BuildableName = "ListDiff.framework"
+               BlueprintName = "ListDiff"
                ReferencedContainer = "container:DataSources.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,8 +44,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4BDB45D81F394881003F5053"
-            BuildableName = "Diff.framework"
-            BlueprintName = "Diff"
+            BuildableName = "ListDiff.framework"
+            BlueprintName = "ListDiff"
             ReferencedContainer = "container:DataSources.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -67,8 +67,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4BDB45D81F394881003F5053"
-            BuildableName = "Diff.framework"
-            BlueprintName = "Diff"
+            BuildableName = "ListDiff.framework"
+            BlueprintName = "ListDiff"
             ReferencedContainer = "container:DataSources.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -85,8 +85,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4BDB45D81F394881003F5053"
-            BuildableName = "Diff.framework"
-            BlueprintName = "Diff"
+            BuildableName = "ListDiff.framework"
+            BlueprintName = "ListDiff"
             ReferencedContainer = "container:DataSources.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
