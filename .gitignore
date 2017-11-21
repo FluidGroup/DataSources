@@ -45,6 +45,7 @@ playground.xcworkspace
 
 # CocoaPods - Refactored to standalone file
 Pods
+DataSources.xcworkspace
 
 # Carthage - Refactored to standalone file
 

@@ -40,13 +40,26 @@ open class CollectionViewAdapter: Updating {
     collectionView.moveItem(at: indexPath, to: newIndexPath)
   }
 
-  public func performBatch(updates: @escaping () -> Void, completion: @escaping () -> Void) {
+  public func performBatch(animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
 
-    collectionView.performBatchUpdates({
-      updates()
-    }, completion: { result in
-      completion()
-    })
+    if animated {
+      collectionView.performBatchUpdates({
+        updates()
+      }, completion: { result in
+        completion()
+      })
+    } else {
+
+      CATransaction.begin()
+      CATransaction.setDisableActions(true)
+
+      collectionView.performBatchUpdates({
+        updates()
+      }, completion: { result in
+        CATransaction.commit()
+        completion()
+      })
+    }
 
   }
 
