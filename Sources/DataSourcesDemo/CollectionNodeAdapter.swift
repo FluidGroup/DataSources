@@ -43,14 +43,15 @@ public final class CollectionNodeAdapter: Updating {
     collectionNode.moveItem(at: indexPath, to: newIndexPath)
   }
 
-  public func performBatch(updates: @escaping () -> Void, completion: @escaping () -> Void) {
+  public func performBatch(animated: Bool, updates: @escaping () -> Void,  completion: @escaping () -> Void) {
 
-    collectionNode.performBatchUpdates({
-      updates()
-    }, completion: { result in
-      completion()
-    })
-
+    collectionNode.performBatch(
+      animated: animated,
+      updates: updates,
+      completion: { _ in
+        completion()
+    }
+    )
   }
 
   public func reload(completion: @escaping () -> Void) {

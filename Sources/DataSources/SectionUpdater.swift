@@ -66,39 +66,30 @@ final class SectionUpdater<T: Diffable, A: Updating> {
       if diff.changeCount > 300 {
         animated = false
       }
-
+      
       let _adapter = self.adapter
-
-      let run = {
-        self.adapter.performBatch(
-          updates: {
-
-            _adapter.reloadItems(at: diff.updates.map { IndexPath(item: $0, section: targetSection) })
-            _adapter.deleteItems(at: diff.deletes.map { IndexPath(item: $0, section: targetSection) })
-            _adapter.insertItems(at: diff.inserts.map { IndexPath(item: $0, section: targetSection) })
-
-            for move in diff.moves {
-              _adapter.moveItem(
-                at: IndexPath(item: move.from, section: targetSection),
-                to: IndexPath(item: move.to, section: targetSection)
-              )
-            }
-        },
-          completion: {
-            assertMainThread()
-            self.state = .idle
-            completion()
-        }
-        )
+      
+      self.adapter.performBatch(
+        animated: animated,
+        updates: {
+          
+          _adapter.reloadItems(at: diff.updates.map { IndexPath(item: $0, section: targetSection) })
+          _adapter.deleteItems(at: diff.deletes.map { IndexPath(item: $0, section: targetSection) })
+          _adapter.insertItems(at: diff.inserts.map { IndexPath(item: $0, section: targetSection) })
+          
+          for move in diff.moves {
+            _adapter.moveItem(
+              at: IndexPath(item: move.from, section: targetSection),
+              to: IndexPath(item: move.to, section: targetSection)
+            )
+          }
+      },
+        completion: {
+          assertMainThread()
+          self.state = .idle
+          completion()
       }
-
-      if animated {
-        run()
-      } else {
-        UIView.performWithoutAnimation {
-          run()
-        }
-      }
+      )
 
     }
 
