@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'DataSources'
-  s.version = '0.4.2'
+  s.version = '0.6.0'
   s.summary = '💾 🔜📱 Type-safe data-driven List-UI Framework'
   s.homepage = 'https://github.com/muukii/DataSources'
   s.description = '💾 🔜📱 Type-safe data-driven List-UI Framework. (We can also use ASCollectionNode)'
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.subspec 'Default' do |cs|
     # cs.frameworks = 'DataSources/Diff'
     # cs.dependency 'DataSources/Diff'
-    cs.source_files = ['Sources/Diff/**/*.swift', 'Sources/DataSources/**/*.swift']
+    cs.source_files = ['Sources/ListDiff/**/*.swift', 'Sources/DataSources/**/*.swift']
   end
 
   s.module_name = s.name
