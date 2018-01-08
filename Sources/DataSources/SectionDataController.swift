@@ -216,8 +216,13 @@ extension SectionDataController {
   ///
   /// - Parameter item:
   /// - Returns:
-  public func indexPath(of item: T) -> IndexPath {
-    let index = items.index(where: { isEqual($0, item) })!
+  public func indexPath(of item: T) -> IndexPath? {
+    guard let index = items.index(where: { isEqual($0, item) }) else { return nil }
+    return IndexPath(item: index, section: displayingSection)
+  }
+
+  public func indexPath(of `where`: (T) -> Bool) -> IndexPath? {
+    guard let index = items.index(where:`where`) else { return nil }
     return IndexPath(item: index, section: displayingSection)
   }
 }
@@ -230,8 +235,8 @@ extension SectionDataController where T : AnyObject {
   ///
   /// - Parameter item:
   /// - Returns:
-  public func indexPathPointerPersonality(of item: T) -> IndexPath {
-    let index = items.index(where: { $0 === item })!
+  public func indexPathPointerPersonality(of item: T) -> IndexPath? {
+    guard let index = items.index(where: { $0 === item }) else { return nil }
     return IndexPath(item: index, section: displayingSection)
   }
 }
