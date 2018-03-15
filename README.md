@@ -352,7 +352,7 @@ pod 'DataSources'
 github "muukii/DataSources"
 ```
 
-You need to add `DataSources.framework` and `Diff.framework` to your project.
+You need to add `DataSources.framework` and `ListDiff.framework` to your project.
 
 # Author
 
