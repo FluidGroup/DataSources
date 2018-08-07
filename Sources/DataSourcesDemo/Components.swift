@@ -17,24 +17,32 @@ protocol Model {
   var title: String { get }
 }
 
-struct ModelA : Model, Diffable {
+struct ModelA : Model, Differentiable, Equatable {
 
-  var diffIdentifier: AnyHashable {
-    return AnyHashable(identity)
+  var differenceIdentifier: String {
+    return identity
   }
 
   let identity: String
   let title: String
+
+  func isContentEqual(to source: ModelA) -> Bool {
+    return self == source
+  }
 }
 
-struct ModelB : Model, Diffable {
+struct ModelB : Model, Differentiable, Equatable {
 
-  var diffIdentifier: AnyHashable {
-    return AnyHashable(identity)
+  var differenceIdentifier: String {
+    return identity
   }
 
   let identity: String
   let title: String
+
+  func isContentEqual(to source: ModelB) -> Bool {
+    return self == source
+  }
 }
 
 
@@ -64,7 +72,7 @@ final class ViewModel {
       self.section0.value.append(ModelA(identity: UUID().uuidString, title: String.randomEmoji()))
     }
 
-    section1.value.removeLast()
+    section1.value.removeFirst()
     DispatchQueue.global().async {
       self.section1.value.append(ModelB(identity: UUID().uuidString, title: arc4random_uniform(30).description))
     }

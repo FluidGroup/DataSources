@@ -8,6 +8,8 @@
 
 import Foundation
 
+import DifferenceKit
+
 public struct IndexPathDiff {
 
   public struct Move {
@@ -23,14 +25,14 @@ public struct IndexPathDiff {
 
   public let moves: [Move]
 
-  init(diff: DiffResultType, targetSection: Int) {
-    self.updates = diff.updates.map { IndexPath(item: $0, section: targetSection) }
-    self.inserts = diff.inserts.map { IndexPath(item: $0, section: targetSection) }
-    self.deletes = diff.deletes.map { IndexPath(item: $0, section: targetSection) }
-    self.moves = diff.moves.map {
+  init<T>(diff: Changeset<T>, targetSection: Int) {
+    self.updates = diff.elementUpdated.map { IndexPath(item: $0.element, section: targetSection) }
+    self.inserts = diff.elementInserted.map { IndexPath(item: $0.element, section: targetSection) }
+    self.deletes = diff.elementDeleted.map { IndexPath(item: $0.element, section: targetSection) }
+    self.moves = diff.elementMoved.map {
       Move(
-        from: IndexPath(item: $0.from, section: targetSection),
-        to: IndexPath(item: $0.to, section: targetSection)
+        from: IndexPath(item: $0.source.element, section: targetSection),
+        to: IndexPath(item: $0.target.element, section: targetSection)
       )
     }
   }
@@ -38,18 +40,12 @@ public struct IndexPathDiff {
 
 public struct UpdateContext {
 
-  public let newItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>
-  public let oldItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>
   public let diff: IndexPathDiff
 
   init(
-    newItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>,
-    oldItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>,
     diff: IndexPathDiff
     ) {
-    
-    self.newItems = newItems
-    self.oldItems = oldItems
+
     self.diff = diff
   }
 }

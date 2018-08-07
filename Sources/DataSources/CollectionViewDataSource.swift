@@ -8,7 +8,9 @@
 
 import UIKit
 
-public final class CollectionViewDataSource<T: Diffable> : NSObject, UICollectionViewDataSource {
+import DifferenceKit
+
+public final class CollectionViewDataSource<T: Differentiable> : NSObject, UICollectionViewDataSource {
 
   public typealias CellFactory = (CollectionViewDataSource, UICollectionView, IndexPath, T) -> UICollectionViewCell
   public typealias SupplementaryViewFactory = (CollectionViewDataSource, UICollectionView, String, IndexPath) -> UICollectionReusableView

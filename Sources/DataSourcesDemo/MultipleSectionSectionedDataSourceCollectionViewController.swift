@@ -23,7 +23,7 @@ final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewCo
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.register(Cell.self, forCellWithReuseIdentifier: "Cell")
-    collectionView.register(Header.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
+    collectionView.register(Header.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
     collectionView.backgroundColor = .white
     return collectionView
   }()
@@ -32,8 +32,8 @@ final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewCo
 
   private lazy var dataSource: CollectionViewSectionedDataSource = CollectionViewSectionedDataSource(dataSource: self._dataController)
 
-  private let section0 = Section(ModelA.self, isEqual: { $0.identity == $1.identity })
-  private let section1 = Section(ModelB.self, isEqual: { $0.identity == $1.identity })
+  private let section0 = Section(ModelA.self)
+  private let section1 = Section(ModelB.self)
 
   private let add = UIBarButtonItem(title: "Add", style: .plain, target: nil, action: nil)
   private let remove = UIBarButtonItem(title: "Remove", style: .plain, target: nil, action: nil)
@@ -47,7 +47,7 @@ final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewCo
     super.viewDidLoad()
 
     view.addSubview(collectionView)
-    collectionView <- Edges()
+    collectionView.easy.layout(Edges())
 
     navigationItem.rightBarButtonItems = [add, remove, addRemove, shuffle]
 
@@ -87,7 +87,7 @@ final class MultipleSectionSectionedDataSourceCollectionViewController: UIViewCo
       ])
 
     dataSource.supplementaryViewFactory = { _, collectionView, kind, indexPath in
-      if kind == UICollectionElementKindSectionHeader {
+      if kind == UICollectionView.elementKindSectionHeader {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! Header
         view.label.text = "Section " + indexPath.section.description
         return view

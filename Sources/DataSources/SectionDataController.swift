@@ -8,9 +8,11 @@
 
 import Foundation
 
+import DifferenceKit
+
 public protocol SectionDataControllerType {
 
-  associatedtype ItemType : Diffable
+  associatedtype ItemType : Differentiable
   associatedtype AdapterType : Updating
 
   func update(items: [ItemType], updateMode: SectionDataController<ItemType, AdapterType>.UpdateMode, immediately: Bool, completion: @escaping () -> Void)
@@ -54,10 +56,15 @@ final class AnySectionDataController<A: Updating> {
 }
 
 /// DataSource for a section
-public final class SectionDataController<T: Diffable, A: Updating>: SectionDataControllerType {
+public final class SectionDataController<T: Differentiable, A: Updating>: SectionDataControllerType {
 
   public typealias ItemType = T
   public typealias AdapterType = A
+
+  public enum State {
+    case idle
+    case updating
+  }
 
   public enum UpdateMode {
     case everything
@@ -70,13 +77,13 @@ public final class SectionDataController<T: Diffable, A: Updating>: SectionDataC
 
   fileprivate var snapshot: [T] = []
 
-  private let updater: SectionUpdater<T, A>
+  private var state: State = .idle
 
   private let throttle = Throttle(interval: 0.1)
 
-  public var displayingSection: Int
+  private let adapter: AdapterType
 
-  fileprivate let isEqual: (T, T) -> Bool
+  public internal(set) var displayingSection: Int
 
   // MARK: - Initializers
 
@@ -87,9 +94,8 @@ public final class SectionDataController<T: Diffable, A: Updating>: SectionDataC
   ///   - adapter:
   ///   - displayingSection:
   ///   - isEqual: To use for decision that item should update.
-  public init(itemType: T.Type? = nil, adapter: A, displayingSection: Int = 0, isEqual: @escaping EqualityChecker<T>) {
-    self.updater = SectionUpdater(adapter: adapter)
-    self.isEqual = isEqual
+  public init(itemType: ItemType.Type? = nil, adapter: AdapterType, displayingSection: Int = 0) {
+    self.adapter = adapter
     self.displayingSection = displayingSection
   }
 
@@ -159,24 +165,15 @@ public final class SectionDataController<T: Diffable, A: Updating>: SectionDataC
 
       let old = self.snapshot
       let new = self.items
-      self.snapshot = new
 
-      var _updateMode: SectionUpdater<T, A>.UpdateMode {
-        switch updateMode {
-        case .everything:
-          return .everything
-        case .partial(let animated):
-          return .partial(animated: animated, isEqual: self.isEqual)
-        }
-      }
-
-      self.updater.update(
+      self.__update(
         targetSection: self.displayingSection,
         currentDisplayingItems: old,
         newItems: new,
-        updateMode: _updateMode,
-        completion: completion
-      )
+        updateMode: updateMode,
+        completion: {
+          completion()
+      })
     }
 
     if immediately {
@@ -209,6 +206,99 @@ public final class SectionDataController<T: Diffable, A: Updating>: SectionDataC
     }
     return indexPath.item
   }
+
+  private func __update(
+    targetSection: Int,
+    currentDisplayingItems: [T],
+    newItems: [T],
+    updateMode: UpdateMode,
+    completion: @escaping () -> Void
+    ) {
+
+    assertMainThread()
+
+    self.state = .updating
+
+    switch updateMode {
+    case .everything:
+      adapter.reload {
+        assertMainThread()
+        self.state = .idle
+        completion()
+      }
+    case .partial(let preferredAnimated):
+
+      let stagedChangeset = StagedChangeset.init(source: currentDisplayingItems, target: newItems)
+
+      let totalChangeCount = stagedChangeset.map { $0.changeCount }.reduce(0, +)
+
+      guard totalChangeCount > 0 else {
+        return
+      }
+
+      let animated: Bool
+
+      if totalChangeCount > 300 {
+        animated = false
+      } else {
+        animated = preferredAnimated
+      }
+
+      let _adapter = self.adapter
+
+      let group = DispatchGroup()
+
+      for changeset in stagedChangeset {
+
+        group.enter()
+
+        self.snapshot = changeset.data
+
+        let updateContext = UpdateContext.init(
+          diff: .init(diff: changeset, targetSection: targetSection)
+        )
+
+        _adapter.performBatch(
+          in: updateContext,
+          animated: animated,
+          updates: {
+
+            if !changeset.elementDeleted.isEmpty {
+              _adapter.deleteItems(at: updateContext.diff.deletes, in: updateContext)
+            }
+
+            if !changeset.elementInserted.isEmpty {
+              _adapter.insertItems(at: updateContext.diff.inserts, in: updateContext)
+            }
+
+            if !changeset.elementUpdated.isEmpty {
+              _adapter.reloadItems(at: updateContext.diff.updates, in: updateContext)
+            }
+
+            for move in updateContext.diff.moves {
+              _adapter.moveItem(
+                at: move.from,
+                to: move.to,
+                in: updateContext
+              )
+            }
+        },
+          completion: {
+            assertMainThread()
+
+            group.leave()
+
+        })
+      }
+
+      group.notify(queue: .main) {
+        self.state = .idle
+        completion()
+      }
+
+    }
+  }
+
 }
 
 extension SectionDataController {
@@ -220,7 +310,7 @@ extension SectionDataController {
   /// - Parameter item:
   /// - Returns:
   public func indexPath(of item: T) -> IndexPath? {
-    guard let index = items.index(where: { isEqual($0, item) }) else { return nil }
+    guard let index = items.index(where: { $0.differenceIdentifier == item.differenceIdentifier }) else { return nil }
     return IndexPath(item: index, section: displayingSection)
   }
 
@@ -244,9 +334,3 @@ extension SectionDataController where T : AnyObject {
   }
 }
 
-extension SectionDataController where T : Equatable {
-
-  public convenience init(itemType: T.Type? = nil, adapter: A, displayingSection: Int = 0) {
-    self.init(adapter: adapter, displayingSection: displayingSection, isEqual: { a, b in a == b })
-  }
-}

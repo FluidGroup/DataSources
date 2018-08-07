@@ -8,6 +8,8 @@
 
 import Foundation
 
+import DifferenceKit
+
 public func ~= <T>(lhs: Section<T>, rhs: Int) -> Bool {
   switch lhs.state {
   case .initialized:
@@ -17,25 +19,17 @@ public func ~= <T>(lhs: Section<T>, rhs: Int) -> Bool {
   }
 }
 
-public class Section<T: Diffable> {
+public class Section<T: Differentiable> {
 
   public enum State {
     case initialized
     case added(at: Int)
   }
 
-  public let isEqual: EqualityChecker<T>
   public internal(set) var state: State = .initialized
 
-  public init(_ itemType: T.Type? = nil, isEqual: @escaping EqualityChecker<T>) {
-    self.isEqual = isEqual
-  }
-}
+  public init(_ itemType: T.Type? = nil) {
 
-extension Section where T : Equatable {
-
-  public convenience init(_ itemType: T.Type? = nil) {
-    self.init(itemType, isEqual: { $0 == $1 })
   }
 }
 
@@ -87,7 +81,7 @@ public final class DataController<A: Updating> {
     let _section = sectionDataControllers.count
     section.state = .added(at: _section)
 
-    let source = SectionDataController<T, A>(adapter: adapter, displayingSection: _section, isEqual: section.isEqual)
+    let source = SectionDataController<T, A>(adapter: adapter, displayingSection: _section)
     precondition(sectionDataControllers[_section] == nil, "Duplicated section \(_section)")
 
     if _section > 0 {

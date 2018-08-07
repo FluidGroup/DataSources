@@ -9,7 +9,7 @@
 import Foundation
 
 #if !COCOAPODS
-  @_exported import ListDiff
+  @_exported import DifferenceKit
 #endif
 
 @inline(__always)

@@ -29,8 +29,7 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
 
   private lazy var dataSource: SectionDataController<ModelA, CollectionViewAdapter> = .init(
     adapter: .init(collectionView: self.collectionView),
-    displayingSection: 0,
-    isEqual: { a, b in a.identity == b.identity }
+    displayingSection: 0
   )
 
   private let add = UIBarButtonItem(title: "Add", style: .plain, target: nil, action: nil)
