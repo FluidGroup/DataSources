@@ -68,19 +68,25 @@ final class SectionUpdater<T: Diffable, A: Updating> {
       }
       
       let _adapter = self.adapter
+
+      let context = UpdateContext.init(
+        newItems: newItems.indices.lazy.map { IndexPath(item: $0, section: targetSection) },
+        oldItems: currentDisplayingItems.indices.lazy.map { IndexPath(item: $0, section: targetSection) }
+      )
       
       self.adapter.performBatch(
         animated: animated,
         updates: {
           
-          _adapter.reloadItems(at: diff.updates.map { IndexPath(item: $0, section: targetSection) })
-          _adapter.deleteItems(at: diff.deletes.map { IndexPath(item: $0, section: targetSection) })
-          _adapter.insertItems(at: diff.inserts.map { IndexPath(item: $0, section: targetSection) })
+          _adapter.reloadItems(at: diff.updates.map { IndexPath(item: $0, section: targetSection) }, in: context)
+          _adapter.deleteItems(at: diff.deletes.map { IndexPath(item: $0, section: targetSection) }, in: context)
+          _adapter.insertItems(at: diff.inserts.map { IndexPath(item: $0, section: targetSection) }, in: context)
           
           for move in diff.moves {
             _adapter.moveItem(
               at: IndexPath(item: move.from, section: targetSection),
-              to: IndexPath(item: move.to, section: targetSection)
+              to: IndexPath(item: move.to, section: targetSection),
+              in: context
             )
           }
       },

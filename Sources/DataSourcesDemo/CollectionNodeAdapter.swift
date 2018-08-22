@@ -23,22 +23,22 @@ public final class CollectionNodeAdapter: Updating {
     self.collectionNode = collectionNode
   }
 
-  public func insertItems(at indexPaths: [IndexPath]) {
+  public func insertItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     collectionNode.insertItems(at: indexPaths)
   }
 
-  public func deleteItems(at indexPaths: [IndexPath]) {
+  public func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     collectionNode.deleteItems(at: indexPaths)
   }
 
-  public func reloadItems(at indexPaths: [IndexPath]) {
+  public func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     collectionNode.reloadItems(at: indexPaths)
   }
 
-  public func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+  public func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext) {
 
     collectionNode.moveItem(at: indexPath, to: newIndexPath)
   }

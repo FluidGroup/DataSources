@@ -20,22 +20,22 @@ open class TableViewAdapter: Updating {
     self.tableView = tableView
   }
 
-  public func insertItems(at indexPaths: [IndexPath]) {
+  public func insertItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     tableView.insertRows(at: indexPaths, with: .automatic)
   }
 
-  public func deleteItems(at indexPaths: [IndexPath]) {
+  public func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     tableView.deleteRows(at: indexPaths, with: .automatic)
   }
 
-  public func reloadItems(at indexPaths: [IndexPath]) {
+  public func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     tableView.reloadRows(at: indexPaths, with: .automatic)
   }
 
-  public func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+  public func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext) {
 
     tableView.moveRow(at: indexPath, to: newIndexPath)
   }

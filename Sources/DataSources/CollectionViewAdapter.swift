@@ -20,27 +20,27 @@ open class CollectionViewAdapter: Updating {
     self.collectionView = collectionView
   }
 
-  public func insertItems(at indexPaths: [IndexPath]) {
+  open func insertItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     collectionView.insertItems(at: indexPaths)
   }
 
-  public func deleteItems(at indexPaths: [IndexPath]) {
+  open func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     collectionView.deleteItems(at: indexPaths)
   }
 
-  public func reloadItems(at indexPaths: [IndexPath]) {
+  open func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext) {
 
     collectionView.reloadItems(at: indexPaths)
   }
 
-  public func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+  open func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext) {
 
     collectionView.moveItem(at: indexPath, to: newIndexPath)
   }
 
-  public func performBatch(animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
+  open func performBatch(animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
 
     if animated {
       collectionView.performBatchUpdates({
@@ -63,7 +63,7 @@ open class CollectionViewAdapter: Updating {
 
   }
 
-  public func reload(completion: @escaping () -> Void) {
+  open func reload(completion: @escaping () -> Void) {
 
     collectionView.reloadData()
     completion()
