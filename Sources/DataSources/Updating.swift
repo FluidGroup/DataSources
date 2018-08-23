@@ -11,14 +11,17 @@ import Foundation
 public struct UpdateContext {
   public let newItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>
   public let oldItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>
+  public let diff: DiffResultType
 
   init(
     newItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>,
-    oldItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>
+    oldItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>,
+    diff: DiffResultType
     ) {
     
     self.newItems = newItems
     self.oldItems = oldItems
+    self.diff = diff
   }
 }
 

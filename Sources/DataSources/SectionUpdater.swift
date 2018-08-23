@@ -71,7 +71,8 @@ final class SectionUpdater<T: Diffable, A: Updating> {
 
       let context = UpdateContext.init(
         newItems: newItems.indices.lazy.map { IndexPath(item: $0, section: targetSection) },
-        oldItems: currentDisplayingItems.indices.lazy.map { IndexPath(item: $0, section: targetSection) }
+        oldItems: currentDisplayingItems.indices.lazy.map { IndexPath(item: $0, section: targetSection) },
+        diff: diff
       )
       
       self.adapter.performBatch(
