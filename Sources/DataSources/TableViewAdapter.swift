@@ -40,7 +40,7 @@ open class TableViewAdapter: Updating {
     tableView.moveRow(at: indexPath, to: newIndexPath)
   }
 
-  public func performBatch(animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
+  public func performBatch(in context: UpdateContext, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
 
     if animated {
       tableView.beginUpdates()

@@ -75,6 +75,7 @@ final class SectionUpdater<T: Diffable, A: Updating> {
       )
       
       self.adapter.performBatch(
+        in: context,
         animated: animated,
         updates: {
           

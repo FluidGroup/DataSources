@@ -40,7 +40,7 @@ open class CollectionViewAdapter: Updating {
     collectionView.moveItem(at: indexPath, to: newIndexPath)
   }
 
-  open func performBatch(animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
+  open func performBatch(in context: UpdateContext, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
 
     if animated {
       collectionView.performBatchUpdates({
