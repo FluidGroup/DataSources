@@ -90,7 +90,7 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-    let m = dataSource.item(at: indexPath)
+    let m = dataSource.item(at: indexPath)!
     cell.label.text = m.title
     return cell
   }

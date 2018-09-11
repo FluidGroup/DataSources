@@ -24,7 +24,7 @@ final class AnySectionDataController<A: Updating> {
   let source: Any
 
   private let _numberOfItems: () -> Int
-  private let _item: (IndexPath) -> Any
+  private let _item: (IndexPath) -> Any?
   
   init<T>(source: SectionDataController<T, A>) {
     self.source = source
@@ -32,7 +32,7 @@ final class AnySectionDataController<A: Updating> {
       source.numberOfItems()
     }
     _item = {
-      let index = source.toIndex(from: $0)
+      guard let index = source.toIndex(from: $0) else { return nil }
       return source.snapshot[index]
     }
   }
@@ -41,7 +41,7 @@ final class AnySectionDataController<A: Updating> {
     return _numberOfItems()
   }
 
-  public func item(for indexPath: IndexPath) -> Any {
+  public func item(for indexPath: IndexPath) -> Any? {
     return _item(indexPath)
   }
 
@@ -105,8 +105,8 @@ public final class SectionDataController<T: Diffable, A: Updating>: SectionDataC
   /// Return item based on snapshot
   ///
   /// - Returns:
-  public func item(at indexPath: IndexPath) -> T {
-    let index = toIndex(from: indexPath)
+  public func item(at indexPath: IndexPath) -> T? {
+    guard let index = toIndex(from: indexPath) else { return nil }
     return snapshot[index]
   }
 
@@ -202,8 +202,11 @@ public final class SectionDataController<T: Diffable, A: Updating>: SectionDataC
   }
 
   @inline(__always)
-  fileprivate func toIndex(from indexPath: IndexPath) -> Int {
-    assert(indexPath.section == displayingSection, "IndexPath.section (\(indexPath.section)) must be equal to displayingSection (\(displayingSection)).")
+  fileprivate func toIndex(from indexPath: IndexPath) -> Int? {
+    guard indexPath.section == displayingSection else {
+      assertionFailure("IndexPath.section (\(indexPath.section)) must be equal to displayingSection (\(displayingSection)).")
+      return nil
+    }
     return indexPath.item
   }
 }

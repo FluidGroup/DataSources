@@ -107,7 +107,7 @@ public final class DataController<A: Updating> {
     return sectionDataControllers[section]!.numberOfItems()
   }
 
-  public func item<T>(at indexPath: IndexPath, in section: Section<T>) -> T {
+  public func item<T>(at indexPath: IndexPath, in section: Section<T>) -> T? {
     assertMainThread()
     guard case .added = section.state else {
       fatalError("\(section) has not added in DataSource")

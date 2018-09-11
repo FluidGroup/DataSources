@@ -40,7 +40,7 @@ public final class CollectionViewDataSource<T: Diffable> : NSObject, UICollectio
   }
 
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return cellFactory(self, collectionView, indexPath, sectionDataController.item(at: indexPath))
+    return cellFactory(self, collectionView, indexPath, sectionDataController.item(at: indexPath)!)
   }
 
   public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
