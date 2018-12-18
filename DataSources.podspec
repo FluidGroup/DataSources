@@ -1,6 +1,10 @@
 Pod::Spec.new do |s|
   s.name = 'DataSources'
+<<<<<<< HEAD
   s.version = '0.8.0'
+=======
+  s.version = '1.0.0'
+>>>>>>> 1.0.0
   s.summary = '💾 🔜📱 Type-safe data-driven List-UI Framework'
   s.homepage = 'https://github.com/muukii/DataSources'
   s.description = '💾 🔜📱 Type-safe data-driven List-UI Framework. (We can also use ASCollectionNode)'
