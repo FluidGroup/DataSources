@@ -15,6 +15,7 @@ But, It's hard that synchronous of data and UI.<br>
 [![License](https://img.shields.io/cocoapods/l/DataSources.svg?style=flat)](http://cocoapods.org/pods/DataSources)
 [![Platform](https://img.shields.io/cocoapods/p/DataSources.svg?style=flat)](http://cocoapods.org/pods/DataSources)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmuukii%2FDataSources.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmuukii%2FDataSources?ref=badge_shield)
 
 ![](sample.gif)
 
@@ -361,3 +362,6 @@ muukii, m@muukii.me, https://muukii.me/
 # License
 
 **DataSources** is available under the MIT license. See the LICENSE file for more info.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmuukii%2FDataSources.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmuukii%2FDataSources?ref=badge_large)
