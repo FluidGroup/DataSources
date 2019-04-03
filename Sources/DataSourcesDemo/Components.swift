@@ -94,7 +94,7 @@ final class Header : UICollectionReusableView {
 
     addSubview(label)
 
-    label <- Edges(8)
+    label.easy.layout(Edges(8))
 
     label.textAlignment = .center
     label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -115,8 +115,8 @@ final class Cell : UICollectionViewCell {
 
     contentView.addSubview(paddingView)
     contentView.addSubview(label)
-    label <- Center()
-    paddingView <- Edges(2)
+    label.easy.layout(Center())
+    paddingView.easy.layout(Edges(2))
 
     label.textAlignment = .center
     label.font = UIFont.systemFont(ofSize: 20)
@@ -174,13 +174,13 @@ final class TableViewCell : UITableViewCell {
   let label = UILabel()
   private let paddingView = UIView()
 
-  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
 
     contentView.addSubview(paddingView)
     contentView.addSubview(label)
-    label <- Center()
-    paddingView <- Edges(2)
+    label.easy.layout(Center())
+    paddingView.easy.layout(Edges(2))
 
     label.textAlignment = .center
     label.font = UIFont.systemFont(ofSize: 20)

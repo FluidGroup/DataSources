@@ -30,7 +30,7 @@ public protocol DiffResultType {
   var moves: [MoveIndex] { get set }
 }
 
-public struct MoveIndex : Equatable, CustomDebugStringConvertible, CustomPlaygroundQuickLookable {
+public struct MoveIndex : Equatable, CustomDebugStringConvertible {
   public let from: Int
   public let to: Int
 
@@ -46,13 +46,9 @@ public struct MoveIndex : Equatable, CustomDebugStringConvertible, CustomPlaygro
   public var debugDescription: String {
     return "\(from) => \(to)"
   }
-
-  public var customPlaygroundQuickLook: PlaygroundQuickLook {
-    return .text(debugDescription)
-  }
 }
 
-public struct DiffResult<H: Hashable> : DiffResultType, CustomDebugStringConvertible, CustomPlaygroundQuickLookable {
+public struct DiffResult<H: Hashable> : DiffResultType, CustomDebugStringConvertible {
   public var inserts = IndexSet()
   public var updates = IndexSet()
   public var deletes = IndexSet()
@@ -80,9 +76,6 @@ public struct DiffResult<H: Hashable> : DiffResultType, CustomDebugStringConvert
       .joined(separator: "\n")
   }
 
-  public var customPlaygroundQuickLook: PlaygroundQuickLook {
-    return .text(debugDescription)
-  }
 }
 
 extension DiffResultType {

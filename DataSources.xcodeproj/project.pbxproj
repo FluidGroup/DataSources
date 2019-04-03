@@ -493,7 +493,6 @@
 				4B2876D91F38476F0033B43F /* Resources */,
 				4BCFF2791F38DC0B0031FFAC /* Embed Frameworks */,
 				17B9C75DB16E38EAEAE6FFA2 /* [CP] Embed Pods Frameworks */,
-				D2B1181D1F1F37DC6FD54B46 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -514,8 +513,6 @@
 				4B2876EA1F38476F0033B43F /* Sources */,
 				4B2876EB1F38476F0033B43F /* Frameworks */,
 				4B2876EC1F38476F0033B43F /* Resources */,
-				AF3AEEB63E34DE2AACF7D94B /* [CP] Embed Pods Frameworks */,
-				D62F39311831D3AC18DC25C9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -728,7 +725,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DataSourcesDemo/Pods-DataSourcesDemo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DataSourcesDemo/Pods-DataSourcesDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EasyPeasy/EasyPeasy.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
@@ -749,52 +746,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DataSourcesDemo/Pods-DataSourcesDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AF3AEEB63E34DE2AACF7D94B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DataSourcesDemoUITests/Pods-DataSourcesDemoUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D2B1181D1F1F37DC6FD54B46 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DataSourcesDemo/Pods-DataSourcesDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D62F39311831D3AC18DC25C9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DataSourcesDemoUITests/Pods-DataSourcesDemoUITests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DataSourcesDemo/Pods-DataSourcesDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8DA2562990B1DDA2E5991CA /* [CP] Check Pods Manifest.lock */ = {
@@ -1034,7 +986,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1089,7 +1041,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
