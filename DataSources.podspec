@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name = 'DataSources'
-  s.version = '0.7.0'
+  s.version = '0.8.0'
   s.summary = '💾 🔜📱 Type-safe data-driven List-UI Framework'
   s.homepage = 'https://github.com/muukii/DataSources'
   s.description = '💾 🔜📱 Type-safe data-driven List-UI Framework. (We can also use ASCollectionNode)'
 
   s.license =  { :type => 'MIT' }
-  s.author = { 'muukii' => 'm@muukii.me' }
+  s.author = { 'muukii' => 'muukii.app@gmail.com' }
   s.social_media_url = 'https://twitter.com/muukii0803'
   s.source = { :git => 'https://github.com/muukii/DataSources.git', :tag => s.version.to_s }
 
