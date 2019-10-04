@@ -1,5 +1,5 @@
 PODS:
-  - EasyPeasy (1.8.0)
+  - EasyPeasy (1.9.0)
   - PINCache (3.0.1-beta.6):
     - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
     - PINCache/Core (= 3.0.1-beta.6)
@@ -7,7 +7,7 @@ PODS:
     - PINCache/Core
   - PINCache/Core (3.0.1-beta.6):
     - PINOperation (~> 1.1.0)
-  - PINOperation (1.1.1)
+  - PINOperation (1.1.2)
   - PINRemoteImage/Core (3.0.0-beta.13):
     - PINOperation
   - PINRemoteImage/iOS (3.0.0-beta.13):
@@ -15,17 +15,31 @@ PODS:
   - PINRemoteImage/PINCache (3.0.0-beta.13):
     - PINCache (= 3.0.1-beta.6)
     - PINRemoteImage/Core
-  - RxAtomic (4.4.0)
-  - RxCocoa (4.4.0):
-    - RxSwift (~> 4.0)
-  - RxSwift (4.4.0):
-    - RxAtomic (~> 4.4)
-  - Texture (2.7):
-    - Texture/PINRemoteImage (= 2.7)
-  - Texture/Core (2.7)
-  - Texture/PINRemoteImage (2.7):
+  - RxCocoa (5.0.0):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.0.0):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.0)
+  - Texture (2.8.1):
+    - Texture/AssetsLibrary (= 2.8.1)
+    - Texture/Core (= 2.8.1)
+    - Texture/MapKit (= 2.8.1)
+    - Texture/Photos (= 2.8.1)
+    - Texture/PINRemoteImage (= 2.8.1)
+    - Texture/Video (= 2.8.1)
+  - Texture/AssetsLibrary (2.8.1):
+    - Texture/Core
+  - Texture/Core (2.8.1)
+  - Texture/MapKit (2.8.1):
+    - Texture/Core
+  - Texture/Photos (2.8.1):
+    - Texture/Core
+  - Texture/PINRemoteImage (2.8.1):
     - PINRemoteImage/iOS (= 3.0.0-beta.13)
     - PINRemoteImage/PINCache
+    - Texture/Core
+  - Texture/Video (2.8.1):
     - Texture/Core
 
 DEPENDENCIES:
@@ -40,21 +54,21 @@ SPEC REPOS:
     - PINCache
     - PINOperation
     - PINRemoteImage
-    - RxAtomic
     - RxCocoa
+    - RxRelay
     - RxSwift
     - Texture
 
 SPEC CHECKSUMS:
-  EasyPeasy: bfffe5d47bbaaef3e32888c250a196768484b43a
+  EasyPeasy: 19a84ef8f8bbcf925b9fecc29d1d78b7dab96718
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
-  PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
+  PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
-  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
-  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
-  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
-  Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
+  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
+  RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
+  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
 
 PODFILE CHECKSUM: b8e1f4e3fe195a486aa393e51c4c11ca506551eb
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.7.5
