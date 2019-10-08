@@ -221,11 +221,15 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
 
     switch updateMode {
     case .everything:
+      
+      self.snapshot = newItems
+      
       adapter.reload {
         assertMainThread()
         self.state = .idle
         completion()
       }
+      
     case .partial(let preferredAnimated):
 
       let stagedChangeset = StagedChangeset.init(source: currentDisplayingItems, target: newItems)
