@@ -75,7 +75,7 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
 
   private(set) public var items: [T] = []
 
-  fileprivate var snapshot: [T] = []
+  private(set) public var snapshot: [T] = []
 
   private var state: State = .idle
 
@@ -113,6 +113,7 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
   /// - Returns:
   public func item(at indexPath: IndexPath) -> T? {
     guard let index = toIndex(from: indexPath) else { return nil }
+    guard snapshot.indices.contains(index) else { return nil }
     return snapshot[index]
   }
 
@@ -314,12 +315,12 @@ extension SectionDataController {
   /// - Parameter item:
   /// - Returns:
   public func indexPath(of item: T) -> IndexPath? {
-    guard let index = items.index(where: { $0.differenceIdentifier == item.differenceIdentifier }) else { return nil }
+    guard let index = items.firstIndex(where: { $0.differenceIdentifier == item.differenceIdentifier }) else { return nil }
     return IndexPath(item: index, section: displayingSection)
   }
 
   public func indexPath(of `where`: (T) -> Bool) -> IndexPath? {
-    guard let index = items.index(where:`where`) else { return nil }
+    guard let index = items.firstIndex(where:`where`) else { return nil }
     return IndexPath(item: index, section: displayingSection)
   }
 }
@@ -333,7 +334,7 @@ extension SectionDataController where T : AnyObject {
   /// - Parameter item:
   /// - Returns:
   public func indexPathPointerPersonality(of item: T) -> IndexPath? {
-    guard let index = items.index(where: { $0 === item }) else { return nil }
+    guard let index = items.firstIndex(where: { $0 === item }) else { return nil }
     return IndexPath(item: index, section: displayingSection)
   }
 }
