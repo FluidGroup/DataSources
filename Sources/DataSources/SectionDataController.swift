@@ -10,7 +10,7 @@ import Foundation
 
 import DifferenceKit
 
-public protocol SectionDataControllerType {
+public protocol SectionDataControllerType where AdapterType.Element == ItemType {
 
   associatedtype ItemType : Differentiable
   associatedtype AdapterType : Updating
@@ -56,7 +56,7 @@ final class AnySectionDataController<A: Updating> {
 }
 
 /// DataSource for a section
-public final class SectionDataController<T: Differentiable, A: Updating>: SectionDataControllerType {
+public final class SectionDataController<T: Differentiable, A: Updating>: SectionDataControllerType where A.Element == T {
 
   public typealias ItemType = T
   public typealias AdapterType = A
@@ -260,7 +260,8 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
         self.snapshot = changeset.data
 
         let updateContext = UpdateContext.init(
-          diff: .init(diff: changeset, targetSection: targetSection)
+          diff: .init(diff: changeset, targetSection: targetSection),
+          snapshot: changeset.data
         )
 
         _adapter.performBatch(

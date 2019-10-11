@@ -38,33 +38,37 @@ public struct IndexPathDiff {
   }
 }
 
-public struct UpdateContext {
+public struct UpdateContext<Element> {
 
   public let diff: IndexPathDiff
+  public let snapshot: [Element]
 
   init(
-    diff: IndexPathDiff
+    diff: IndexPathDiff,
+    snapshot: [Element]
     ) {
 
     self.diff = diff
+    self.snapshot = snapshot
   }
 }
 
 public protocol Updating : class {
 
   associatedtype Target
-
+  associatedtype Element
+  
   var target: Target { get }
 
-  func insertItems(at indexPaths: [IndexPath], in context: UpdateContext)
+  func insertItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
-  func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext)
+  func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
-  func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext)
+  func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
-  func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext)
+  func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext<Element>)
 
-  func performBatch(in context: UpdateContext, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void)
+  func performBatch(in context: UpdateContext<Element>, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void)
 
   func reload(completion: @escaping () -> Void)
 }
