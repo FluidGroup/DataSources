@@ -11,7 +11,7 @@ import Foundation
 // https://github.com/muukii/ListDiff/blob/master/Sources/ListDiff.swift
 // https://github.com/Instagram/IGListKit/blob/master/Source/Common/IGListDiff.mm
 
-public typealias EqualityChecker<T: Diffable> = (T, T) -> Bool
+public typealias EqualityChecker<T: Diffable> = (_ old: T, _ new: T) -> Bool
 
 public protocol Diffable {
   associatedtype Identifier : Hashable
@@ -208,7 +208,7 @@ public enum Diff: Diffing {
       if oldIndex < __oldArray.count {
         let n = __newArray[i]
         let o = __oldArray[oldIndex]
-        if isEqual(n, o) == false {
+        if isEqual(o, n) == false {
           entry.updated = true
         }
       }
