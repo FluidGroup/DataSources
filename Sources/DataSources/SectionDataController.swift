@@ -238,6 +238,7 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
       let totalChangeCount = stagedChangeset.map { $0.changeCount }.reduce(0, +)
 
       guard totalChangeCount > 0 else {
+        completion()
         return
       }
 
