@@ -1,3 +1,6 @@
+> ⚠️ The latest updates is this [PR](https://github.com/muukii/DataSources/pull/12).
+> It changes the difference algorithm to DifferenceKit.
+
 <p align="center">
 <img width=656 src="logo.png">
 </p>
