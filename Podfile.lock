@@ -1,29 +1,45 @@
 PODS:
-  - EasyPeasy (1.6.0)
-  - PINCache (3.0.1-beta.5):
-    - PINCache/Arc-exception-safe (= 3.0.1-beta.5)
-    - PINCache/Core (= 3.0.1-beta.5)
-  - PINCache/Arc-exception-safe (3.0.1-beta.5):
+  - EasyPeasy (1.9.0)
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
     - PINCache/Core
-  - PINCache/Core (3.0.1-beta.5):
-    - PINOperation (= 1.0.3)
-  - PINOperation (1.0.3)
-  - PINRemoteImage/Core (3.0.0-beta.12):
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.1)
+  - PINRemoteImage/Core (3.0.3):
     - PINOperation
-  - PINRemoteImage/iOS (3.0.0-beta.12):
+  - PINRemoteImage/iOS (3.0.3):
     - PINRemoteImage/Core
-  - PINRemoteImage/PINCache (3.0.0-beta.12):
-    - PINCache (= 3.0.1-beta.5)
+  - PINRemoteImage/PINCache (3.0.3):
+    - PINCache (~> 3.0.3)
     - PINRemoteImage/Core
-  - RxCocoa (4.0.0):
-    - RxSwift (~> 4.0)
-  - RxSwift (4.0.0)
-  - Texture (2.5.1):
-    - Texture/PINRemoteImage (= 2.5.1)
-  - Texture/Core (2.5.1)
-  - Texture/PINRemoteImage (2.5.1):
-    - PINRemoteImage/iOS (= 3.0.0-beta.12)
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.1)
+  - Texture (3.0.0):
+    - Texture/AssetsLibrary (= 3.0.0)
+    - Texture/Core (= 3.0.0)
+    - Texture/MapKit (= 3.0.0)
+    - Texture/Photos (= 3.0.0)
+    - Texture/PINRemoteImage (= 3.0.0)
+    - Texture/Video (= 3.0.0)
+  - Texture/AssetsLibrary (3.0.0):
+    - Texture/Core
+  - Texture/Core (3.0.0)
+  - Texture/MapKit (3.0.0):
+    - Texture/Core
+  - Texture/Photos (3.0.0):
+    - Texture/Core
+  - Texture/PINRemoteImage (3.0.0):
+    - PINRemoteImage/iOS (~> 3.0.0)
     - PINRemoteImage/PINCache
+    - Texture/Core
+  - Texture/Video (3.0.0):
     - Texture/Core
 
 DEPENDENCIES:
@@ -33,24 +49,26 @@ DEPENDENCIES:
   - Texture
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - EasyPeasy
     - PINCache
     - PINOperation
     - PINRemoteImage
     - RxCocoa
+    - RxRelay
     - RxSwift
     - Texture
 
 SPEC CHECKSUMS:
-  EasyPeasy: aef0a77d7e7636d6b5e046194bc911b0a8d73c88
-  PINCache: 98e7b1ef782824ad231ade51987c218b758c30d8
-  PINOperation: ac23db44796d4a564ecf9b5ea7163510f579b71d
-  PINRemoteImage: 0cefe720c2612960bd360710efbd6c73a1991d5f
-  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
-  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
-  Texture: c3f06e344aa091667b7a56002e525cde674d021a
+  EasyPeasy: 19a84ef8f8bbcf925b9fecc29d1d78b7dab96718
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
+  PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
 
-PODFILE CHECKSUM: b8e1f4e3fe195a486aa393e51c4c11ca506551eb
+PODFILE CHECKSUM: 26394a0e1593ad555110e37a3801c3aaa1b0f3dd
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.10.0

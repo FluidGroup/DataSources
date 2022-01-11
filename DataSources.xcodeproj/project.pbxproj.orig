@@ -11,6 +11,7 @@
 		4B020EC01F3A35A90001EDB7 /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B020EBF1F3A35A90001EDB7 /* Throttle.swift */; };
 		4B0B9E1F1F3A3B840013B992 /* ThrottleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9E1D1F3A3B660013B992 /* ThrottleTests.swift */; };
 		4B2771DD1F3CAAE000FC68BE /* TableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2771DC1F3CAAE000FC68BE /* TableViewAdapter.swift */; };
+		4B2771DF1F3CAC4D00FC68BE /* MultipleSectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2771DE1F3CAC4D00FC68BE /* MultipleSectionTableViewController.swift */; };
 		4B2876C71F3846C70033B43F /* DataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2876BD1F3846C70033B43F /* DataSources.framework */; };
 		4B2876CE1F3846C70033B43F /* DataSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B2876C01F3846C70033B43F /* DataSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B2876DE1F38476F0033B43F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2876DD1F38476F0033B43F /* AppDelegate.swift */; };
@@ -22,14 +23,21 @@
 		4B2876FC1F3847B90033B43F /* Updating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2876FB1F3847B90033B43F /* Updating.swift */; };
 		4B7BA02E1F38FC9600CE9BAC /* DataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2876BD1F3846C70033B43F /* DataSources.framework */; };
 		4B7BA02F1F38FC9600CE9BAC /* DataSources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2876BD1F3846C70033B43F /* DataSources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B84E8951F38FFFF00168F6E /* MultipleSectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B84E8941F38FFFF00168F6E /* MultipleSectionCollectionViewController.swift */; };
 		4B9997C01F39A99700DCE3FA /* CollectionNodeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9997BF1F39A99700DCE3FA /* CollectionNodeAdapter.swift */; };
 		4BA02A3C21198974006C9AFD /* DifferenceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA02A3B21198974006C9AFD /* DifferenceKit.framework */; };
 		4BAC5B951F49DCCE000AD7CF /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAC5B941F49DCCE000AD7CF /* Deprecated.swift */; };
 		4BBC868B1F3B49AA00BD424A /* SingleSectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBC868A1F3B49AA00BD424A /* SingleSectionCollectionViewController.swift */; };
 		4BBC868D1F3B49BF00BD424A /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBC868C1F3B49BF00BD424A /* Components.swift */; };
 		4BCFF27D1F38DCE50031FFAC /* SectionDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCFF27C1F38DCE50031FFAC /* SectionDataController.swift */; };
+		4BDB1F3A1F49939800478747 /* CollectionViewSectionedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB1F391F49939800478747 /* CollectionViewSectionedDataSource.swift */; };
+		4BDB1F3C1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB1F3B1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift */; };
+		4BDB1F3F1F499F5D00478747 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB1F3D1F499F5900478747 /* CollectionViewDataSource.swift */; };
+		4BDB1F411F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB1F401F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift */; };
 		4BDB45FB1F394FDF003F5053 /* DataSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45FA1F394FDF003F5053 /* DataSources.swift */; };
 		4BDB45FF1F3950F2003F5053 /* CollectionViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */; };
+		4BE630801F3CAEC10080EC83 /* MultipleSectionCollectionNodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6307F1F3CAEC10080EC83 /* MultipleSectionCollectionNodeViewController.swift */; };
+		4BE9DCC61F3ABE2D002A00FA /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE9DCC51F3ABE2D002A00FA /* DataController.swift */; };
 		DF3C89DEF99725A1C1B5BFB4 /* Pods_DataSourcesDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB154178EA51E5E7CE88008A /* Pods_DataSourcesDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +83,7 @@
 		4B020EBF1F3A35A90001EDB7 /* Throttle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		4B0B9E1D1F3A3B660013B992 /* ThrottleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrottleTests.swift; sourceTree = "<group>"; };
 		4B2771DC1F3CAAE000FC68BE /* TableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewAdapter.swift; sourceTree = "<group>"; };
+		4B2771DE1F3CAC4D00FC68BE /* MultipleSectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSectionTableViewController.swift; sourceTree = "<group>"; };
 		4B2876BD1F3846C70033B43F /* DataSources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataSources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B2876C01F3846C70033B43F /* DataSources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataSources.h; sourceTree = "<group>"; };
 		4B2876C11F3846C70033B43F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +100,7 @@
 		4B2876F21F38476F0033B43F /* ListAdapterDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAdapterDemoUITests.swift; sourceTree = "<group>"; };
 		4B2876F41F38476F0033B43F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B2876FB1F3847B90033B43F /* Updating.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Updating.swift; sourceTree = "<group>"; };
+		4B84E8941F38FFFF00168F6E /* MultipleSectionCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSectionCollectionViewController.swift; sourceTree = "<group>"; };
 		4B9997BF1F39A99700DCE3FA /* CollectionNodeAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionNodeAdapter.swift; sourceTree = "<group>"; };
 		4BA02A3B21198974006C9AFD /* DifferenceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DifferenceKit.framework; path = Carthage/Build/iOS/DifferenceKit.framework; sourceTree = "<group>"; };
 		4BAC5B941F49DCCE000AD7CF /* Deprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deprecated.swift; sourceTree = "<group>"; };
@@ -98,8 +108,14 @@
 		4BBC868C1F3B49BF00BD424A /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		4BBC868E1F3B62C500BD424A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4BCFF27C1F38DCE50031FFAC /* SectionDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDataController.swift; sourceTree = "<group>"; };
+		4BDB1F391F49939800478747 /* CollectionViewSectionedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSectionedDataSource.swift; sourceTree = "<group>"; };
+		4BDB1F3B1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSectionSectionedDataSourceCollectionViewController.swift; sourceTree = "<group>"; };
+		4BDB1F3D1F499F5900478747 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		4BDB1F401F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionDataSourceCollectionViewController.swift; sourceTree = "<group>"; };
 		4BDB45FA1F394FDF003F5053 /* DataSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSources.swift; sourceTree = "<group>"; };
 		4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewAdapter.swift; sourceTree = "<group>"; };
+		4BE6307F1F3CAEC10080EC83 /* MultipleSectionCollectionNodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSectionCollectionNodeViewController.swift; sourceTree = "<group>"; };
+		4BE9DCC51F3ABE2D002A00FA /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		5F9FA47FCDF59FE730FF500A /* Pods-DataSourcesDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataSourcesDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DataSourcesDemo/Pods-DataSourcesDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		68A5C4702FAF617B7BC75F05 /* Pods_DataSourcesDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataSourcesDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84702358F17DC4D5781BEA62 /* Pods-DataSourcesDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataSourcesDemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DataSourcesDemoUITests/Pods-DataSourcesDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -175,8 +191,11 @@
 				4B2876C11F3846C70033B43F /* Info.plist */,
 				4B2876C01F3846C70033B43F /* DataSources.h */,
 				4BAC5B941F49DCCE000AD7CF /* Deprecated.swift */,
+				4BDB1F391F49939800478747 /* CollectionViewSectionedDataSource.swift */,
+				4BDB1F3D1F499F5900478747 /* CollectionViewDataSource.swift */,
 				4B2876FB1F3847B90033B43F /* Updating.swift */,
 				4BCFF27C1F38DCE50031FFAC /* SectionDataController.swift */,
+				4BE9DCC51F3ABE2D002A00FA /* DataController.swift */,
 				4BDB45FA1F394FDF003F5053 /* DataSources.swift */,
 				4BDB45FE1F3950F2003F5053 /* CollectionViewAdapter.swift */,
 				4B2771DC1F3CAAE000FC68BE /* TableViewAdapter.swift */,
@@ -203,7 +222,12 @@
 				4B2876E61F38476F0033B43F /* LaunchScreen.storyboard */,
 				4B2876E11F38476F0033B43F /* Main.storyboard */,
 				4B2876DF1F38476F0033B43F /* ViewController.swift */,
+				4B84E8941F38FFFF00168F6E /* MultipleSectionCollectionViewController.swift */,
 				4BBC868A1F3B49AA00BD424A /* SingleSectionCollectionViewController.swift */,
+				4BDB1F401F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift */,
+				4B2771DE1F3CAC4D00FC68BE /* MultipleSectionTableViewController.swift */,
+				4BE6307F1F3CAEC10080EC83 /* MultipleSectionCollectionNodeViewController.swift */,
+				4BDB1F3B1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift */,
 				4BBC868C1F3B49BF00BD424A /* Components.swift */,
 				4B9997BF1F39A99700DCE3FA /* CollectionNodeAdapter.swift */,
 			);
@@ -459,8 +483,8 @@
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
 			);
@@ -470,8 +494,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
 			);
@@ -505,10 +529,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BE9DCC61F3ABE2D002A00FA /* DataController.swift in Sources */,
 				4BDB45FF1F3950F2003F5053 /* CollectionViewAdapter.swift in Sources */,
 				4B020EC01F3A35A90001EDB7 /* Throttle.swift in Sources */,
 				4BDB45FB1F394FDF003F5053 /* DataSources.swift in Sources */,
+				4BDB1F3A1F49939800478747 /* CollectionViewSectionedDataSource.swift in Sources */,
 				4BAC5B951F49DCCE000AD7CF /* Deprecated.swift in Sources */,
+				4BDB1F3F1F499F5D00478747 /* CollectionViewDataSource.swift in Sources */,
 				4B2876FC1F3847B90033B43F /* Updating.swift in Sources */,
 				4B2771DD1F3CAAE000FC68BE /* TableViewAdapter.swift in Sources */,
 				4BCFF27D1F38DCE50031FFAC /* SectionDataController.swift in Sources */,
@@ -527,11 +554,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B84E8951F38FFFF00168F6E /* MultipleSectionCollectionViewController.swift in Sources */,
 				4B9997C01F39A99700DCE3FA /* CollectionNodeAdapter.swift in Sources */,
 				4B2876E01F38476F0033B43F /* ViewController.swift in Sources */,
+				4BDB1F411F49A22700478747 /* SingleSectionDataSourceCollectionViewController.swift in Sources */,
+				4BDB1F3C1F49995100478747 /* MultipleSectionSectionedDataSourceCollectionViewController.swift in Sources */,
 				4BBC868D1F3B49BF00BD424A /* Components.swift in Sources */,
 				4B2876DE1F38476F0033B43F /* AppDelegate.swift in Sources */,
 				4BBC868B1F3B49AA00BD424A /* SingleSectionCollectionViewController.swift in Sources */,
+				4BE630801F3CAEC10080EC83 /* MultipleSectionCollectionNodeViewController.swift in Sources */,
+				4B2771DF1F3CAC4D00FC68BE /* MultipleSectionTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +672,11 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+<<<<<<< HEAD
 				SWIFT_VERSION = 5.0;
+=======
+				SWIFT_VERSION = 4.2;
+>>>>>>> Use DifferenceKit
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -695,7 +731,11 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+<<<<<<< HEAD
 				SWIFT_VERSION = 5.0;
+=======
+				SWIFT_VERSION = 4.2;
+>>>>>>> Use DifferenceKit
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";

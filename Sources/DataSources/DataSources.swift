@@ -8,9 +8,7 @@
 
 import Foundation
 
-#if !COCOAPODS
-  @_exported import ListDiff
-#endif
+@_exported import DifferenceKit
 
 @inline(__always)
 func assertMainThread() {

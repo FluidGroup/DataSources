@@ -8,6 +8,8 @@
 
 import Foundation
 
+import DifferenceKit
+
 public struct IndexPathDiff {
 
   public struct Move {
@@ -23,52 +25,50 @@ public struct IndexPathDiff {
 
   public let moves: [Move]
 
-  init(diff: DiffResultType, targetSection: Int) {
-    self.updates = diff.updates.map { IndexPath(item: $0, section: targetSection) }
-    self.inserts = diff.inserts.map { IndexPath(item: $0, section: targetSection) }
-    self.deletes = diff.deletes.map { IndexPath(item: $0, section: targetSection) }
-    self.moves = diff.moves.map {
+  init<T>(diff: Changeset<T>, targetSection: Int) {
+    self.updates = diff.elementUpdated.map { IndexPath(item: $0.element, section: targetSection) }
+    self.inserts = diff.elementInserted.map { IndexPath(item: $0.element, section: targetSection) }
+    self.deletes = diff.elementDeleted.map { IndexPath(item: $0.element, section: targetSection) }
+    self.moves = diff.elementMoved.map {
       Move(
-        from: IndexPath(item: $0.from, section: targetSection),
-        to: IndexPath(item: $0.to, section: targetSection)
+        from: IndexPath(item: $0.source.element, section: targetSection),
+        to: IndexPath(item: $0.target.element, section: targetSection)
       )
     }
   }
 }
 
-public struct UpdateContext {
+public struct UpdateContext<Element> {
 
-  public let newItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>
-  public let oldItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>
   public let diff: IndexPathDiff
+  public let snapshot: [Element]
 
   init(
-    newItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>,
-    oldItems: LazyMapCollection<CountableRange<Array<Any>.Index>, IndexPath>,
-    diff: IndexPathDiff
+    diff: IndexPathDiff,
+    snapshot: [Element]
     ) {
-    
-    self.newItems = newItems
-    self.oldItems = oldItems
+
     self.diff = diff
+    self.snapshot = snapshot
   }
 }
 
 public protocol Updating : class {
 
   associatedtype Target
-
+  associatedtype Element
+  
   var target: Target { get }
 
-  func insertItems(at indexPaths: [IndexPath], in context: UpdateContext)
+  func insertItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
-  func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext)
+  func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
-  func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext)
+  func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
-  func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext)
+  func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext<Element>)
 
-  func performBatch(in context: UpdateContext, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void)
+  func performBatch(in context: UpdateContext<Element>, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void)
 
   func reload(completion: @escaping () -> Void)
 }
