@@ -266,62 +266,6 @@ Therefore when we reorder items, we should operation followings.
 1. Call `SectionDataController.reserveMoved(...`
 2. Reorder items of Array
 3. Call `SectionDataController.update(items: [T]..`
-  
-# Appendix
-
-## Combination with RxSwift
-
-We can use DataControllers with RxSwift.
-The following code is an example.
-
-Add extension
-
-```swift
-import RxSwift
-import DataControllers
-
-extension SectionDataController : ReactiveCompatible {}
-
-extension Reactive where Base : SectionDataControllerType {
-
-  public func partialUpdate<
-    T,
-    Controller: ObservableType
-    >
-    (animated: Bool) -> (_ o: Source) -> Disposable where Source.E == [T], T == Base.ItemType {
-
-    weak var t = base.asSectionDataController()
-
-    return { source in
-
-      source
-        .observeOn(MainScheduler.instance)
-        .concatMap { (newItems: [T]) -> Completable in
-          Completable.create { o in
-            guard let sectionDataController = t else {
-              o(.completed)
-              return Disposables.create()
-            }
-            sectionDataController.update(items: newItems, updateMode: .partial(animated: animated), completion: {
-              o(.completed)
-            })
-            return Disposables.create()
-          }
-        }
-        .subscribe()
-    }
-  }
-}
-```
-
-```swift
-let models: Variable<[Model]>
-let sectionDataController = SectionDataController<Model, CollectionViewAdapter>
-
-models
-  .asDriver()
-  .drive(sectionDataController.rx.partialUpdate(animated: true))
-```
 
 # Demo Application
 
@@ -338,22 +282,6 @@ $ pod install
 
 2. Open xcworkspace
 3. Run `DataSourcesDemo` on iPhone Simulator.
-
-# Installation
-
-## CocoaPods
-
-```
-pod 'DataSources'
-```
-
-## Carthage
-
-```
-github "muukii/DataSources"
-```
-
-You need to add `DataSources.framework` and `DifferenceKit.framework` to your project.
 
 # Author
 
