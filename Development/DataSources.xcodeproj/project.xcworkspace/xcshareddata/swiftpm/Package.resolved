@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DifferenceKit",
+        "repositoryURL": "https://github.com/ra1028/DifferenceKit.git",
+        "state": {
+          "branch": null,
+          "revision": "073b9671ce2b9b5b96398611427a1f929927e428",
+          "version": "1.3.0"
+        }
+      },
+      {
+        "package": "Texture",
+        "repositoryURL": "https://github.com/FluidGroup/Texture.git",
+        "state": {
+          "branch": null,
+          "revision": "68df47f0d26522da76b06f22e9a97e4d4ab58dad",
+          "version": "3.0.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
