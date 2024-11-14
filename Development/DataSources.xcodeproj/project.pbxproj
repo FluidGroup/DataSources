@@ -9,14 +9,13 @@
 /* Begin PBXBuildFile section */
 		4B7355262CE5E5300055C27B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4B7355252CE5E5300055C27B /* RxCocoa */; };
 		4B7355282CE5E5300055C27B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4B7355272CE5E5300055C27B /* RxSwift */; };
-		4B73552B2CE5E53E0055C27B /* EasyPeasy in Frameworks */ = {isa = PBXBuildFile; productRef = 4B73552A2CE5E53E0055C27B /* EasyPeasy */; };
 		4B73552D2CE5E5990055C27B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4B73552C2CE5E5990055C27B /* RxRelay */; };
+		4B7355302CE5F7B10055C27B /* SwiftUIHosting in Frameworks */ = {isa = PBXBuildFile; productRef = 4B73552F2CE5F7B10055C27B /* SwiftUIHosting */; };
 		4BC1C1712AE416EA007BBF0C /* DataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4BC1C1702AE416EA007BBF0C /* DataSources */; };
 		4BC1C17F2AE41743007BBF0C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC1C17D2AE4172D007BBF0C /* Components.swift */; };
 		4BC1C1802AE41745007BBF0C /* SingleSectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC1C17C2AE4172D007BBF0C /* SingleSectionCollectionViewController.swift */; };
 		4BC1C1812AE41748007BBF0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC1C17B2AE4172D007BBF0C /* AppDelegate.swift */; };
 		4BC1C1822AE4174C007BBF0C /* CollectionNodeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC1C1762AE4172D007BBF0C /* CollectionNodeAdapter.swift */; };
-		4BC1C1832AE41750007BBF0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC1C1742AE4172D007BBF0C /* ViewController.swift */; };
 		4BC1C1862AE417A7007BBF0C /* AsyncDisplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4BC1C1852AE417A7007BBF0C /* AsyncDisplayKit */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +39,6 @@
 		4B2876F21F38476F0033B43F /* ListAdapterDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAdapterDemoUITests.swift; sourceTree = "<group>"; };
 		4B2876F41F38476F0033B43F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BC1C16F2AE41697007BBF0C /* DataSources */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DataSources; path = ..; sourceTree = "<group>"; };
-		4BC1C1742AE4172D007BBF0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4BC1C1752AE4172D007BBF0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BC1C1762AE4172D007BBF0C /* CollectionNodeAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionNodeAdapter.swift; sourceTree = "<group>"; };
 		4BC1C1782AE4172D007BBF0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,9 +56,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B73552D2CE5E5990055C27B /* RxRelay in Frameworks */,
-				4B73552B2CE5E53E0055C27B /* EasyPeasy in Frameworks */,
 				4B7355262CE5E5300055C27B /* RxCocoa in Frameworks */,
 				4BC1C1712AE416EA007BBF0C /* DataSources in Frameworks */,
+				4B7355302CE5F7B10055C27B /* SwiftUIHosting in Frameworks */,
 				4B7355282CE5E5300055C27B /* RxSwift in Frameworks */,
 				4BC1C1862AE417A7007BBF0C /* AsyncDisplayKit in Frameworks */,
 			);
@@ -109,7 +107,6 @@
 		4BC1C1732AE4172D007BBF0C /* DataSourcesDemo */ = {
 			isa = PBXGroup;
 			children = (
-				4BC1C1742AE4172D007BBF0C /* ViewController.swift */,
 				4BC1C1752AE4172D007BBF0C /* Assets.xcassets */,
 				4BC1C1762AE4172D007BBF0C /* CollectionNodeAdapter.swift */,
 				4BC1C1772AE4172D007BBF0C /* LaunchScreen.storyboard */,
@@ -161,8 +158,8 @@
 				4BC1C1852AE417A7007BBF0C /* AsyncDisplayKit */,
 				4B7355252CE5E5300055C27B /* RxCocoa */,
 				4B7355272CE5E5300055C27B /* RxSwift */,
-				4B73552A2CE5E53E0055C27B /* EasyPeasy */,
 				4B73552C2CE5E5990055C27B /* RxRelay */,
+				4B73552F2CE5F7B10055C27B /* SwiftUIHosting */,
 			);
 			productName = ListAdapterDemo;
 			productReference = 4B2876DB1F38476F0033B43F /* DataSourcesDemo.app */;
@@ -195,7 +192,7 @@
 			packageReferences = (
 				4BC1C1842AE417A7007BBF0C /* XCRemoteSwiftPackageReference "Texture" */,
 				4B7355242CE5E5300055C27B /* XCRemoteSwiftPackageReference "RxSwift" */,
-				4B7355292CE5E53E0055C27B /* XCRemoteSwiftPackageReference "EasyPeasy" */,
+				4B73552E2CE5F7B10055C27B /* XCRemoteSwiftPackageReference "swiftui-hosting" */,
 			);
 			productRefGroup = 4B2876BE1F3846C70033B43F /* Products */;
 			projectDirPath = "";
@@ -221,7 +218,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BC1C1832AE41750007BBF0C /* ViewController.swift in Sources */,
 				4BC1C1812AE41748007BBF0C /* AppDelegate.swift in Sources */,
 				4BC1C1822AE4174C007BBF0C /* CollectionNodeAdapter.swift in Sources */,
 				4BC1C1802AE41745007BBF0C /* SingleSectionCollectionViewController.swift in Sources */,
@@ -381,6 +377,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -405,6 +402,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -450,12 +448,12 @@
 				minimumVersion = 6.8.0;
 			};
 		};
-		4B7355292CE5E53E0055C27B /* XCRemoteSwiftPackageReference "EasyPeasy" */ = {
+		4B73552E2CE5F7B10055C27B /* XCRemoteSwiftPackageReference "swiftui-hosting" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nakiostudio/EasyPeasy.git";
+			repositoryURL = "https://github.com/FluidGroup/swiftui-hosting.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.9.0;
+				minimumVersion = 2.2.1;
 			};
 		};
 		4BC1C1842AE417A7007BBF0C /* XCRemoteSwiftPackageReference "Texture" */ = {
@@ -479,15 +477,15 @@
 			package = 4B7355242CE5E5300055C27B /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
-		4B73552A2CE5E53E0055C27B /* EasyPeasy */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4B7355292CE5E53E0055C27B /* XCRemoteSwiftPackageReference "EasyPeasy" */;
-			productName = EasyPeasy;
-		};
 		4B73552C2CE5E5990055C27B /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4B7355242CE5E5300055C27B /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
+		};
+		4B73552F2CE5F7B10055C27B /* SwiftUIHosting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B73552E2CE5F7B10055C27B /* XCRemoteSwiftPackageReference "swiftui-hosting" */;
+			productName = SwiftUIHosting;
 		};
 		4BC1C1702AE416EA007BBF0C /* DataSources */ = {
 			isa = XCSwiftPackageProductDependency;

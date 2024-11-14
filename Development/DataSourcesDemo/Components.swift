@@ -6,19 +6,17 @@
 //  Copyright © 2017 muukii. All rights reserved.
 //
 
-import Foundation
-
-import RxSwift
-import RxRelay
-import EasyPeasy
-import DataSources
 import AsyncDisplayKit
+import DataSources
+import Foundation
+import RxRelay
+import RxSwift
 
 protocol Model {
   var title: String { get }
 }
 
-struct ModelA : Model, Differentiable, Equatable {
+struct ModelA: Model, Differentiable, Equatable {
 
   var differenceIdentifier: String {
     return identity
@@ -32,7 +30,7 @@ struct ModelA : Model, Differentiable, Equatable {
   }
 }
 
-struct ModelB : Model, Differentiable, Equatable {
+struct ModelB: Model, Differentiable, Equatable {
 
   var differenceIdentifier: String {
     return identity
@@ -45,7 +43,6 @@ struct ModelB : Model, Differentiable, Equatable {
     return self == source
   }
 }
-
 
 final class ViewModel {
 
@@ -62,11 +59,12 @@ final class ViewModel {
     for _ in 0..<20 {
       self.section0.modify {
         $0.insert(ModelA(identity: UUID().uuidString, title: String.randomEmoji()), at: 0)
-      }            
+      }
     }
     for _ in 0..<20 {
-      self.section1.modify { 
-        $0.insert(ModelB(identity: UUID().uuidString, title: arc4random_uniform(20).description), at: 0)
+      self.section1.modify {
+        $0.insert(
+          ModelB(identity: UUID().uuidString, title: arc4random_uniform(20).description), at: 0)
       }
     }
   }
@@ -80,7 +78,7 @@ final class ViewModel {
         $0.append(ModelA(identity: UUID().uuidString, title: String.randomEmoji()))
       }
     }
-    
+
     section1.modify {
       $0.removeFirst()
     }
@@ -104,18 +102,18 @@ final class ViewModel {
     }
   }
 
-  func shuffle() {    
+  func shuffle() {
     section0.modify {
       $0 = $0.shuffled()
     }
-    
+
     section1.modify {
-      $0.removeFirst()
-    }    
+      $0 = $0.shuffled()
+    }
   }
 }
 
-final class Header : UICollectionReusableView {
+final class Header: UICollectionReusableView {
 
   let label = UILabel()
 
@@ -123,8 +121,14 @@ final class Header : UICollectionReusableView {
     super.init(frame: frame)
 
     addSubview(label)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      label.topAnchor.constraint(equalTo: topAnchor),
 
-    label.easy.layout(Edges(8))
+      label.leadingAnchor.constraint(equalTo: leadingAnchor),
+      label.trailingAnchor.constraint(equalTo: trailingAnchor),
+      label.bottomAnchor.constraint(equalTo: bottomAnchor),
+    ])
 
     label.textAlignment = .center
     label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -135,7 +139,7 @@ final class Header : UICollectionReusableView {
   }
 }
 
-final class Cell : UICollectionViewCell {
+final class Cell: UICollectionViewCell {
 
   let label = UILabel()
   private let paddingView = UIView()
@@ -145,9 +149,23 @@ final class Cell : UICollectionViewCell {
 
     contentView.addSubview(paddingView)
     contentView.addSubview(label)
-    label.easy.layout(Center())
-    paddingView.easy.layout(Edges(2))
-
+    
+    label.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      label.topAnchor.constraint(equalTo: contentView.topAnchor),      
+      label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+      label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+    ])
+    
+    paddingView.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      paddingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
+      paddingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
+      paddingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2),
+      paddingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
+    ])
+      
     label.textAlignment = .center
     label.font = UIFont.systemFont(ofSize: 20)
 
@@ -162,7 +180,7 @@ final class Cell : UICollectionViewCell {
   }
 }
 
-final class CellNode : ASCellNode {
+final class CellNode: ASCellNode {
 
   private let textNode = ASTextNode()
   private let paddingNode = ASDisplayNode()
@@ -173,7 +191,7 @@ final class CellNode : ASCellNode {
     textNode.attributedText = NSAttributedString(
       string: model.title,
       attributes: [
-        .font : UIFont.systemFont(ofSize: 20),
+        .font: UIFont.systemFont(ofSize: 20)
       ]
     )
     paddingNode.backgroundColor = UIColor(white: 0.95, alpha: 1)
@@ -191,43 +209,16 @@ final class CellNode : ASCellNode {
           horizontalPosition: .center,
           verticalPosition: .center,
           sizingOption: .minimumSize,
-          child: textNode)
-        ]
+          child: textNode),
+      ]
       )
     )
 
   }
 }
 
-final class TableViewCell : UITableViewCell {
-
-  let label = UILabel()
-  private let paddingView = UIView()
-
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-    contentView.addSubview(paddingView)
-    contentView.addSubview(label)
-    label.easy.layout(Center())
-    paddingView.easy.layout(Edges(2))
-
-    label.textAlignment = .center
-    label.font = UIFont.systemFont(ofSize: 20)
-
-    paddingView.backgroundColor = UIColor(white: 0.95, alpha: 1)
-    paddingView.layer.cornerRadius = 4
-    paddingView.layer.shouldRasterize = true
-    paddingView.layer.rasterizationScale = UIScreen.main.scale
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-}
-
 extension Array {
-  func shuffled() -> Array<Element> {
+  func shuffled() -> [Element] {
     var array = self
 
     for i in 0..<array.count {
@@ -235,16 +226,16 @@ extension Array {
       let d = Int(arc4random_uniform(ub))
 
       let tmp = array[i]
-      array[i] = array[i+d]
-      array[i+d] = tmp
+      array[i] = array[i + d]
+      array[i + d] = tmp
     }
 
     return array
   }
 }
 
-extension String{
-  static func randomEmoji() -> String{
+extension String {
+  static func randomEmoji() -> String {
     let range = 0x1F601...0x1F64F
     let ascii = range.lowerBound + Int(arc4random_uniform(UInt32(range.count)))
 
@@ -258,12 +249,12 @@ extension String{
 }
 
 extension BehaviorRelay {
-  
+
   // no-thread-safe
   func modify(_ modifier: (inout Element) -> Void) {
     var value = self.value
-    modifier(&value)    
-    self.accept(value)    
+    modifier(&value)
+    self.accept(value)
   }
-  
+
 }
