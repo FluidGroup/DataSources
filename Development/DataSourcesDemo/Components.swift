@@ -44,6 +44,7 @@ struct ModelB: Model, Differentiable, Equatable {
   }
 }
 
+@MainActor
 final class ViewModel {
 
   let section0 = BehaviorRelay<[ModelA]>(value: [])
@@ -73,7 +74,7 @@ final class ViewModel {
     section0.modify {
       $0.removeFirst()
     }
-    DispatchQueue.global().async {
+    Task { @MainActor [self] in
       self.section0.modify {
         $0.append(ModelA(identity: UUID().uuidString, title: String.randomEmoji()))
       }
@@ -82,7 +83,7 @@ final class ViewModel {
     section1.modify {
       $0.removeFirst()
     }
-    DispatchQueue.global().async {
+    Task { @MainActor [self] in
       self.section1.modify {
         $0.append(ModelB(identity: UUID().uuidString, title: arc4random_uniform(30).description))
       }

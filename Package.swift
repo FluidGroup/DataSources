@@ -1,9 +1,9 @@
-// swift-tools-version:5.5
+// swift-tools-version:6.0
 import PackageDescription
 
 let package = Package(
   name: "DataSources",
-  platforms: [.iOS(.v12)],
+  platforms: [.iOS(.v16)],
   products: [
     .library(name: "DataSources", targets: ["DataSources"]),
   ],
