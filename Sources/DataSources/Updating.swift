@@ -1,18 +1,11 @@
-//
-//  Updating.swift
-//  DataSources
-//
-//  Created by muukii on 8/7/17.
-//  Copyright © 2017 muukii. All rights reserved.
-//
 
 import Foundation
 
 import DifferenceKit
 
-public struct IndexPathDiff {
+public struct IndexPathDiff: Sendable {
 
-  public struct Move {
+  public struct Move : Sendable {
     let from: IndexPath
     let to: IndexPath
   }
@@ -53,7 +46,12 @@ public struct UpdateContext<Element> {
   }
 }
 
-public protocol Updating : class {
+extension UpdateContext: Sendable where Element: Sendable {
+}
+
+
+@MainActor
+public protocol Updating: AnyObject {
 
   associatedtype Target
   associatedtype Element
