@@ -9,9 +9,6 @@
 import UIKit
 
 import DataSources
-import EasyPeasy
-import RxSwift
-import RxCocoa
 
 final class SingleSectionCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -38,7 +35,6 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
   private let shuffle = UIBarButtonItem(title: "Shuffle", style: .plain, target: nil, action: nil)
 
   private let viewModel = ViewModel()
-  private let disposeBag = DisposeBag()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,21 +44,21 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
 
     navigationItem.rightBarButtonItems = [add, remove, addRemove, shuffle]
 
-    add.rx.tap
-      .bind(onNext: viewModel.add)
-      .disposed(by: disposeBag)
+    add.primaryAction = .init(handler: { _ in
+      viewModel.add()
+    })
 
-    remove.rx.tap
-      .bind(onNext: viewModel.remove)
-      .disposed(by: disposeBag)
+    remove.primaryAction = .init(handler: { _ in
+      viewModel.remove()
+    })
 
-    addRemove.rx.tap
-      .bind(onNext: viewModel.addRemove)
-      .disposed(by: disposeBag)
+    addRemove.primaryAction = .init(handler: { _ in
+      viewModel.addRemove()
+    })
 
-    shuffle.rx.tap
-      .bind(onNext: viewModel.shuffle)
-      .disposed(by: disposeBag)
+    shuffle.primaryAction = .init(handler: { _ in
+      viewModel.shuffle()
+    })
 
     collectionView.delegate = self
     collectionView.dataSource = self
