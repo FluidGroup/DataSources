@@ -8,6 +8,8 @@
 
 import UIKit
 
+import RxSwift
+import EasyPeasy
 import DataSources
 
 final class SingleSectionCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -34,6 +36,7 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
   private let addRemove = UIBarButtonItem(title: "AddRemove", style: .plain, target: nil, action: nil)
   private let shuffle = UIBarButtonItem(title: "Shuffle", style: .plain, target: nil, action: nil)
 
+  private let disposeBag: DisposeBag = .init()  
   private let viewModel = ViewModel()
 
   override func viewDidLoad() {
@@ -44,19 +47,19 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
 
     navigationItem.rightBarButtonItems = [add, remove, addRemove, shuffle]
 
-    add.primaryAction = .init(handler: { _ in
+    add.primaryAction = .init(handler: { [unowned self] _ in
       viewModel.add()
     })
 
-    remove.primaryAction = .init(handler: { _ in
+    remove.primaryAction = .init(handler: { [unowned self] _ in
       viewModel.remove()
     })
 
-    addRemove.primaryAction = .init(handler: { _ in
+    addRemove.primaryAction = .init(handler: { [unowned self] _ in
       viewModel.addRemove()
     })
 
-    shuffle.primaryAction = .init(handler: { _ in
+    shuffle.primaryAction = .init(handler: { [unowned self] _ in
       viewModel.shuffle()
     })
 
@@ -64,8 +67,7 @@ final class SingleSectionCollectionViewController: UIViewController, UICollectio
     collectionView.dataSource = self
 
     viewModel.section0
-      .asDriver()
-      .drive(onNext: { [weak self] items in
+      .subscribe(onNext: { [weak self] items in 
         print("Begin update")
         self?.dataSource.update(items: items, updateMode: .partial(animated: true), completion: {
           print("Throttled Complete")

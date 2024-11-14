@@ -11,6 +11,24 @@
         }
       },
       {
+        "package": "EasyPeasy",
+        "repositoryURL": "https://github.com/nakiostudio/EasyPeasy.git",
+        "state": {
+          "branch": null,
+          "revision": "b0028f63d47bcb32e37d8abb9cc5d5a781742a4e",
+          "version": "1.10.0"
+        }
+      },
+      {
+        "package": "RxSwift",
+        "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "c7c7d2cf50a3211fe2843f76869c698e4e417930",
+          "version": "6.8.0"
+        }
+      },
+      {
         "package": "Texture",
         "repositoryURL": "https://github.com/FluidGroup/Texture.git",
         "state": {

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B7355262CE5E5300055C27B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4B7355252CE5E5300055C27B /* RxCocoa */; };
+		4B7355282CE5E5300055C27B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4B7355272CE5E5300055C27B /* RxSwift */; };
+		4B73552B2CE5E53E0055C27B /* EasyPeasy in Frameworks */ = {isa = PBXBuildFile; productRef = 4B73552A2CE5E53E0055C27B /* EasyPeasy */; };
+		4B73552D2CE5E5990055C27B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4B73552C2CE5E5990055C27B /* RxRelay */; };
 		4BC1C1712AE416EA007BBF0C /* DataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4BC1C1702AE416EA007BBF0C /* DataSources */; };
 		4BC1C17F2AE41743007BBF0C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC1C17D2AE4172D007BBF0C /* Components.swift */; };
 		4BC1C1802AE41745007BBF0C /* SingleSectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC1C17C2AE4172D007BBF0C /* SingleSectionCollectionViewController.swift */; };
@@ -53,7 +57,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B73552D2CE5E5990055C27B /* RxRelay in Frameworks */,
+				4B73552B2CE5E53E0055C27B /* EasyPeasy in Frameworks */,
+				4B7355262CE5E5300055C27B /* RxCocoa in Frameworks */,
 				4BC1C1712AE416EA007BBF0C /* DataSources in Frameworks */,
+				4B7355282CE5E5300055C27B /* RxSwift in Frameworks */,
 				4BC1C1862AE417A7007BBF0C /* AsyncDisplayKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,6 +159,10 @@
 			packageProductDependencies = (
 				4BC1C1702AE416EA007BBF0C /* DataSources */,
 				4BC1C1852AE417A7007BBF0C /* AsyncDisplayKit */,
+				4B7355252CE5E5300055C27B /* RxCocoa */,
+				4B7355272CE5E5300055C27B /* RxSwift */,
+				4B73552A2CE5E53E0055C27B /* EasyPeasy */,
+				4B73552C2CE5E5990055C27B /* RxRelay */,
 			);
 			productName = ListAdapterDemo;
 			productReference = 4B2876DB1F38476F0033B43F /* DataSourcesDemo.app */;
@@ -182,6 +194,8 @@
 			mainGroup = 4B2876B31F3846C70033B43F;
 			packageReferences = (
 				4BC1C1842AE417A7007BBF0C /* XCRemoteSwiftPackageReference "Texture" */,
+				4B7355242CE5E5300055C27B /* XCRemoteSwiftPackageReference "RxSwift" */,
+				4B7355292CE5E53E0055C27B /* XCRemoteSwiftPackageReference "EasyPeasy" */,
 			);
 			productRefGroup = 4B2876BE1F3846C70033B43F /* Products */;
 			projectDirPath = "";
@@ -426,6 +440,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4B7355242CE5E5300055C27B /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.8.0;
+			};
+		};
+		4B7355292CE5E53E0055C27B /* XCRemoteSwiftPackageReference "EasyPeasy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nakiostudio/EasyPeasy.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.0;
+			};
+		};
 		4BC1C1842AE417A7007BBF0C /* XCRemoteSwiftPackageReference "Texture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/FluidGroup/Texture.git";
@@ -437,6 +467,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4B7355252CE5E5300055C27B /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B7355242CE5E5300055C27B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		4B7355272CE5E5300055C27B /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B7355242CE5E5300055C27B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		4B73552A2CE5E53E0055C27B /* EasyPeasy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B7355292CE5E53E0055C27B /* XCRemoteSwiftPackageReference "EasyPeasy" */;
+			productName = EasyPeasy;
+		};
+		4B73552C2CE5E5990055C27B /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B7355242CE5E5300055C27B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
 		4BC1C1702AE416EA007BBF0C /* DataSources */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DataSources;

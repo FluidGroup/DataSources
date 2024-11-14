@@ -9,6 +9,7 @@
 import Foundation
 
 import RxSwift
+import RxRelay
 import EasyPeasy
 import DataSources
 import AsyncDisplayKit
@@ -48,8 +49,8 @@ struct ModelB : Model, Differentiable, Equatable {
 
 final class ViewModel {
 
-  let section0 = Variable<[ModelA]>([])
-  let section1 = Variable<[ModelB]>([])
+  let section0 = BehaviorRelay<[ModelA]>(value: [])
+  let section1 = BehaviorRelay<[ModelB]>(value: [])
 
   private let disposeBag = DisposeBag()
 
@@ -59,37 +60,58 @@ final class ViewModel {
 
   func add() {
     for _ in 0..<20 {
-      self.section0.value.insert(ModelA(identity: UUID().uuidString, title: String.randomEmoji()), at: 0)
+      self.section0.modify {
+        $0.insert(ModelA(identity: UUID().uuidString, title: String.randomEmoji()), at: 0)
+      }            
     }
     for _ in 0..<20 {
-      self.section1.value.insert(ModelB(identity: UUID().uuidString, title: arc4random_uniform(20).description), at: 0)
+      self.section1.modify { 
+        $0.insert(ModelB(identity: UUID().uuidString, title: arc4random_uniform(20).description), at: 0)
+      }
     }
   }
 
   func addRemove() {
-    section0.value.removeFirst()
-    DispatchQueue.global().async {
-      self.section0.value.append(ModelA(identity: UUID().uuidString, title: String.randomEmoji()))
+    section0.modify {
+      $0.removeFirst()
     }
-
-    section1.value.removeFirst()
     DispatchQueue.global().async {
-      self.section1.value.append(ModelB(identity: UUID().uuidString, title: arc4random_uniform(30).description))
+      self.section0.modify {
+        $0.append(ModelA(identity: UUID().uuidString, title: String.randomEmoji()))
+      }
+    }
+    
+    section1.modify {
+      $0.removeFirst()
+    }
+    DispatchQueue.global().async {
+      self.section1.modify {
+        $0.append(ModelB(identity: UUID().uuidString, title: arc4random_uniform(30).description))
+      }
     }
   }
 
   func remove() {
     if section0.value.isEmpty == false {
-      section0.value.removeFirst()
+      section0.modify {
+        $0.removeFirst()
+      }
     }
     if section1.value.isEmpty == false {
-      section1.value.removeLast()
+      section1.modify {
+        $0.removeFirst()
+      }
     }
   }
 
-  func shuffle() {
-    section0.value = section0.value.shuffled()
-    section1.value = section1.value.shuffled()
+  func shuffle() {    
+    section0.modify {
+      $0 = $0.shuffled()
+    }
+    
+    section1.modify {
+      $0.removeFirst()
+    }    
   }
 }
 
@@ -233,4 +255,15 @@ extension String{
 
     return emoji
   }
+}
+
+extension BehaviorRelay {
+  
+  // no-thread-safe
+  func modify(_ modifier: (inout Element) -> Void) {
+    var value = self.value
+    modifier(&value)    
+    self.accept(value)    
+  }
+  
 }
