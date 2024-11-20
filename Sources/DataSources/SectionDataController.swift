@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import os.atomic
+@preconcurrency import DifferenceKit
 
-import DifferenceKit
-
-public protocol SectionDataControllerType where AdapterType.Element == ItemType {
+public protocol SectionDataControllerType: Sendable where AdapterType.Element == ItemType {
 
   associatedtype ItemType : Differentiable
   associatedtype AdapterType : Updating
 
+  @MainActor
   func update(items: [ItemType], updateMode: SectionDataController<ItemType, AdapterType>.UpdateMode, immediately: Bool, completion: @escaping () -> Void)
 
   func asSectionDataController() -> SectionDataController<ItemType, AdapterType>
@@ -56,12 +57,12 @@ final class AnySectionDataController<A: Updating> {
 }
 
 /// DataSource for a section
-public final class SectionDataController<T: Differentiable, A: Updating>: SectionDataControllerType where A.Element == T {
+public final class SectionDataController<T: Differentiable & Sendable, A: Updating & Sendable>: Sendable, SectionDataControllerType where A.Element == T {
 
   public typealias ItemType = T
   public typealias AdapterType = A
 
-  public enum State {
+  public enum State: Sendable {
     case idle
     case updating
   }
@@ -72,18 +73,26 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
   }
 
   // MARK: - Properties
+  
+  public var items: [T] {
+    return _items.withLock { $0 }
+  }
+  
+  public var snapshot: [T] {
+    return _snapshot.withLock { $0 }
+  }
 
-  private(set) public var items: [T] = []
+  private let _items: OSAllocatedUnfairLock<[T]> = .init(initialState: [])
 
-  private(set) public var snapshot: [T] = []
+  private let _snapshot: OSAllocatedUnfairLock<[T]> = .init(initialState: [])
 
-  private var state: State = .idle
+  private let state: OSAllocatedUnfairLock<State> = .init(initialState: .idle)
 
   private let throttle = Throttle(interval: 0.1)
 
   private let adapter: AdapterType
 
-  public internal(set) var displayingSection: Int
+  public let displayingSection: Int
 
   // MARK: - Initializers
 
@@ -113,8 +122,11 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
   /// - Returns:
   public func item(at indexPath: IndexPath) -> T? {
     guard let index = toIndex(from: indexPath) else { return nil }
-    guard snapshot.indices.contains(index) else { return nil }
-    return snapshot[index]
+    
+    return _snapshot.withLock {
+      guard $0.indices.contains(index) else { return nil }
+      return $0[index]
+    }
   }
 
   /// Reserves that a move occurred in DataSource by View operation.
@@ -137,9 +149,12 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
       destinationIndexPath.section == displayingSection,
       "destinationIndexPath.section \(sourceIndexPath.section) must be equal to \(displayingSection)"
     )
+    
+    _snapshot.withLock {
+      let o = $0.remove(at: sourceIndexPath.item)
+      $0.insert(o, at: destinationIndexPath.item)
+    }
 
-    let o = snapshot.remove(at: sourceIndexPath.item)
-    snapshot.insert(o, at: destinationIndexPath.item)
   }
 
   /// Update
@@ -152,40 +167,41 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
   ///   - updateMode:
   ///   - immediately: False : indicate to throttled updating
   ///   - completion: 
+  @MainActor
   public func update(
     items: [T],
     updateMode: UpdateMode,
     immediately: Bool = false,
     completion: @escaping () -> Void
     ) {
-
-    self.items = items
-
-    let task = { [weak self] in
-      guard let `self` = self else { return }
-
-      let old = self.snapshot
-      let new = self.items
-
-      self.__update(
-        targetSection: self.displayingSection,
-        currentDisplayingItems: old,
-        newItems: new,
-        updateMode: updateMode,
-        completion: {
-          completion()
-      })
-    }
-
-    if immediately {
-      throttle.cancel()
-      task()
-    } else {
-      throttle.on {
-        task()
+      
+      self._items.withLock { $0 = items }
+      
+      let task = { [weak self] in
+        guard let `self` = self else { return }
+        
+        let old = self.snapshot
+        let new = self.items
+        
+        self.__update(
+          targetSection: self.displayingSection,
+          currentDisplayingItems: old,
+          newItems: new,
+          updateMode: updateMode,
+          completion: {
+            completion()
+          })
       }
-    }
-  }
+      
+      if immediately {
+        throttle.cancel()
+        task()
+      } else {
+        throttle.on {
+          task()
+        }
+      }
+    }  
 
   public func asSectionDataController() -> SectionDataController<ItemType, AdapterType> {
     return self
@@ -208,26 +224,27 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
     return indexPath.item
   }
 
+  @MainActor
   private func __update(
     targetSection: Int,
     currentDisplayingItems: [T],
     newItems: [T],
     updateMode: UpdateMode,
     completion: @escaping () -> Void
-    ) {
-
+  ) {
+    
     assertMainThread()
-
-    self.state = .updating
-
+    
+    self.state.withLock { $0 = .updating }
+    
     switch updateMode {
     case .everything:
       
-      self.snapshot = newItems
+      self._snapshot.withLock { $0 = newItems }
       
       adapter.reload {
         assertMainThread()
-        self.state = .idle
+        self.state.withLock { $0 = .idle }
         completion()
       }
       
@@ -258,7 +275,7 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
 
         group.enter()
 
-        self.snapshot = changeset.data
+        self._snapshot.withLock { $0 = changeset.data }
 
         let updateContext = UpdateContext.init(
           diff: .init(diff: changeset, targetSection: targetSection),
@@ -299,7 +316,7 @@ public final class SectionDataController<T: Differentiable, A: Updating>: Sectio
       }
 
       group.notify(queue: .main) {
-        self.state = .idle
+        self.state.withLock { $0 = .idle }
         completion()
       }
 
