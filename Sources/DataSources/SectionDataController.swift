@@ -103,7 +103,7 @@ public final class SectionDataController<T: Differentiable & Sendable, A: Updati
   ///   - adapter:
   ///   - displayingSection:
   ///   - isEqual: To use for decision that item should update.
-  public init(itemType: ItemType.Type? = nil, adapter: AdapterType, displayingSection: Int = 0) {
+  public init(itemType: ItemType.Type? = nil, adapter: consuming AdapterType, displayingSection: Int = 0) {
     self.adapter = adapter
     self.displayingSection = displayingSection
   }

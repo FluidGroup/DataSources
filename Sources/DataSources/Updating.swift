@@ -50,23 +50,28 @@ extension UpdateContext: Sendable where Element: Sendable {
 }
 
 
-@MainActor
-public protocol Updating: AnyObject {
+public protocol Updating: ~Copyable, Sendable {
 
   associatedtype Target
   associatedtype Element
   
   var target: Target { get }
 
+  @MainActor
   func insertItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
+  @MainActor
   func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
+  @MainActor
   func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>)
 
+  @MainActor
   func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext<Element>)
 
+  @MainActor
   func performBatch(in context: UpdateContext<Element>, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void)
 
+  @MainActor
   func reload(completion: @escaping () -> Void)
 }
