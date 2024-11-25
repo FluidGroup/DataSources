@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class CollectionViewAdapter<Element>: Updating {
+public struct CollectionViewAdapter<Element>: Updating {
 
   public unowned let collectionView: UICollectionView
 
@@ -20,27 +20,27 @@ open class CollectionViewAdapter<Element>: Updating {
     self.collectionView = collectionView
   }
 
-  open func insertItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>) {
+  public func insertItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>) {
 
     collectionView.insertItems(at: indexPaths)
   }
 
-  open func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>) {
+  public func deleteItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>) {
 
     collectionView.deleteItems(at: indexPaths)
   }
 
-  open func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>) {
+  public func reloadItems(at indexPaths: [IndexPath], in context: UpdateContext<Element>) {
 
     collectionView.reloadItems(at: indexPaths)
   }
 
-  open func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext<Element>) {
+  public func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath, in context: UpdateContext<Element>) {
 
     collectionView.moveItem(at: indexPath, to: newIndexPath)
   }
 
-  open func performBatch(in context: UpdateContext<Element>, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
+  public func performBatch(in context: UpdateContext<Element>, animated: Bool, updates: @escaping () -> Void, completion: @escaping () -> Void) {
 
     if animated {
       collectionView.performBatchUpdates({
@@ -63,7 +63,7 @@ open class CollectionViewAdapter<Element>: Updating {
 
   }
 
-  open func reload(completion: @escaping () -> Void) {
+  public func reload(completion: @escaping () -> Void) {
 
     collectionView.reloadData()
     completion()

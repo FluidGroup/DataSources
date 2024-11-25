@@ -3,6 +3,19 @@ import RxSwift
 import SwiftUIHosting
 import UIKit
 
+enum NonIsolated {
+  
+  func run(collectionView: UICollectionView) {
+    
+    let dataSource: SectionDataController<ModelA, CollectionViewAdapter> = .init(
+      adapter: .init(collectionView: collectionView),
+      displayingSection: 0
+    )
+    
+  }
+  
+}
+
 final class SingleSectionCollectionViewController: UIViewController, UICollectionViewDataSource,
   UICollectionViewDelegateFlowLayout
 {

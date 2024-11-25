@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class TableViewAdapter<Element>: Updating {
+public struct TableViewAdapter<Element>: Updating {
 
   public unowned let tableView: UITableView
 
